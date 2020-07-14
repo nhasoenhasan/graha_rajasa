@@ -1,0 +1,133 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class barang extends CI_Controller {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('form_validation');
+		$this->load->model('M_Barang');
+		if(empty($this->session->userdata('username'))){
+			redirect(base_url());
+		}
+	}
+	
+	public function index()
+	{
+		$this->data['title']='Admin Gudang';
+		$this->data['menu'] = $this->load->view('menu/v_menu_gudang',$this->data,TRUE);
+        $this->load->view('template/v_header',$this->data);
+		$this->load->view('gudang/v_gudang_barang');
+		$this->load->view('template/v_footer');
+	}
+
+	public function get()
+	{
+		$data=$this->M_Barang->getAll();
+		echo json_encode($data);
+	}
+
+	public function post(){
+		$id=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
+		
+		if($id==''){
+			$this->add();
+		}else{
+			$this->update();
+		}
+	}
+
+	public function add(){
+		$this->form_validation->set_rules('barang', 'barang', 'required');
+		$this->form_validation->set_rules('suplier', 'suplier', 'required');
+		$this->form_validation->set_rules('stok', 'stok', 'required');
+		$this->form_validation->set_rules('beli', 'beli', 'required');
+		$this->form_validation->set_rules('jual', 'jual', 'required');
+
+		if ($this->form_validation->run() == FALSE)
+		{	
+			echo json_encode(array("status" => FALSE));
+		}else
+		{
+			$barang=htmlspecialchars($this->input->post('barang',TRUE),ENT_QUOTES);
+			$suplier=htmlspecialchars($this->input->post('suplier',TRUE),ENT_QUOTES);
+			$stok=htmlspecialchars($this->input->post('stok',TRUE),ENT_QUOTES);
+			$beli=htmlspecialchars($this->input->post('beli',TRUE),ENT_QUOTES);
+			$jual=htmlspecialchars($this->input->post('jual',TRUE),ENT_QUOTES);
+			$deskripsi=htmlspecialchars($this->input->post('deskripsi',TRUE),ENT_QUOTES);
+
+			$data_barang = array(
+				'id_supplier' => $suplier,
+				'nama_barang' => $barang,
+				'stok' => $stok,
+				'harga_beli' => $beli,
+				'harga_jual' => $jual,
+				'deskripsi' => $deskripsi,
+			);
+
+			if($this->M_Barang->addBarang($data_barang)){
+				echo json_encode(array("status" => TRUE));
+			}else{
+				echo json_encode(array("status" => FALSE));
+			}
+
+		}
+	}
+
+	public function update(){
+		$this->form_validation->set_rules('id_barang', 'id_barang', 'required');
+		$this->form_validation->set_rules('suplier', 'suplier', 'required');
+		$this->form_validation->set_rules('barang', 'barang', 'required');
+		$this->form_validation->set_rules('stok', 'stok', 'required');
+		$this->form_validation->set_rules('beli', 'beli', 'required');
+		$this->form_validation->set_rules('jual', 'jual', 'required');
+
+		if ($this->form_validation->run() == FALSE)
+		{	
+			echo json_encode(array("tes"=>$data,"status" => FALSE));
+		}else
+		{
+			$id_barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
+			$barang=htmlspecialchars($this->input->post('barang',TRUE),ENT_QUOTES);
+			$suplier=htmlspecialchars($this->input->post('suplier',TRUE),ENT_QUOTES);
+			$stok=htmlspecialchars($this->input->post('stok',TRUE),ENT_QUOTES);
+			$beli=htmlspecialchars($this->input->post('beli',TRUE),ENT_QUOTES);
+			$jual=htmlspecialchars($this->input->post('jual',TRUE),ENT_QUOTES);
+			$deskripsi=htmlspecialchars($this->input->post('deskripsi',TRUE),ENT_QUOTES);
+
+			$data_barang = array(
+				'id_barang'=>$id_barang,
+				'id_supplier' => $suplier,
+				'nama_barang' => $barang,
+				'stok' => $stok,
+				'harga_beli' => $beli,
+				'harga_jual' => $jual,
+				'deskripsi' => $deskripsi,
+			);
+
+			if($this->M_Barang->updateBarang($data_barang,$id_barang)){
+				echo json_encode(array("status" => TRUE));
+			}else{
+				echo json_encode(array("status" => FALSE));
+			}
+		}
+	}
+
+	public function delete(){
+
+		$this->form_validation->set_rules('id_barang', 'barang', 'required');
+
+		if ($this->form_validation->run() == FALSE)
+		{	
+			echo json_encode(array("status" => FALSE));
+		}else{
+			$barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
+
+			$insert = $this->M_Barang->delete($barang);
+
+			echo json_encode(array("status" => TRUE));
+		}
+	}
+
+	
+}

@@ -1,0 +1,260 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class barang_masuk extends CI_Controller {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('form_validation');
+		$this->load->model('M_Barang_Masuk');
+		$this->load->model('M_Order');
+		if(empty($this->session->userdata('username'))){
+			redirect(base_url());
+		}
+	}
+	
+	public function index()
+	{
+		$this->data['title']='Admin Gudang';
+		$this->data['menu'] = $this->load->view('menu/v_menu_gudang',$this->data,TRUE);
+        $this->load->view('template/v_header',$this->data);
+		$this->load->view('gudang/v_gudang_barang_masuk');
+		$this->load->view('template/v_footer');
+	}
+
+	public function get()
+	{
+		$data=$this->M_Barang_Masuk->getAll();
+		echo json_encode($data);
+	}
+
+	public function getOrder()
+	{
+		$status=$_GET['status'];
+		$data=$this->M_Order->getOrder($status);
+		echo json_encode($data);
+	}
+
+	public function post(){
+		$this->form_validation->set_rules('no_struk', 'no_struk', 'required');
+		$this->form_validation->set_rules('id_barang', 'id_barang', 'required');
+		$this->form_validation->set_rules('id_det_order_brg', 'id_det_order_brg', 'required');
+		$this->form_validation->set_rules('nama_barang', 'nama_barang', 'required');
+		$this->form_validation->set_rules('nama_supplier', 'nama_supplier', 'required');
+		$this->form_validation->set_rules('suplier', 'suplier', 'required');
+		$this->form_validation->set_rules('jumlah', 'jumlah', 'required');
+		$this->form_validation->set_rules('beli', 'beli', 'required');
+		$this->form_validation->set_rules('jual', 'jual', 'required');
+		$id=htmlspecialchars($this->input->post('no_struk',TRUE),ENT_QUOTES);
+
+		if ($this->form_validation->run() == FALSE)
+		{	
+			echo json_encode(array("status" => FALSE));
+		}else{
+			$data=$this->M_Barang_Masuk->checkStruk($id);
+			if($data){
+				//Insert New Detail Barang Masuk
+				$this->addDetBarangMasuk();
+			}else{
+				//Insert New Barang Masuk & Detail
+				$this->addBarangMasuk();
+			}
+		}
+	}
+
+	//Add Barang Masuk
+	public function addBarangMasuk(){
+		
+		$no_struk=htmlspecialchars($this->input->post('no_struk',TRUE),ENT_QUOTES);
+		$id_barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
+		$id_det_order_brg=htmlspecialchars($this->input->post('id_det_order_brg',TRUE),ENT_QUOTES);
+		$barang=htmlspecialchars($this->input->post('nama_barang',TRUE),ENT_QUOTES);
+		$nama_supplier=htmlspecialchars($this->input->post('nama_supplier',TRUE),ENT_QUOTES);
+		$id_suplier=htmlspecialchars($this->input->post('suplier',TRUE),ENT_QUOTES);
+		$jumlah=htmlspecialchars($this->input->post('jumlah',TRUE),ENT_QUOTES);
+		$beli=htmlspecialchars($this->input->post('beli',TRUE),ENT_QUOTES);
+		$jual=htmlspecialchars($this->input->post('jual',TRUE),ENT_QUOTES);
+		
+		$data = array(
+			'no_struk' => $no_struk,
+			'nama_user' => $this->session->userdata('username'),
+			'nama_supplier' => $nama_supplier,
+			'total' => $beli*$jumlah
+		);
+
+		if($id_insert=$this->M_Barang_Masuk->addBarangMasuk($data)){
+			//Data Insert
+			$detail_data=array(
+				'id_barang_masuk' =>$id_insert,
+				'jumlah' =>$jumlah,
+				'harga_beli' =>$beli,
+				'nama_barang' =>$barang,
+				'subtotal' =>$beli*$jumlah,
+				'id_barang' =>$id_barang,
+				'id_supplier' =>$id_suplier
+			);
+
+			//Check Insert
+			if ($this->M_Barang_Masuk->addDetBarangMasuk($detail_data)) {
+
+				//Update Tabel Barang Masuk
+				if($this->M_Barang_Masuk->updateBarang($jumlah,$beli,$jual,$id_suplier,$barang,$id_barang)){
+					
+					//Update Detail Order
+					if ($cek=$this->M_Barang_Masuk->updateDetOrder($id_det_order_brg)) {
+						 
+						echo json_encode(array("status" => TRUE));
+					}else{
+						echo json_encode(array("status" => FALSE));
+					}
+					
+				}else{
+					echo json_encode(array("status" => FALSE));
+				}
+			}else{
+				echo json_encode(array("status" => FALSE));
+			}
+
+		}else{
+			echo json_encode(array("status" => FALSE));
+		}
+	}
+
+
+	//Add Barang Masuk
+	public function addDetBarangMasuk(){
+		
+		$id_barang_masuk=htmlspecialchars($this->input->post('id_barang_masuk',TRUE),ENT_QUOTES);
+		$no_struk=htmlspecialchars($this->input->post('no_struk',TRUE),ENT_QUOTES);
+		$id_barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
+		$id_det_order_brg=htmlspecialchars($this->input->post('id_det_order_brg',TRUE),ENT_QUOTES);
+		$barang=htmlspecialchars($this->input->post('nama_barang',TRUE),ENT_QUOTES);
+		$nama_supplier=htmlspecialchars($this->input->post('nama_supplier',TRUE),ENT_QUOTES);
+		$id_suplier=htmlspecialchars($this->input->post('suplier',TRUE),ENT_QUOTES);
+		$jumlah=htmlspecialchars($this->input->post('jumlah',TRUE),ENT_QUOTES);
+		$beli=htmlspecialchars($this->input->post('beli',TRUE),ENT_QUOTES);
+		$jual=htmlspecialchars($this->input->post('jual',TRUE),ENT_QUOTES);
+		
+		$sub_total=$beli*$jumlah;
+		//Update Total Barang Masuk
+		if($id_insert=$this->M_Barang_Masuk->updateBarangMasuk($sub_total,$no_struk)){
+
+			//Change Array To String
+			$id_insert=$id_insert[0]['id_barang_masuk'];
+
+			//Data Insert Detail Barang Masuk
+			$detail_data=array(
+				'id_barang_masuk' =>$id_insert,
+				'jumlah' =>$jumlah,
+				'harga_beli' =>$beli,
+				'nama_barang' =>$barang,
+				'subtotal' =>$beli*$jumlah,
+				'id_barang' =>$id_barang,
+				'id_supplier' =>$id_suplier
+			);
+
+			//Insert Detail Barang Masuk
+			if ($this->M_Barang_Masuk->addDetBarangMasuk($detail_data)) {
+
+				//Update Tabel Barang Masuk
+				if($this->M_Barang_Masuk->updateBarang($jumlah,$beli,$jual,$id_suplier,$barang,$id_barang)){
+					
+					//Update Detail Order
+					if ($cek=$this->M_Barang_Masuk->updateDetOrder($id_det_order_brg)) {
+						 
+						echo json_encode(array("status" => TRUE));
+					}else{
+						echo json_encode(array("status" => FALSE));
+					}
+					
+				}else{
+					echo json_encode(array("status" => FALSE));
+				}
+			}else{
+				echo json_encode(array("status" => FALSE));
+			}
+
+		}else{
+			echo json_encode(array("status" => FALSE));
+		}
+	}
+
+
+	//Handle Update Barang Masuk
+	public function updateDetBarangMasuk(){
+
+		$this->form_validation->set_rules('id_barang_masuk', 'id_barang_masuk', 'required');
+		$this->form_validation->set_rules('id_barang', 'id_barang', 'required');
+		$this->form_validation->set_rules('id_det_order_brg', 'id_det_order_brg', 'required');
+		$this->form_validation->set_rules('nama_barang', 'nama_barang', 'required');
+		$this->form_validation->set_rules('nama_supplier', 'nama_supplier', 'required');
+		$this->form_validation->set_rules('no_struk', 'no_struk', 'required');
+		$this->form_validation->set_rules('barang_edit', 'barang_edit', 'required');
+		$this->form_validation->set_rules('suplier_edit', 'suplier_edit', 'required');
+		$this->form_validation->set_rules('jumlah', 'jumlah', 'required');
+		$this->form_validation->set_rules('beli', 'beli', 'required');
+		$this->form_validation->set_rules('jual', 'jual', 'required');
+
+		if ($this->form_validation->run() == FALSE)
+		{	
+			echo json_encode(array("status" => FALSE));
+		}else{
+
+			$id_barang_masuk=htmlspecialchars($this->input->post('id_barang_masuk',TRUE),ENT_QUOTES);
+			$id_barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
+			$id_det_order_brg=htmlspecialchars($this->input->post('id_det_order_brg',TRUE),ENT_QUOTES);
+			$barang=htmlspecialchars($this->input->post('nama_barang',TRUE),ENT_QUOTES);
+			$nama_supplier=htmlspecialchars($this->input->post('nama_supplier',TRUE),ENT_QUOTES);
+			$no_struk=htmlspecialchars($this->input->post('no_struk',TRUE),ENT_QUOTES);
+			$id_suplier=htmlspecialchars($this->input->post('suplier_edit',TRUE),ENT_QUOTES);
+			$jumlah=htmlspecialchars($this->input->post('jumlah',TRUE),ENT_QUOTES);
+			$beli=htmlspecialchars($this->input->post('beli',TRUE),ENT_QUOTES);
+			$jual=htmlspecialchars($this->input->post('jual',TRUE),ENT_QUOTES);
+			
+			$sub_total=$beli*$jumlah;
+			//Update Total Barang Masuk
+			if($id_insert=$this->M_Barang_Masuk->updateBarangMasuk($sub_total,$no_struk)){
+
+
+				//Change Array To String
+				$id_insert=$id_insert[0]['id_barang_masuk'];
+
+				//Data Insert Detail Barang Masuk
+				$detail_data=array(
+					'id_barang_masuk' =>$id_insert,
+					'jumlah' =>$jumlah,
+					'harga_beli' =>$beli,
+					'nama_barang' =>$barang,
+					'subtotal' =>$beli*$jumlah,
+					'id_barang' =>$id_barang,
+					'id_supplier' =>$id_suplier
+				);
+
+				//Insert Detail Barang Masuk
+				if ($this->M_Barang_Masuk->addDetBarangMasuk($detail_data)) {
+
+					//Update Tabel Barang Masuk
+					if($this->M_Barang_Masuk->updateBarang($jumlah,$beli,$jual,$id_suplier,$barang,$id_barang)){
+						
+						//Update Detail Order
+						if ($cek=$this->M_Barang_Masuk->updateDetOrder($id_det_order_brg)) {
+							
+							echo json_encode(array("status" => TRUE));
+						}else{
+							echo json_encode(array("status" => FALSE));
+						}
+						
+					}else{
+						echo json_encode(array("status" => FALSE));
+					}
+				}else{
+					echo json_encode(array("status" => FALSE));
+				}
+
+			}else{
+				echo json_encode(array("status" => FALSE));
+			}
+		}
+	}
+		
+}
