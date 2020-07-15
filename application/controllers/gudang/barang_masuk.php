@@ -35,7 +35,29 @@ class barang_masuk extends CI_Controller {
 		echo json_encode($data);
 	}
 
+
+	//Handle Cek Apakah Harga Berbeda
+	public function cekAverage($id,$stock,$beli){
+		$data=$this->M_Barang_Masuk->checkAverage($id);
+
+		$old_beli=$data[0]['harga_beli'];
+		$old_stok=$data[0]['stok'];
+
+		//Compare
+		if($beli==$old_beli){
+			return $beli;
+		}else{
+			//Count Average
+			$total=($old_stok*$old_beli)+$stock*$beli;
+			$average=$total/($stock+$old_stok);
+
+			return round($average,3);
+		}
+	}
+
 	public function post(){
+
+
 		$this->form_validation->set_rules('no_struk', 'no_struk', 'required');
 		$this->form_validation->set_rules('id_barang', 'id_barang', 'required');
 		$this->form_validation->set_rules('id_det_order_brg', 'id_det_order_brg', 'required');
@@ -74,6 +96,11 @@ class barang_masuk extends CI_Controller {
 		$jumlah=htmlspecialchars($this->input->post('jumlah',TRUE),ENT_QUOTES);
 		$beli=htmlspecialchars($this->input->post('beli',TRUE),ENT_QUOTES);
 		$jual=htmlspecialchars($this->input->post('jual',TRUE),ENT_QUOTES);
+
+		//Check is Need Average?
+		$beli=$this->cekAverage($id_barang,$jumlah,$beli);
+		// echo '=='.$beli;
+		// die();
 		
 		$data = array(
 			'no_struk' => $no_struk,
@@ -88,6 +115,7 @@ class barang_masuk extends CI_Controller {
 				'id_barang_masuk' =>$id_insert,
 				'jumlah' =>$jumlah,
 				'harga_beli' =>$beli,
+				'harga_jual' =>$jual,
 				'nama_barang' =>$barang,
 				'subtotal' =>$beli*$jumlah,
 				'id_barang' =>$id_barang,
@@ -147,6 +175,7 @@ class barang_masuk extends CI_Controller {
 				'id_barang_masuk' =>$id_insert,
 				'jumlah' =>$jumlah,
 				'harga_beli' =>$beli,
+				'harga_jual' =>$jual,
 				'nama_barang' =>$barang,
 				'subtotal' =>$beli*$jumlah,
 				'id_barang' =>$id_barang,
@@ -182,10 +211,13 @@ class barang_masuk extends CI_Controller {
 
 	//Handle Update Barang Masuk
 	public function updateDetBarangMasuk(){
+		$this->form_validation->set_rules('old_harga_beli', 'old_harga_beli', 'required');
+		$this->form_validation->set_rules('old_jumlah', 'old_jumlah', 'required');
 
+		$this->form_validation->set_rules('id_det_barang_masuk', 'id_det_barang_masuk', 'required');
 		$this->form_validation->set_rules('id_barang_masuk', 'id_barang_masuk', 'required');
-		$this->form_validation->set_rules('id_barang', 'id_barang', 'required');
 		$this->form_validation->set_rules('id_det_order_brg', 'id_det_order_brg', 'required');
+		$this->form_validation->set_rules('id_barang', 'id_barang', 'required');
 		$this->form_validation->set_rules('nama_barang', 'nama_barang', 'required');
 		$this->form_validation->set_rules('nama_supplier', 'nama_supplier', 'required');
 		$this->form_validation->set_rules('no_struk', 'no_struk', 'required');
@@ -195,11 +227,16 @@ class barang_masuk extends CI_Controller {
 		$this->form_validation->set_rules('beli', 'beli', 'required');
 		$this->form_validation->set_rules('jual', 'jual', 'required');
 
+		//Check Validation
 		if ($this->form_validation->run() == FALSE)
 		{	
 			echo json_encode(array("status" => FALSE));
 		}else{
 
+			$old_harga_beli=htmlspecialchars($this->input->post('old_harga_beli',TRUE),ENT_QUOTES);
+			$old_jumlah=htmlspecialchars($this->input->post('old_jumlah',TRUE),ENT_QUOTES);
+			
+			$id_det_barang_masuk=htmlspecialchars($this->input->post('id_det_barang_masuk',TRUE),ENT_QUOTES);
 			$id_barang_masuk=htmlspecialchars($this->input->post('id_barang_masuk',TRUE),ENT_QUOTES);
 			$id_barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
 			$id_det_order_brg=htmlspecialchars($this->input->post('id_det_order_brg',TRUE),ENT_QUOTES);
@@ -212,9 +249,9 @@ class barang_masuk extends CI_Controller {
 			$jual=htmlspecialchars($this->input->post('jual',TRUE),ENT_QUOTES);
 			
 			$sub_total=$beli*$jumlah;
+			$old_sub_total=$old_harga_beli*$old_jumlah;
 			//Update Total Barang Masuk
-			if($id_insert=$this->M_Barang_Masuk->updateBarangMasuk($sub_total,$no_struk)){
-
+			if($id_insert=$this->M_Barang_Masuk->updateTotBarangMasuk($old_sub_total,$sub_total,$no_struk)){
 
 				//Change Array To String
 				$id_insert=$id_insert[0]['id_barang_masuk'];
@@ -224,6 +261,7 @@ class barang_masuk extends CI_Controller {
 					'id_barang_masuk' =>$id_insert,
 					'jumlah' =>$jumlah,
 					'harga_beli' =>$beli,
+					'harga_jual' =>$jual,
 					'nama_barang' =>$barang,
 					'subtotal' =>$beli*$jumlah,
 					'id_barang' =>$id_barang,
@@ -231,18 +269,12 @@ class barang_masuk extends CI_Controller {
 				);
 
 				//Insert Detail Barang Masuk
-				if ($this->M_Barang_Masuk->addDetBarangMasuk($detail_data)) {
+				if ($this->M_Barang_Masuk->updateDetBarangMasuk($detail_data,$id_det_barang_masuk)) {
 
-					//Update Tabel Barang Masuk
-					if($this->M_Barang_Masuk->updateBarang($jumlah,$beli,$jual,$id_suplier,$barang,$id_barang)){
+					//Update Stock Tabel Barang Masuk
+					if($this->M_Barang_Masuk->updateBarang2($old_jumlah,$jumlah,$beli,$jual,$id_suplier,$barang,$id_barang)){
 						
-						//Update Detail Order
-						if ($cek=$this->M_Barang_Masuk->updateDetOrder($id_det_order_brg)) {
-							
-							echo json_encode(array("status" => TRUE));
-						}else{
-							echo json_encode(array("status" => FALSE));
-						}
+						echo json_encode(array("status" => TRUE));
 						
 					}else{
 						echo json_encode(array("status" => FALSE));
@@ -256,5 +288,5 @@ class barang_masuk extends CI_Controller {
 			}
 		}
 	}
-		
+
 }

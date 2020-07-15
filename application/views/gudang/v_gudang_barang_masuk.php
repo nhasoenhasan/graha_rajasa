@@ -26,7 +26,8 @@
             <th scope="col" class="text-center">No</th>
             <th scope="col" class="text-center">No Nota</th>
             <th scope="col" class="text-center">Nama Barang</th>
-            <th scope="col" class="text-center">Harga Barang</th>
+            <th scope="col" class="text-center">Harga Beli</th>
+            <th scope="col" class="text-center">Harga Jual</th>
             <th scope="col" class="text-center">Supplier</th>
             <th scope="col" class="text-center">Jumlah</th>
             <th scope="col" class="text-center">Sub Total</th>
@@ -50,42 +51,54 @@
         </button>
       </div>
       <div class="modal-body">
-      <form id="addform">
-        <!-- <input name="id_barang_masuk" type="hidden" class="form-control " id="id_barang_masuk"> -->
+      <form id="addform" >
+        <input name="keterangan" type="hidden" value="Add" class="form-control " id="keterangan">
         <input name="id_barang" type="hidden" class="form-control " id="id_barang">
         <input name="id_det_order_brg" type="hidden" class="form-control " id="id_det_order_brg">
         <input name="nama_barang" id="nama_barang" type="hidden" class="form-control ">
         <input name="nama_supplier" id="nama_supplier" type="hidden" class="form-control ">
         <div class="form-group">
-            <label for="exampleInputEmail1">No Struk</label>
-            <input name="no_struk" type="text" class="form-control" id="no_struk" placeholder="No Struk">
+            <label for="exampleInputEmail1" class="ml-1">No Struk</label>
+            <input name="no_struk" type="text"  class="form-control " id="no_struk" placeholder="No Struk">
+            <small id="HelpNoStruk" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group" id="modal_update_barang_masuk" >
             <label for="exampleInputEmail1">Pilih Barang Yang Di Order</label>
             <select name="barang" id="barang" class="form-control" >
             </select>
+            <small id="HelpBarang" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">Pilih Suplier</label>
             <select name="suplier" class="form-control" id="suplier">
             </select>
+            <small id="HelpSuplier" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Jumlah</label>
             <input name="jumlah" type="number" class="form-control" id="jumlah" placeholder="Masukan Jumlah">
+            <small id="HelpJumlah" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Harga Beli</label>
             <input name="beli" type="number" class="form-control" id="beli"  placeholder="Masuikan Harga Beli">
+            <small id="HelpBeli" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Harga Jual</label>
             <input name="jual" type="number" class="form-control" id="jual" placeholder="Masuikan Harga Jual">
+            <small id="HelpJual" class="form-text text-danger ml-1">
+            </small>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="add_Barang_Masuk()">Save</button>
+        <button type="button" class="btn btn-primary" onclick="validation('Add')">Save</button>
       </div>
       </form>
     </div>
@@ -105,40 +118,56 @@
       </div>
       <div class="modal-body">
       <form id="editform">
-        <input name="id_barang_masuk" type="text" class="form-control " id="id_barang_masuk_edit">
-        <input name="id_barang" type="text" class="form-control " id="id_barang_edit">
-        <input name="id_det_order_brg" type="text" class="form-control " id="id_det_order_brg_edit">
-        <input name="nama_barang" id="nama_barang_edit" type="text" class="form-control ">
-        <input name="nama_supplier" id="nama_supplier_edit" type="text" class="form-control ">
+        <input name="keterangan" type="hidden" value="Edit" class="form-control " id="keteranganEdit">
+        <input name="old_harga_beli" id="old_harga_beli" placeholder="old_harga_beli" type="hidden" class="form-control " >
+        <input name="old_jumlah" id="old_jumlah" placeholder="old Jumlah" type="hidden" class="form-control " >
+        <input name="id_det_barang_masuk" type="hidden" class="form-control " id="id_det_barang_masuk_edit">
+        <input name="id_barang_masuk" type="hidden" class="form-control " id="id_barang_masuk_edit">
+        <input name="id_barang" type="hidden" class="form-control " id="id_barang_edit">
+        <input name="id_det_order_brg" type="hidden" class="form-control " id="id_det_order_brg_edit">
+        <input name="nama_barang" id="nama_barang_edit" type="hidden" class="form-control ">
+        <input name="nama_supplier" id="nama_supplier_edit" type="hidden" class="form-control ">
         <div class="form-group">
             <label for="exampleInputEmail1">No Struk</label>
             <input name="no_struk" type="text" class="form-control" id="no_struk_edit" placeholder="No Struk">
+            <small id="HelpEditStruk" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group" id="modal_update_barang_masuk" >
             <label for="exampleInputEmail1">Nama Barang</label>
-            <input name="barang_edit" type="text" class="form-control" id="barang_edit" placeholder="Nama Barang">
+            <input name="barang_edit" readonly type="text" class="form-control" id="barang_edit" placeholder="Nama Barang">
+            <small id="HelpEditBarang" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">Pilih Suplier</label>
             <select name="suplier_edit" class="form-control" id="suplier_edit">
             </select>
+            <small id="HelpEditSuplier" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Jumlah</label>
             <input name="jumlah" type="number" class="form-control" id="jumlah_edit" placeholder="Masukan Jumlah">
+            <small id="HelpEditJumlah" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Harga Beli</label>
             <input name="beli" type="number" class="form-control" id="beli_edit"  placeholder="Masuikan Harga Beli">
+            <small id="HelpEditBeli" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Harga Jual</label>
             <input name="jual" type="number" class="form-control" id="jual_edit" placeholder="Masuikan Harga Jual">
+            <small id="HelpEditJual" class="form-text text-danger ml-1">
+            </small>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="update_Barang_Masuk()">Save</button>
+        <button type="button" class="btn btn-primary" onclick="validation('Edit')">Save</button>
       </div>
       </form>
     </div>
@@ -180,23 +209,30 @@
 
     //Handle Modal Add Barang
     function modaladd(params) {
+        clearForm()
         $('#ModalLabel').text('Tambah Barang Masuk');
         $('#addform')[0].reset();
         $('#modalAdd').modal('show')
     }
 
     $('#show_data').on('click','.item_edit',function(){
+        $('#editform')[0].reset();
+        clearForm()
         var id=$(this).attr('data');
         id=id.split(',');
         $('[name="beli"]').val(id[0]);
+        $('[name="jual"]').val(id[10]);
+        $('[name="old_harga_beli"]').val(id[0]);
         $('[name="id_barang"]').val(id[1]);
+        $('[name="id_det_barang_masuk"]').val(id[2]);
         $('[name="id_det_order_brg"]').val(id[2]);
         $('[name="suplier_edit"]').val(id[3]+'|'+id[6]);
         $('[name="jumlah"]').val(id[4]);
+        $('[name="old_jumlah"]').val(id[4]);
         $('[name="nama_barang"]').val(id[5]);
         $('#barang_edit').val(id[5]);
         $('[name="nama_supplier"]').val(id[6]);
-        $('[name="no_struk"]').val(id[6]);
+        $('[name="no_struk"]').val(id[7]);
         $('[name="id_barang_masuk"]').val(id[9]);
         $('#modalEdit').modal('show')
     });
@@ -214,6 +250,27 @@
         $('[name="jual"]').val(data[7]);
         $('[name="beli"]').val(data[6]);
         $("#suplier").val(data[0]+'|'+data[8]);
+
+        //Handle -> CSS
+        $('#HelpBarang').text('');
+        $('#barang').removeClass('is-invalid');
+        $('#barang').addClass('is-valid');
+
+        $('#HelpSuplier').text('');
+        $('#suplier').removeClass('is-invalid');
+        $('#suplier').addClass('is-valid');
+
+        $('#HelpJumlah').text('');
+        $('#jumlah').removeClass('is-invalid');
+        $('#jumlah').addClass('is-valid');
+
+        $('#HelpBeli').text('');
+        $('#beli').removeClass('is-invalid');
+        $('#beli').addClass('is-valid');
+
+        $('#HelpJual').text('');
+        $('#jual').removeClass('is-invalid');
+        $('#jual').addClass('is-valid');
     });
 
     //On Change Select Pilih Data Supplier
@@ -227,7 +284,6 @@
      //Edit On Change Select Pilih Data Supplier
      $('#suplier_edit').on('change', function() {
         data=this.value
-        console.log(data);
         data=data.split('|');
         $('[name="nama_supplier"]').val(data[1]);
 
@@ -259,13 +315,14 @@
                             '<td class="text-center">'+data[i].no_struk+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].nama_barang+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].harga_beli+'</td>'+
+                            '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].harga_jual+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].nama_supplier+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].jumlah+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].subtotal+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].tanggal_masuk+'</td>'+
                             '<td class="text-center">'+
-                                '<a  href="javascript:;" class="btn btn-warning item_edit btn-xs" data="'+data[i].harga_beli+','+data[i].id_barang+','+data[i].id_det_barang_masuk+','+data[i].id_supplier+','+data[i].jumlah+','+data[i].nama_barang+','+data[i].nama_supplier+','+data[i].no_struk+','+data[i].subtotal+','+data[i].id_barang_masuk+'" >+</a>'+' '+
-                                '<a onclick="modalhapus('+data[i].id_barang+')" class="btn btn-danger btn-xs item_hapus " data="'+data[i].id_barang+'">D</a>'+
+                                '<a  href="javascript:;" class="btn btn-warning item_edit btn-xs" data="'+data[i].harga_beli+','+data[i].id_barang+','+data[i].id_det_barang_masuk+','+data[i].id_supplier+','+data[i].jumlah+','+data[i].nama_barang+','+data[i].nama_supplier+','+data[i].no_struk+','+data[i].subtotal+','+data[i].id_barang_masuk+','+data[i].harga_jual+'" >+</a>'+' '+
+                                // '<a onclick="modalhapus('+data[i].id_barang+')" class="btn btn-danger btn-xs item_hapus " data="'+data[i].id_barang+'">D</a>'+
                             '</td>'+
                         '</tr>';
                 }
@@ -332,6 +389,322 @@
             }
         });
     }
+    
+    
+    // ------------  Validation Form ------------------------
+    function validationAdd(array){
+        if (array[4]=="" ||null) {
+            $('#HelpNoStruk').text('Masukan No Struk');
+            $('#no_struk').addClass('is-invalid');
+        }
+        if (array[5]==null) {
+            $('#HelpBarang').text('Pilih Barang Yang Di Order');
+            $('#barang').addClass('is-invalid');
+        }
+        if (array[6]==null) {
+            $('#HelpSuplier').text('Pilih Suplier');
+            $('#suplier').addClass('is-invalid');
+        }
+        if (array[7]=="" || null) {
+            $('#HelpJumlah').text('Masukan Jumlah');
+            $('#jumlah').addClass('is-invalid');
+        }
+        if (array[8]=="" || null) {
+            $('#HelpBeli').text('Masukan Harga Beli');
+            $('#beli').addClass('is-invalid');
+        }
+        if (array[9]=="" || null) {
+            $('#HelpJual').text('Masukan Harga Jual');
+            $('#jual').addClass('is-invalid');
+        }
+    }
+
+    function validationEdit(array){
+        if (array[0]=="" ||null) {
+            $('#HelpEditStruk').text('Masukan No Struk');
+            $('#no_struk_edit').addClass('is-invalid');
+        }
+        if (array[1]==null) {
+            $('#HelpEditBarang').text('Pilih Barang Yang Di Order');
+            $('#barang_edit').addClass('is-invalid');
+        }
+        if (array[2]==null) {
+            $('#HelpEditSuplier').text('Pilih Suplier');
+            $('#suplier_edit').addClass('is-invalid');
+        }
+        if (array[3]=="" || null) {
+            $('#HelpEditJumlah').text('Masukan Jumlah');
+            $('#jumlah_edit').addClass('is-invalid');
+        }
+        if (array[4]=="" || null) {
+            $('#HelpEditBeli').text('Masukan Harga Beli');
+            $('#beli_edit').addClass('is-invalid');
+        }
+        if (array[5]=="" || null) {
+            $('#HelpEditJual').text('Masukan Harga Jual');
+            $('#jual_edit').addClass('is-invalid');
+        }
+    }
+
+    //Handle Form Validation
+    function validation(params){
+        var array=[$("#id_barang").val(),$("#id_det_order_brg").val(),$("#nama_barang").val(),$("#nama_supplier").val(),$("#no_struk").val(),$("#barang").val(),$("#suplier").val(),$("#jumlah").val(),$("#beli").val(),$("#jual").val()];
+        var arrayEdit=[$("#no_struk_edit").val(),$("#barang_edit").val(),$("#suplier_edit").val(),$("#jumlah_edit").val(),$("#beli_edit").val(),$("#jual_edit").val()];
+        
+        var isnull = array.includes(null);
+        var isnullEdit = arrayEdit.includes(null);
+
+        var isempty=array.includes("");
+        var isemptyEdit=arrayEdit.includes("");
+
+        var istrue=[isnull,isempty];
+        var istrueEdit=[isnullEdit,isemptyEdit];
+
+        var validation=params=='Add'?istrue.includes(true):istrueEdit.includes(true);
+
+        //If True === Ada Kolom Yang Kosong
+        if(validation===true){
+            if (params=='Add') {
+                validationAdd(array)
+            }else{
+                validationEdit(arrayEdit)
+            }
+        }else{
+            if (params=='Add') {
+                submitAdd(array)
+            }else{
+                submitEdit(arrayEdit)
+            }
+        }
+    }
+
+    //Submit Add After Validation
+    function submitAdd(array){
+        if(parseInt(array[9]) <= parseInt(array[8])){
+            $('#HelpJual').text('*Harga Jual Harus Lebih Besar Dari Harga Beli');
+            $('#jual').addClass('is-invalid');
+        }else{
+            add_Barang_Masuk()
+        }
+    }
+
+    //Submit Edit After Validation
+    function submitEdit(array){
+        if(parseInt(array[5]) <= parseInt(array[4])){
+            $('#HelpEditJual').text('*Harga Jual Harus Lebih Besar Dari Harga Beli');
+            $('#jual_edit').addClass('is-invalid');
+        }else{
+            update_Barang_Masuk()
+        }
+    }
+
+    //No Struk ADD
+    $('#no_struk').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpNoStruk').text('');
+            $('#no_struk').removeClass('is-invalid');
+            $('#no_struk').addClass('is-valid');
+        }else{
+            $('#HelpNoStruk').text('Masukan No Struk');
+            $('#no_struk').removeClass('is-valid');
+            $('#no_struk').addClass('is-invalid');
+        }
+    });
+
+    //No Struk Edit
+    $('#no_struk_edit').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpEditStruk').text('');
+            $('#no_struk_edit').removeClass('is-invalid');
+            $('#no_struk_edit').addClass('is-valid');
+        }else{
+            $('#HelpEditStruk').text('Masukan No Struk');
+            $('#no_struk_edit').removeClass('is-valid');
+            $('#no_struk_edit').addClass('is-invalid');
+        }
+    });
+
+    //Pilih Barang
+    $('#barang').on('change', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpBarang').text('');
+            $('#barang').removeClass('is-invalid');
+            $('#barang').addClass('is-valid');
+        }else{
+            $('#HelpBarang').text('Pilih Barang Yang Di Order');
+            $('#barang').removeClass('is-valid');
+            $('#barang').addClass('is-invalid');
+        }
+    });
+
+    //Pilih Suplier Add
+    $('#suplier').on('change', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpSuplier').text('');
+            $('#suplier').removeClass('is-invalid');
+            $('#suplier').addClass('is-valid');
+        }else{
+            $('#HelpSuplier').text('Pilih Suplier');
+            $('#suplier').removseClass('is-valid');
+            $('#suplier').addClass('is-invalid');
+        }
+    });
+
+     //Pilih Suplier Edit
+     $('#suplier_edit').on('change', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpEditSuplier').text('');
+            $('#suplier_edit').removeClass('is-invalid');
+            $('#suplier_edit').addClass('is-valid');
+        }else{
+            $('#HelpEditSuplier').text('Pilih Suplier');
+            $('#suplier_edit').removseClass('is-valid');
+            $('#suplier_edit').addClass('is-invalid');
+        }
+    });
+
+    //Jumlah Add
+    $('#jumlah').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpJumlah').text('');
+            $('#jumlah').removeClass('is-invalid');
+            $('#jumlah').addClass('is-valid');
+        }else{
+            $('#HelpJumlah').text('Masukan Jumlah');
+            $('#jumlah').removeClass('is-valid');
+            $('#jumlah').addClass('is-invalid');
+        }
+    });
+
+    //Jumlah Edit
+    $('#jumlah_edit').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpEditJumlah').text('');
+            $('#jumlah_edit').removeClass('is-invalid');
+            $('#jumlah_edit').addClass('is-valid');
+        }else{
+            $('#HelpEditJumlah').text('Masukan Jumlah');
+            $('#jumlah_edit').removeClass('is-valid');
+            $('#jumlah_edit').addClass('is-invalid');
+        }
+    });
+
+    //Beli Add
+    $('#beli').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpBeli').text('');
+            $('#beli').removeClass('is-invalid');
+            $('#beli').addClass('is-valid');
+        }else{
+            $('#HelpBeli').text('Masukan Harga Beli');
+            $('#beli').removeClass('is-valid');
+            $('#beli').addClass('is-invalid');
+        }
+    });
+
+
+    //Beli Edit
+    $('#beli_edit').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpEditBeli').text('');
+            $('#beli_edit').removeClass('is-invalid');
+            $('#beli_edit').addClass('is-valid');
+        }else{
+            $('#HelpEditBeli').text('Masukan Harga Beli');
+            $('#beli_edit').removeClass('is-valid');
+            $('#beli_edit').addClass('is-invalid');
+        }
+    });
+
+    //Jual
+    $('#jual').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpJual').text('');
+            $('#jual').removeClass('is-invalid');
+            $('#jual').addClass('is-valid');
+        }else{
+            $('#HelpJual').text('Masukan Harga Jual');
+            $('#jual').removeClass('is-valid');
+            $('#jual').addClass('is-invalid');
+        }
+    });
+
+    //Jual Edit
+    $('#jual_edit').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpEditJual').text('');
+            $('#jual_edit').removeClass('is-invalid');
+            $('#jual_edit').addClass('is-valid');
+        }else{
+            $('#HelpEditJual').text('Masukan Harga Jual');
+            $('#jual_edit').removeClass('is-valid');
+            $('#jual_edit').addClass('is-invalid');
+        }
+    });
+
+    //Handle Clear From Warning
+    function clearForm(){
+        $('#HelpNoStruk').text('');
+        $('#no_struk').removeClass('is-invalid');
+        $('#no_struk').removeClass('is-valid');
+
+        $('#HelpEditStruk').text('');
+        $('#no_struk_edit').removeClass('is-valid');
+        $('#no_struk_edit').removeClass('is-invalid');
+        //-----------------------------------------------
+
+        $('#HelpBarang').text('');
+        $('#barang').removeClass('is-invalid');
+        $('#barang').removeClass('is-valid');
+
+        $('#HelpSuplier').text('');
+        $('#suplier').removeClass('is-invalid');
+        $('#suplier').removeClass('is-valid');
+
+        $('#HelpEditSuplier').text('');
+        $('#suplier_edit').removeClass('is-invalid');
+        $('#suplier_edit').removeClass('is-valid');
+        //-------------------------------------------------
+
+        $('#HelpJumlah').text('');
+        $('#jumlah').removeClass('is-invalid');
+        $('#jumlah').removeClass('is-valid');
+
+        $('#HelpEditJumlah').text('');
+        $('#jumlah_edit').removeClass('is-invalid');
+        $('#jumlah_edit').removeClass('is-valid');
+        //------------------------------------------------
+
+        $('#HelpBeli').text('');
+        $('#beli').removeClass('is-invalid');
+        $('#beli').removeClass('is-valid');
+
+        $('#HelpEditBeli').text('');
+        $('#beli_edit').removeClass('is-invalid');
+        $('#beli_edit').removeClass('is-valid');
+        //---------------------------------------------------
+
+        $('#HelpJual').text('');
+        $('#jual').removeClass('is-invalid');
+        $('#jual').removeClass('is-valid');
+
+        $('#HelpEditJual').text('');
+        $('#jual_edit').removeClass('is-invalid');
+        $('#jual_edit').removeClass('is-valid');
+    }
+    // ------------  End Validation Form ------------------------
+
 
     //Handle Add Barang
     function add_Barang_Masuk()
@@ -377,7 +750,7 @@
                     get_Order_Barang()
                     get_Suplier()
                     get_Barang_Masuk()
-                    $('#modalAdd').modal('hide')
+                    $('#modalEdit').modal('hide')
                 }
             }
         })
