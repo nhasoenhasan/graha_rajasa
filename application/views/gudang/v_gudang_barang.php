@@ -6,6 +6,14 @@
 </style>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3  ">
+        <nav aria-label="breadcrumb" style="margin-left:-0.8rem">
+            <ol class="breadcrumb bg-white">
+                <li class="breadcrumb-item"><a href="<?php echo  base_url().'index.php/gudang/index'?>">Dashboard</a></li>
+                <li class="breadcrumb-item active">Data Barang</li>
+            </ol>
+        </nav>
+    </div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Data Barang</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
@@ -45,24 +53,33 @@
             <input name="id_barang" type="hidden" class="form-control " id="id_barang">
             <label for="exampleInputEmail1">Nama Barang</label>
             <input name="barang" type="text" class="form-control " id="barang" aria-describedby="emailHelp" placeholder="Masuikan Nama Barang" require>
+            <small id="HelpBarang" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">Pilih Suplier</label>
             <select name="suplier" class="form-control" id="suplier">
-                
             </select>
+            <small id="HelpSuplier" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Stok</label>
             <input name="stok" type="number" class="form-control" id="stok" aria-describedby="emailHelp" placeholder="Masuikan Nama Barang">
+            <small id="HelpStok" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Harga Beli</label>
             <input name="beli" type="number" class="form-control" id="beli" aria-describedby="emailHelp" placeholder="Masuikan Nama Barang">
+            <small id="HelpBeli" class="form-text text-danger ml-1">
+            </small>        
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Harga Jual</label>
             <input name="jual" type="number" class="form-control" id="jual" aria-describedby="emailHelp" placeholder="Masuikan Nama Barang">
+            <small id="HelpJual" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Deskripsi</label>
@@ -72,7 +89,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="add_Barang()">Save</button>
+        <button type="button" class="btn btn-primary" onclick="validation()">Save</button>
       </div>
       </form>
     </div>
@@ -114,12 +131,14 @@
 
     //Handle Modal Add Barang
     function modaladd(params) {
+        clearForm()
         $('#ModalLabel').text('Tambah Barang');
         $('#addform')[0].reset();
         $('#modalAdd').modal('show')
     }
 
     $('#show_data').on('click','.item_edit',function(){
+        clearForm()
         $('#ModalLabel').text('Edit Barang');
         var id=$(this).attr('data');
         id=id.split(',');
@@ -188,6 +207,146 @@
                 $('#suplier').html(html);
             }
         });
+    }
+
+    //---------------- Validation ------------------------
+     //Input Barang
+     $('#barang').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpBarang').text('');
+            $('#barang').removeClass('is-invalid');
+            $('#barang').addClass('is-valid');
+        }else{
+            $('#HelpBarang').text('Masukan Nama Barang');
+            $('#barang').removeClass('is-valid');
+            $('#barang').addClass('is-invalid');
+        }
+    });
+
+    //Pilih Suplier Add
+    $('#suplier').on('change', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpSuplier').text('');
+            $('#suplier').removeClass('is-invalid');
+            $('#suplier').addClass('is-valid');
+        }else{
+            $('#HelpSuplier').text('Pilih Suplier');
+            $('#suplier').removseClass('is-valid');
+            $('#suplier').addClass('is-invalid');
+        }
+    });
+
+    //Stok
+    $('#stok').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpStok').text('');
+            $('#stok').removeClass('is-invalid');
+            $('#stok').addClass('is-valid');
+        }else{
+            $('#HelpStok').text('Masukan Jumlah Stok');
+            $('#stok').removeClass('is-valid');
+            $('#stok').addClass('is-invalid');
+        }
+    });
+
+     //Beli Add
+     $('#beli').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpBeli').text('');
+            $('#beli').removeClass('is-invalid');
+            $('#beli').addClass('is-valid');
+        }else{
+            $('#HelpBeli').text('Masukan Harga Beli');
+            $('#beli').removeClass('is-valid');
+            $('#beli').addClass('is-invalid');
+        }
+    });
+
+    //Jual
+    $('#jual').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpJual').text('');
+            $('#jual').removeClass('is-invalid');
+            $('#jual').addClass('is-valid');
+        }else{
+            $('#HelpJual').text('Masukan Harga Jual');
+            $('#jual').removeClass('is-valid');
+            $('#jual').addClass('is-invalid');
+        }
+    });
+
+    function validation(){
+        var array=[$("#barang").val(),$("#suplier").val(),$("#stok").val(),$("#beli").val(),$("#jual").val()];
+        var keterangan=$('#id_barang').val()
+        var isnull = array.includes(null);
+        var isempty=array.includes("");
+        var istrue=[isnull,isempty];
+
+        var validation=istrue.includes(true);
+
+        //If True === Ada Kolom Yang Kosong
+        if(validation===true){
+            validationForm(array)
+        }else{
+            //Cek Harga Jual >= Harga Beli
+            if (parseInt(array[4])<=parseInt(array[3])) {
+                $('#HelpJual').text('*Harga Jual Harus Lebih Besar Dari Harga Beli');
+                $('#jual').addClass('is-invalid');
+            }else{
+                add_Barang()
+            }
+        }
+    }
+
+    function validationForm(array){
+        if (array[0]=="") {
+            $('#HelpBarang').text('Masukan Nama Barang');
+            $('#barang').addClass('is-invalid');
+        }
+        if (array[1]==null) {
+            $('#HelpSuplier').text('Pilih Suplier');
+            $('#suplier').addClass('is-invalid');
+        }
+        if (array[2]=="" || null) {
+            $('#HelpStok').text('Masukan Jumlah Stok');
+            $('#stok').addClass('is-invalid');
+        }
+        if (array[3]=="" || null) {
+            $('#HelpBeli').text('Masukan Harga Beli');
+            $('#beli').addClass('is-invalid');
+        }
+        if (array[4]=="" || null) {
+            $('#HelpJual').text('Masukan Harga Jual');
+            $('#jual').addClass('is-invalid');
+        }
+    }
+
+    //Handle Clear From Warning
+    function clearForm(){
+        $('#HelpBarang').text('');
+        $('#barang').removeClass('is-invalid');
+        $('#barang').removeClass('is-valid');
+
+        $('#HelpSuplier').text('');
+        $('#suplier').removeClass('is-invalid');
+        $('#suplier').removeClass('is-valid');
+
+        $('#HelpStok').text('');
+        $('#stok').removeClass('is-invalid');
+        $('#stok').removeClass('is-valid');
+
+        $('#HelpBeli').text('');
+        $('#beli').removeClass('is-invalid');
+        $('#beli').removeClass('is-valid');
+
+        $('#HelpJual').text('');
+        $('#jual').removeClass('is-invalid');
+        $('#jual').removeClass('is-valid');
     }
 
     //Handle Add Barang
