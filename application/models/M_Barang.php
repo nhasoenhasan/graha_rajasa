@@ -8,11 +8,20 @@ class M_Barang extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from($this->table);
-		
 		$this->db->join('supplier s','s.id_supplier=barang.id_supplier');
 		$this->db->order_by($this->pk, 'DESC');
 		$query = $this->db->get();
 		return $query->result();
+	}
+
+	public function getCetak ()
+	{
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->join('supplier s','s.id_supplier=barang.id_supplier');
+		$this->db->order_by($this->pk, 'DESC');
+		$query = $this->db->get();
+		return $query->result_array();
 	}
 
 	public function addBarang($data_barang){
@@ -29,6 +38,14 @@ class M_Barang extends CI_Model {
 	public function delete($id){
 		$id = $this->db->where($this->pk,$id)->delete($this->table);
 		return $id;
+	}
+
+	public function isSameName($nama){
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->where('nama_barang', $nama);
+		$query = $this->db->get();
+		return $query->result_array();
 	}
 
 }

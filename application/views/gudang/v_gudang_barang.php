@@ -14,8 +14,11 @@
             </ol>
         </nav>
     </div>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Data Barang</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <div class="row ">
+            <h1 class="h2">Data Barang</h1>
+            <a target="_blank" href="<?php echo  base_url().'index.php/gudang/barang/cetak'?>" class="btn btn-primary ml-3"  ><span data-feather="printer"></span></a>    
+        </div>
         <div class="btn-toolbar mb-2 mb-md-0">
             <button type="button" class="btn btn-success" onclick="modaladd()" data-toggle="modal" >ADD</button>
         </div>
@@ -23,13 +26,13 @@
     <table id="myTable" class="table">
         <thead class="thead-dark">
             <tr>
-            <th scope="col">No</th>
-            <th scope="col">Nama Barang</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Harga Beli</th>
-            <th scope="col">Harga Jual</th>
-            <th scope="col">Suplier</th>
-            <th scope="col">Action</th>
+                <th scope="col" class="text-center">No</th>
+                <th scope="col" class="text-center">Nama Barang</th>
+                <th scope="col" class="text-center">Stock</th>
+                <th scope="col" class="text-center">Harga Beli</th>
+                <th scope="col" class="text-center">Harga Jual</th>
+                <th scope="col" class="text-center">Suplier</th>
+                <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
         <tbody id="show_data">
@@ -51,6 +54,7 @@
       <form id="addform">
         <div class="form-group">
             <input name="id_barang" type="hidden" class="form-control " id="id_barang">
+            <input name="nama_barang" type="hidden" class="form-control " id="id_barang">
             <label for="exampleInputEmail1">Nama Barang</label>
             <input name="barang" type="text" class="form-control " id="barang" aria-describedby="emailHelp" placeholder="Masuikan Nama Barang" require>
             <small id="HelpBarang" class="form-text text-danger ml-1">
@@ -65,19 +69,19 @@
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Stok</label>
-            <input name="stok" type="number" class="form-control" id="stok" aria-describedby="emailHelp" placeholder="Masuikan Nama Barang">
+            <input name="stok" type="number" class="form-control" id="stok" aria-describedby="emailHelp" placeholder="Masuikan Jumlah Stok">
             <small id="HelpStok" class="form-text text-danger ml-1">
             </small>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Harga Beli</label>
-            <input name="beli" type="number" class="form-control" id="beli" aria-describedby="emailHelp" placeholder="Masuikan Nama Barang">
+            <input name="beli" type="number" class="form-control" id="beli" aria-describedby="emailHelp" placeholder="Masuikan Harga Beli">
             <small id="HelpBeli" class="form-text text-danger ml-1">
             </small>        
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Harga Jual</label>
-            <input name="jual" type="number" class="form-control" id="jual" aria-describedby="emailHelp" placeholder="Masuikan Nama Barang">
+            <input name="jual" type="number" class="form-control" id="jual" aria-describedby="emailHelp" placeholder="Masuikan Harga Jual">
             <small id="HelpJual" class="form-text text-danger ml-1">
             </small>
         </div>
@@ -142,6 +146,7 @@
         $('#ModalLabel').text('Edit Barang');
         var id=$(this).attr('data');
         id=id.split(',');
+        $('[name="nama_barang"]').val(id[2]);
         $('[name="id_barang"]').val(id[0]);
         $('[name="suplier"]').val(id[1]);
         $('[name="barang"]').val(id[2]);
@@ -174,15 +179,15 @@
                 for(i=0; i<data.length; i++){
                     html += 
                         '<tr>'+
-                            '<td>'+(i+1)+'</td>'+
-                            '<td>'+data[i].nama_barang+'</td>'+
-                            '<td style="word-break: break-all;">'+data[i].stok+'</td>'+
-                            '<td style="word-break: break-all;">'+data[i].harga_beli+'</td>'+
-                            '<td style="word-break: break-all;">'+data[i].harga_jual+'</td>'+
-                            '<td style="word-break: break-all;">'+data[i].nama+'</td>'+
-                            '<td style="text-align:right;">'+
-                                '<a  href="javascript:;" class="btn btn-warning item_edit btn-xs" data="'+data[i].id_barang+','+data[i].id_supplier+','+data[i].nama_barang+','+data[i].stok+','+data[i].harga_beli+','+data[i].harga_jual+','+data[i].deskripsi+'" >+</a>'+' '+
-                                '<a onclick="modalhapus('+data[i].id_barang+')" class="btn btn-danger btn-xs item_hapus " data="'+data[i].id_barang+'">D</a>'+
+                            '<td class="text-center">'+(i+1)+'</td>'+
+                            '<td class="text-center">'+data[i].nama_barang+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].stok+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].harga_beli+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].harga_jual+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].nama+'</td>'+
+                            '<td style="text-align:center;">'+
+                                '<a  href="javascript:;" class="btn btn-warning item_edit btn-xs" data="'+data[i].id_barang+','+data[i].id_supplier+','+data[i].nama_barang+','+data[i].stok+','+data[i].harga_beli+','+data[i].harga_jual+','+data[i].deskripsi+'" ><span class="fas fa-pencil-alt" style="color:white"></span></a>'+' '+
+                                '<a onclick="modalhapus('+data[i].id_barang+')" class="btn btn-danger btn-xs item_hapus " data="'+data[i].id_barang+'"><span class="fas fa-trash-alt" style="color:white"></span></a>'+
                             '</td>'+
                         '</tr>';
                 }
@@ -367,6 +372,11 @@
                 if(data.status===true){
                     get_Barang()
                     $('#modalAdd').modal('hide')
+                }
+                if (data.message==='exist') {
+                    $('#HelpBarang').text('*Nama Barang Sudah Ada');
+                    $('#barang').removeClass('is-valid');
+                    $('#barang').addClass('is-invalid');
                 }
             }
         })

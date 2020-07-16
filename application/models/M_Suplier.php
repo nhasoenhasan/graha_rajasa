@@ -13,6 +13,15 @@ class M_Suplier extends CI_Model {
 		return $query->result();
 	}
 
+	public function getCetak ()
+	{
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->order_by($this->pk, 'DESC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	public function add($data){
 		$this->db->insert($this->table,$data);
 	  	return $this->db->insert_id();

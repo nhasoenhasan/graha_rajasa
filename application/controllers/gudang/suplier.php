@@ -113,4 +113,9 @@ class suplier extends CI_Controller {
 			echo json_encode(array("status" => TRUE));
 		}
 	}
+
+	public function cetak(){
+		$value['data']=$this->M_Suplier->getCetak();
+		$this->load->view('surat/v_cetak_supplier',$value);
+	}
 }

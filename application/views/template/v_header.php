@@ -17,6 +17,7 @@
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/datatables.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://kit.fontawesome.com/91102adea5.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/dashboard.js"></script>
     <style>

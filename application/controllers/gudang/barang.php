@@ -27,6 +27,20 @@ class barang extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function isSame($nama){
+		//Check Nama Barang Sama?
+		$barang=htmlspecialchars($this->input->post('barang',TRUE),ENT_QUOTES);
+		$same=$this->M_Barang->isSameName($barang);
+
+		if (count($same)==0) {
+			//Nama Barang Belum Ada
+			return TRUE;
+		}else{
+			//Nama Barang Sudah Ada
+			return FALSE;
+		}
+	}
+
 	public function post(){
 		$id=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
 		
@@ -50,25 +64,30 @@ class barang extends CI_Controller {
 		}else
 		{
 			$barang=htmlspecialchars($this->input->post('barang',TRUE),ENT_QUOTES);
-			$suplier=htmlspecialchars($this->input->post('suplier',TRUE),ENT_QUOTES);
-			$stok=htmlspecialchars($this->input->post('stok',TRUE),ENT_QUOTES);
-			$beli=htmlspecialchars($this->input->post('beli',TRUE),ENT_QUOTES);
-			$jual=htmlspecialchars($this->input->post('jual',TRUE),ENT_QUOTES);
-			$deskripsi=htmlspecialchars($this->input->post('deskripsi',TRUE),ENT_QUOTES);
 
-			$data_barang = array(
-				'id_supplier' => $suplier,
-				'nama_barang' => $barang,
-				'stok' => $stok,
-				'harga_beli' => $beli,
-				'harga_jual' => $jual,
-				'deskripsi' => $deskripsi,
-			);
-
-			if($this->M_Barang->addBarang($data_barang)){
-				echo json_encode(array("status" => TRUE));
+			if ($this->isSame($barang)==FALSE) {
+				echo json_encode(array("message"=>'exist',"status" => FALSE));
 			}else{
-				echo json_encode(array("status" => FALSE));
+				$suplier=htmlspecialchars($this->input->post('suplier',TRUE),ENT_QUOTES);
+				$stok=htmlspecialchars($this->input->post('stok',TRUE),ENT_QUOTES);
+				$beli=htmlspecialchars($this->input->post('beli',TRUE),ENT_QUOTES);
+				$jual=htmlspecialchars($this->input->post('jual',TRUE),ENT_QUOTES);
+				$deskripsi=htmlspecialchars($this->input->post('deskripsi',TRUE),ENT_QUOTES);
+
+				$data_barang = array(
+					'id_supplier' => $suplier,
+					'nama_barang' => $barang,
+					'stok' => $stok,
+					'harga_beli' => $beli,
+					'harga_jual' => $jual,
+					'deskripsi' => $deskripsi,
+				);
+
+				if($this->M_Barang->addBarang($data_barang)){
+					echo json_encode(array("status" => TRUE));
+				}else{
+					echo json_encode(array("status" => FALSE));
+				}
 			}
 
 		}
@@ -87,28 +106,52 @@ class barang extends CI_Controller {
 			echo json_encode(array("tes"=>$data,"status" => FALSE));
 		}else
 		{
-			$id_barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
 			$barang=htmlspecialchars($this->input->post('barang',TRUE),ENT_QUOTES);
+			$nama_barang=htmlspecialchars($this->input->post('nama_barang',TRUE),ENT_QUOTES);
+			$id_barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
 			$suplier=htmlspecialchars($this->input->post('suplier',TRUE),ENT_QUOTES);
 			$stok=htmlspecialchars($this->input->post('stok',TRUE),ENT_QUOTES);
 			$beli=htmlspecialchars($this->input->post('beli',TRUE),ENT_QUOTES);
 			$jual=htmlspecialchars($this->input->post('jual',TRUE),ENT_QUOTES);
 			$deskripsi=htmlspecialchars($this->input->post('deskripsi',TRUE),ENT_QUOTES);
-
-			$data_barang = array(
-				'id_barang'=>$id_barang,
-				'id_supplier' => $suplier,
-				'nama_barang' => $barang,
-				'stok' => $stok,
-				'harga_beli' => $beli,
-				'harga_jual' => $jual,
-				'deskripsi' => $deskripsi,
-			);
-
-			if($this->M_Barang->updateBarang($data_barang,$id_barang)){
-				echo json_encode(array("status" => TRUE));
+			
+			if ($nama_barang!=$barang) {
+				if ($this->isSame($barang)==FALSE) {
+					echo json_encode(array("message"=>'exist',"status" => FALSE));
+				}else{
+		
+					$data_barang = array(
+						'id_barang'=>$id_barang,
+						'id_supplier' => $suplier,
+						'nama_barang' => $barang,
+						'stok' => $stok,
+						'harga_beli' => $beli,
+						'harga_jual' => $jual,
+						'deskripsi' => $deskripsi,
+					);
+		
+					if($this->M_Barang->updateBarang($data_barang,$id_barang)){
+						echo json_encode(array("status" => TRUE));
+					}else{
+						echo json_encode(array("status" => FALSE));
+					}
+				}
 			}else{
-				echo json_encode(array("status" => FALSE));
+				$data_barang = array(
+					'id_barang'=>$id_barang,
+					'id_supplier' => $suplier,
+					'nama_barang' => $barang,
+					'stok' => $stok,
+					'harga_beli' => $beli,
+					'harga_jual' => $jual,
+					'deskripsi' => $deskripsi,
+				);
+	
+				if($this->M_Barang->updateBarang($data_barang,$id_barang)){
+					echo json_encode(array("status" => TRUE));
+				}else{
+					echo json_encode(array("status" => FALSE));
+				}
 			}
 		}
 	}
@@ -127,6 +170,11 @@ class barang extends CI_Controller {
 
 			echo json_encode(array("status" => TRUE));
 		}
+	}
+
+	public function cetak(){
+		$value['data']=$this->M_Barang->getCetak();
+		$this->load->view('surat/v_cetak_barang',$value);
 	}
 
 	

@@ -73,7 +73,6 @@ class acc_order extends CI_Controller {
 			$value['total']=$this->M_Order->getTotal($data);
 			$value['data']=$this->M_Order->getAllArray(2,$data);
 			$value['supplier']=$data;
-			// var_dump($value)
 			$this->load->view('surat/v_surat',$value);
 		}else{
 			echo "Silahkan Pilih Supplier";
