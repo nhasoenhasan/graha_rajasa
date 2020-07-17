@@ -53,7 +53,7 @@
       <form id="addform">
         <div class="form-group">
             <input name="id_supplier" type="hidden" class="form-control " id="id_supplier">
-            <input name="nama_supplier" type="text" class="form-control " id="nama_supplier">
+            <input name="nama_supplier" type="hidden" class="form-control " id="nama_supplier">
             <label for="exampleInputEmail1">Nama Supplier</label>
             <input name="nama" type="text" class="form-control " id="nama" aria-describedby="emailHelp" placeholder="Masukan Nama Suplier" require>
             <small id="HelpSuplier" class="form-text text-danger ml-1">
@@ -133,6 +133,7 @@
         id=id.split(',');
         $('[name="id_supplier"]').val(id[0]);
         $('[name="nama"]').val(id[1]);
+        $('[name="nama_supplier"]').val(id[1]);
         $('[name="alamat"]').val(id[2]);
         $('[name="email"]').val(id[3]);
         $('[name="telp"]').val(id[4]);
@@ -309,6 +310,11 @@
                 if(data.status===true){
                     get_Supplier()
                     $('#modalAdd').modal('hide')
+                }
+                if (data.message==='exist') {
+                    $('#HelpSuplier').text('*Nama Suplier Sudah Ada');
+                    $('#nama').removeClass('is-valid');
+                    $('#nama').addClass('is-invalid');
                 }
             }
         })

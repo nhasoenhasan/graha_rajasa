@@ -26,8 +26,6 @@ class acc_order extends CI_Controller {
         $status=$_GET['status'];
 		$id_supplier=$_GET['id_supplier'];
 		if ($id_supplier!='') {
-			echo $id_supplier;
-			die();
 			$data=$this->M_Order->getAllArray(2,$id_supplier);
 			echo json_encode($data);
 		}else{

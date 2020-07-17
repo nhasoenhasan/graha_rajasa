@@ -1,9 +1,17 @@
 <?php
-class M_Order extends CI_Model {
+class M_Kasir extends CI_Model {
 
 	var $table='det_order_barang';
 	var $pk='id_det_order_brg';
 
+	public function getDiskon(){
+		$this->db->select('name,value');
+		$this->db->from('promo');
+		$this->db->where('name','diskon');
+		$this->db->order_by('id_promo', 'DESC');
+		$query = $this->db->get();
+		return $query->result();
+	}
 
 	public function getAll ($status,$nama)
 	{
@@ -71,23 +79,21 @@ class M_Order extends CI_Model {
 	}
 
 	public function addTransaction($data){
-		$this->db->insert('order_barang',$data);
+		$this->db->insert('penjualan',$data);
 	  	return $this->db->insert_id();
 	}
 
-	//Update Status Order Acc
-	public function updateAccOrder($id){
-		// $id = $this->db->update('det_order_barang', $data,'id_det_order_brg');
-		$this->db->set('status', 2);
-		$this->db->where($this->pk, $id);
-		$this->db->update($this->table);
-		return $id;
+	public function addDetailTransaction($data){
+        $this->db->insert_batch('detail_penjualan',$data);
+	  	return $this->db->insert_id();
 	}
 
-	//Delete Order Acc
-	public function delete($id){
-		$id = $this->db->where($this->pk,$id)->delete($this->table);
-		return $id;
+	//Handle Update Table Barang
+	public function updateBarang($id_barang,$stok){
+		//Reduce Stok Barang
+		$sql="UPDATE `barang` SET `stok`=stok-? WHERE id_barang=?";
+		$query=$this->db->query($sql, array($stok, $id_barang));
+		return $id_barang;
 	}
-
+	
 }

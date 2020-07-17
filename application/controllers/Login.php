@@ -16,9 +16,14 @@ class Login extends CI_Controller {
     public function auth(){
 		$username	= $this->input->post('username');
 		$password	= $this->input->post('password');
+
+		// echo "Before==".$password.":::After".md5($password);
+		// // 202446dd1d6028084426867365b0c7a1
+		// // 202446dd1d6028084426867365b0c7a1
+		// die();
 		$data = array(
 			'username' => $username,
-			'password' => $password
+			'password' => md5($password)
 		);
         $user=$this->M_User->auth($data);
 

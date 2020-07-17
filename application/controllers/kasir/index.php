@@ -15,7 +15,7 @@ class index extends CI_Controller {
 		$this->data['title']='Admin Kasir';
 		$this->data['menu'] = $this->load->view('menu/v_menu_kasir',$this->data,TRUE);
         $this->load->view('template/v_header',$this->data);
-		$this->load->view('dashboard/v_dashboard');
+		$this->load->view('kasir/v_kasir_kasir');
 		$this->load->view('template/v_footer');
 	}
 }

@@ -158,8 +158,8 @@
                             '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].subtotal+'</td>'+
                             '<td   class="text-center text-'+textColor+' font-weight-bold">'+status+'</td>'+
                             '<td style="text-align:center;">'+
-                                '<a  class="btn btn-success btn-xs item_order mr-2 " data="'+data[i].id_det_order_brg+'">Pesan</a>'+
-                                '<a onclick="modalhapus('+data[i].id_det_order_brg+')" class="btn btn-danger btn-xs item_hapus " data="'+data[i].id_det_order_brg+'">D</a>'+
+                                '<a  class="btn btn-success btn-xs item_order mr-2 " data="'+data[i].id_det_order_brg+','+data[i].status+'"><span class="fas fa-paper-plane" style="color:white"></span></a>'+
+                                '<a onclick="modalhapus('+data[i].id_det_order_brg+')" class="btn btn-danger btn-xs item_hapus " data="'+data[i].id_det_order_brg+'"><span class="fas fa-trash-alt" style="color:white"></a>'+
                             '</td>'+
                         '</tr>';
                 }
@@ -187,24 +187,28 @@
 
     $('#show_data').on('click','.item_order',function(){
         var data=$(this).attr('data');
-        var url;
-        url = '<?php echo  base_url().'index.php/gudang/acc_order/update'?>';
-        // ajax adding data to database
-        var formData = new FormData();
-        formData.append('data',data)
-        $.ajax({
-            url : url,
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            dataType: "JSON",
-            success : function(data){   
-                if(data.status===true){
-                    get_Order(1)
+        data=data.split(',');
+        
+        if (data[1]==='1') {
+            var url;
+            url = '<?php echo  base_url().'index.php/gudang/acc_order/update'?>';
+            // ajax adding data to database
+            var formData = new FormData();
+            formData.append('data',data[0])
+            $.ajax({
+                url : url,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: "JSON",
+                success : function(data){   
+                    if(data.status===true){
+                        get_Order(1)
+                    }
                 }
-            }
-        })
+            })
+        }
     });
 
     

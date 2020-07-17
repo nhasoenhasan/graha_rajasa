@@ -121,7 +121,7 @@
                 var data=Object.values(d);
                 var html = '';
                 var i;
-                console.log(data,'CHART');
+                
                 for(i=0; i<data.length; i++){
                     html += 
                         '<tr>'+

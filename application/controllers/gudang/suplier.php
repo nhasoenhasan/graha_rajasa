@@ -36,6 +36,20 @@ class suplier extends CI_Controller {
 		}
 	}
 
+	public function isSame($nama){
+		//Check Nama Barang Sama?
+		// $barang=htmlspecialchars($this->input->post('barang',TRUE),ENT_QUOTES);
+		$same=$this->M_Suplier->isSameName($nama);
+
+		if (count($same)==0) {
+			//Nama Barang Belum Ada
+			return TRUE;
+		}else{
+			//Nama Barang Sudah Ada
+			return FALSE;
+		}
+	}
+
 	public function add(){
 		$this->form_validation->set_rules('nama', 'nama', 'required');
 		$this->form_validation->set_rules('alamat', 'alamat', 'required');
@@ -48,21 +62,26 @@ class suplier extends CI_Controller {
 		}else
 		{
 			$nama=htmlspecialchars($this->input->post('nama',TRUE),ENT_QUOTES);
-			$alamat=htmlspecialchars($this->input->post('alamat',TRUE),ENT_QUOTES);
-			$email=htmlspecialchars($this->input->post('email',TRUE),ENT_QUOTES);
-			$telp=htmlspecialchars($this->input->post('telp',TRUE),ENT_QUOTES);
 
-			$data = array(
-				'nama' => $nama,
-				'alamat' => $nama,
-				'email' => $email,
-				'no_telp' => $telp,
-			);
-
-			if($this->M_Suplier->add($data)){
-				echo json_encode(array("status" => TRUE));
+			if ($this->isSame($nama)==FALSE) {
+				echo json_encode(array("message"=>'exist',"status" => FALSE));
 			}else{
-				echo json_encode(array("status" => FALSE));
+				$alamat=htmlspecialchars($this->input->post('alamat',TRUE),ENT_QUOTES);
+				$email=htmlspecialchars($this->input->post('email',TRUE),ENT_QUOTES);
+				$telp=htmlspecialchars($this->input->post('telp',TRUE),ENT_QUOTES);
+
+				$data = array(
+					'nama' => $nama,
+					'alamat' => $nama,
+					'email' => $email,
+					'no_telp' => $telp,
+				);
+
+				if($this->M_Suplier->add($data)){
+					echo json_encode(array("status" => TRUE));
+				}else{
+					echo json_encode(array("status" => FALSE));
+				}
 			}
 		}
 	}
@@ -80,23 +99,44 @@ class suplier extends CI_Controller {
 		}else
 		{
 			$id=htmlspecialchars($this->input->post('id_supplier',TRUE),ENT_QUOTES);
+			$nama_supplier=htmlspecialchars($this->input->post('nama_supplier',TRUE),ENT_QUOTES);
 			$nama=htmlspecialchars($this->input->post('nama',TRUE),ENT_QUOTES);
 			$alamat=htmlspecialchars($this->input->post('alamat',TRUE),ENT_QUOTES);
 			$email=htmlspecialchars($this->input->post('email',TRUE),ENT_QUOTES);
 			$telp=htmlspecialchars($this->input->post('telp',TRUE),ENT_QUOTES);
 
-			$data = array(
-				'id_supplier' => $id,
-				'nama' => $nama,
-				'alamat' => $alamat,
-				'email' => $email,
-				'no_telp' => $telp,
-			);
-
-			if($this->M_Suplier->update($data, $id)){
-				echo json_encode(array("status" => TRUE));
+			if ($nama!=$nama_supplier) {
+				if ($this->isSame($nama)==FALSE) {
+					echo json_encode(array("message"=>'exist',"status" => FALSE));
+				}else{
+					$data = array(
+						'id_supplier' => $id,
+						'nama' => $nama,
+						'alamat' => $alamat,
+						'email' => $email,
+						'no_telp' => $telp,
+					);
+		
+					if($this->M_Suplier->update($data, $id)){
+						echo json_encode(array("status" => TRUE));
+					}else{
+						echo json_encode(array("status" => FALSE));
+					}
+				}
 			}else{
-				echo json_encode(array("status" => FALSE));
+				$data = array(
+					'id_supplier' => $id,
+					'nama' => $nama,
+					'alamat' => $alamat,
+					'email' => $email,
+					'no_telp' => $telp,
+				);
+	
+				if($this->M_Suplier->update($data, $id)){
+					echo json_encode(array("status" => TRUE));
+				}else{
+					echo json_encode(array("status" => FALSE));
+				}
 			}
 		}
 	}

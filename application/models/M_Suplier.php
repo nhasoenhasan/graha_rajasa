@@ -37,4 +37,12 @@ class M_Suplier extends CI_Model {
 		$id = $this->db->where($this->pk,$id)->delete($this->table);
 		return $id;
 	}
+
+	public function isSameName($nama){
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->where('nama', $nama);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 }

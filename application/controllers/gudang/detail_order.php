@@ -85,7 +85,7 @@ class detail_order extends CI_Controller {
 		}
 	}
 
-	//Delete Chart Item By Row Id
+	//Save Cart To Database
 	public function insertChart(){
 		$Id=2;
 		$invoice = 'ORDER-'.date('s').date('y').date('m').str_pad(3,'0',STR_PAD_LEFT);

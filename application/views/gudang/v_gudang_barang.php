@@ -105,20 +105,19 @@
 <div class="modal fade bd-example-modal-sm" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm" >
     <div class="modal-content ">
-       
-            <div class="modal-header justify-content-center">
-                <h5 class="modal-title " id="exampleModalLabel">Hapus Barang</h5>
-            </div>
-            <div class="modal-body mx-auto">
-                <form id="deleteform">
-                    <input type="hidden" name="id_barang" value="">
-                    <img src="<?php echo base_url(); ?>assets/images/trash-2.svg" alt="Trash">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-danger" onclick="delete_Barang()">Delete</button>
-            </div>
+        <div class="modal-header justify-content-center">
+            <h5 class="modal-title " id="exampleModalLabel">Hapus Barang</h5>
+        </div>
+        <div class="modal-body mx-auto">
+            <form id="deleteform">
+                <input type="hidden" name="id_barang" value="">
+                <img src="<?php echo base_url(); ?>assets/images/trash-2.svg" alt="Trash">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            <button type="button" class="btn btn-danger" onclick="delete_Barang()">Delete</button>
+        </div>
     </div>
   </div>
 </div>

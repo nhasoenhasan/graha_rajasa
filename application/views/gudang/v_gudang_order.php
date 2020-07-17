@@ -62,17 +62,20 @@
         <div class="form-group">
             <label for="exampleFormControlSelect1">Pilih Suplier</label>
             <select name="suplier" class="form-control" id="suplier">
-                
             </select>
+            <small id="HelpSuplier" class="form-text text-danger ml-1">
+            </small>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Jumlah</label>
             <input name="qty" type="number" class="form-control" id="qty" aria-describedby="emailHelp" placeholder="Masukan Jumlah">
+            <small id="HelpQty" class="form-text text-danger ml-1">
+            </small>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="add_cart()">Add</button>
+        <button type="button" class="btn btn-primary" onclick="validation()">Add</button>
       </div>
       </form>
     </div>
@@ -113,12 +116,14 @@
 
     //Handle Modal Add Barang
     function modaladd(params) {
+        clearForm()
         $('#addform')[0].reset();
         $('#ModalLabel').text('Tambah Barang');
         $('#modalAdd').modal('show')
     }
 
     $('#show_data').on('click','.item_order',function(){
+        clearForm()
         $('#ModalLabel').text('Order Barang');
         $('#addform')[0].reset();
         var id=$(this).attr('data');
@@ -156,7 +161,7 @@
                             '<td style="word-break: break-all;" class="text-center">'+data[i].harga_jual+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].nama+'</td>'+
                             '<td class="text-center">'+
-                                '<a  href="javascript:;" class="btn btn-success item_order btn-xs" data="'+data[i].id_barang+','+data[i].id_supplier+','+data[i].nama_barang+','+data[i].stok+','+data[i].harga_beli+','+data[i].harga_jual+','+data[i].deskripsi+','+data[i].nama+'" >Order</a>'
+                                '<a  href="javascript:;" class="btn btn-success item_order btn-xs" data="'+data[i].id_barang+','+data[i].id_supplier+','+data[i].nama_barang+','+data[i].stok+','+data[i].harga_beli+','+data[i].harga_jual+','+data[i].deskripsi+','+data[i].nama+'" ><span class="fas fa-cart-plus" style="color:white"></span></a>'
                             '</td>'+
                         '</tr>';
                 }
@@ -181,6 +186,75 @@
                 $('#suplier').html(html);
             }
         });
+    }
+
+    //--------- Form Validation ----------------- 
+    //Pilih Suplier Add
+    $('#suplier').on('change', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpSuplier').text('');
+            $('#suplier').removeClass('is-invalid');
+            $('#suplier').addClass('is-valid');
+        }else{
+            $('#HelpSuplier').text('Silahkan Pilih Suplier');
+            $('#suplier').removseClass('is-valid');
+            $('#suplier').addClass('is-invalid');
+        }
+    });
+
+    //Stok
+    $('#qty').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpQty').text('');
+            $('#qty').removeClass('is-invalid');
+            $('#qty').addClass('is-valid');
+        }else{
+            $('#HelpQty').text('Masukan Jumlah');
+            $('#qty').removeClass('is-valid');
+            $('#qty').addClass('is-invalid');
+        }
+    });
+
+
+    //Handle Validation Form Modal
+    function validation(){
+        var array=[$("#suplier").val(),$("#qty").val()];
+        var isnull = array.includes(null);
+        var isempty=array.includes("");
+        var istrue=[isnull,isempty];
+
+        var validation=istrue.includes(true);
+
+        //If True === Ada Kolom Yang Kosong
+        if(validation===true){
+            validationForm(array)
+        }else{
+            add_cart()
+        }
+    }
+
+    //Form Validation
+    function validationForm(array){
+        if (array[0]==null) {
+            $('#HelpSuplier').text('Silahkan Pilih Suplier');
+            $('#suplier').addClass('is-invalid');
+        }
+        if (array[1]=="") {
+            $('#HelpQty').text('Masukan Jumlah');
+            $('#qty').addClass('is-invalid');
+        }
+    }
+
+    function clearForm(){
+        $('#HelpSuplier').text('');
+        $('#suplier').removeClass('is-invalid');
+        $('#suplier').removeClass('is-valid');
+
+        $('#HelpQty').text('');
+        $('#qty').removeClass('is-invalid');
+        $('#qty').removeClass('is-valid');
     }
 
     //Handle Add Barang
