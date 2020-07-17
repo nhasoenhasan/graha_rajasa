@@ -17,12 +17,17 @@
                     <form id="dataform">
                         <div class="form-group col-md-8">
                             <label class="font-weight-bold" for="inputEmail4">Pilih Barang</label>
-                                <select class="custom-select" id="barang">
+                                <select class="custom-select" name="barang" id="barang">
                             </select>
+                            <small id="HelpBarang" class="form-text text-danger ml-1">
+                            </small>
                         </div>
                         <div class="form-group col-md-8">
                             <label class="font-weight-bold" for="inputCity">Masukan Jumlah</label>
                             <input type="number" class="form-control" name="qty" id="qty">
+                            <small id="HelpQty" class="form-text text-danger ml-1">
+                            </small>
+                            <input type="hidden" class="form-control" name="stock" id="stock">
                             <input type="hidden" class="form-control" name="id_barang" id="id_barang">
                             <input type="hidden" class="form-control" name="price" id="price">
                             <input type="hidden" class="form-control" name="nama_barang" id="nama_barang">
@@ -35,7 +40,7 @@
                         </div>
                     </form>
                     <div class="form-group col-md-8">
-                        <button type="submit" onclick="add_ToCart()" class="btn btn-primary">Add To Cart</button>
+                        <button type="submit" onclick="validationAddCart()" class="btn btn-primary">Add To Cart</button>
                     </div>                                                                        
                 </div>
                 <div class="d-flex align-items-start flex-column align-content-md-start cart " style="height: auto;width:38rem">
@@ -140,6 +145,7 @@
             price=0;
             $('#id_barang').val(null);
             $('#nama_barang').val(null);
+            $('#stock').val(0);
             $('#price').val(0);
             $('#harga_show').text(0);
             $('#qty').val(0);
@@ -150,16 +156,45 @@
             $('#nama_barang').val(data[1]);
             $('#price').val(data[3]);
             $('#harga_show').text(data[3]);
+            $('#stock').val(data[2]);
             $('#qty').val(1);
         }
     });
 
     //On Input Qty 
     $('#qty').on('input', function() {
+        var stock=$("input[name=stock]").val();
+        stock=parseInt(stock);
         data=this.value
         var sub_total=price;
         sub_total=price*data;
-        $('#harga_show').text(sub_total);
+        
+        if (data==='') {
+            $('#HelpQty').text('Masukan Jumlah');
+            $('#qty').addClass('is-invalid');
+        }else{
+            if(data>stock){
+                $('#HelpQty').text('*Stok Tidak Tersedia');
+                $('#qty').addClass('is-invalid');
+            }else{
+                $('#HelpQty').text('');
+                $('#qty').removeClass('is-invalid');
+            }
+        }
+    });
+
+    //On Input Qty 
+    $('#barang').on('change', function() {
+        data=this.value
+        if (data===''||data==='null') {
+            $('#HelpBarang').text('Pilih Barang');
+            $('#barang').addClass('is-invalid');
+        }else{
+            $('#HelpBarang').text('');
+            $('#barang').removeClass('is-invalid');
+            $('#HelpQty').text('');
+            $('#qty').removeClass('is-invalid');
+        }
     });
 
     //On Input Qty 
@@ -177,6 +212,29 @@
     function resetBayarKembalian(){
         $('#kembalian').text(0);
         $('#bayar').val(0);
+    }
+
+    //Handle Validation Add To Cart
+    function validationAddCart(){
+        var stock=$("input[name=stock]").val();
+        var barang=$("#barang").val();
+        stock=parseInt(stock);
+        var qty=$("input[name=stock]").val();
+
+        if (barang==='null'||qty==='') {
+            $('#HelpQty').text('Masukan Jumlah');
+            $('#qty').addClass('is-invalid');
+            $('#HelpBarang').text('Pilih Barang');
+            $('#barang').addClass('is-invalid');
+        }else{
+            qty=parseInt(qty);
+            if(qty>stock){
+                $('#HelpQty').text('*Stok Tidak Tersedia');
+                $('#qty').addClass('is-invalid');
+            }else{
+                add_ToCart()
+            }
+        }
     }
 
     //Handle Add Barang
@@ -322,6 +380,7 @@
      $('#show_cart').on('click','.add-cart',function(){
         var data=$(this).attr('data');
         data=data.split(',');
+        console.log(data);
         var url;
         url = '<?php echo  base_url().'index.php/kasir/kasir/addChart'?>';
         $.ajax({

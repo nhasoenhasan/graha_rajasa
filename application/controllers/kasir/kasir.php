@@ -38,6 +38,7 @@ class kasir extends CI_Controller {
             $id_barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
 			$price=htmlspecialchars($this->input->post('price',TRUE),ENT_QUOTES);
 			$nama_barang=htmlspecialchars($this->input->post('nama_barang',TRUE),ENT_QUOTES);
+			$nama_barang=htmlspecialchars($this->input->post('nama_barang',TRUE),ENT_QUOTES);
 
 			$data = array(
                 'id'      => $id_barang,
