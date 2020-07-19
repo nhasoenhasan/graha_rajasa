@@ -130,17 +130,17 @@
                             '<td class="text-center">'+data[i].options.supplier+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+
                                 '<div class="row justify-content-center" role="group" >'+
-                                    '<a href="javascript:;" class="btn btn-success add-cart" data="'+data[i].rowid+','+data[i].qty+'" type="button">+</a>'+
+                                    '<a href="javascript:;" class="btn btn-primary add-cart" data="'+data[i].rowid+','+data[i].qty+'" type="button"><span class="fas fa-plus fa-sm" style="color:#ffff"></span></a>'+
                                     '<div style="width:2rem" class="justify-content-center align-content-center">'+
                                         '<p>'+data[i].qty+'</p>'+
                                     '</div>'+
-                                    '<a href="javascript:;" class="btn btn-danger sub-cart" data="'+data[i].rowid+','+data[i].qty+'" type="button">+</a>'+
+                                    '<a href="javascript:;" class="btn btn-primary sub-cart" data="'+data[i].rowid+','+data[i].qty+'" type="button"><span class="fas fa-minus fa-sm" style="color:#ffff"></span></a>'+
                                 '</div>'+
                             '</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].price+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].subtotal+'</td>'+
                             '<td class="text-center">'+
-                            '<a href="javascript:;" class="btn btn-danger del-cart" data="'+data[i].rowid+'" type="button">D</a>'+
+                            '<a href="javascript:;" class="btn btn-danger del-cart" data="'+data[i].rowid+'" type="button"><span class="fas fa-trash-alt fa-sm" style="color:#ffff"></span></a>'+
                             '</td>'+
                         '</tr>';
                 }

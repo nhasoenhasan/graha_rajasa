@@ -7,6 +7,7 @@ class barang extends CI_Controller {
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('M_Barang');
+		$this->load->model('M_Setting');
 		if(empty($this->session->userdata('username'))){
 			redirect(base_url());
 		}
@@ -104,8 +105,7 @@ class barang extends CI_Controller {
 		if ($this->form_validation->run() == FALSE)
 		{	
 			echo json_encode(array("tes"=>$data,"status" => FALSE));
-		}else
-		{
+		}else{
 			$barang=htmlspecialchars($this->input->post('barang',TRUE),ENT_QUOTES);
 			$nama_barang=htmlspecialchars($this->input->post('nama_barang',TRUE),ENT_QUOTES);
 			$id_barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
@@ -174,6 +174,7 @@ class barang extends CI_Controller {
 
 	public function cetak(){
 		$value['data']=$this->M_Barang->getCetak();
+		$value['cetak']=$this->M_Setting->getCetak();
 		$this->load->view('surat/v_cetak_barang',$value);
 	}
 

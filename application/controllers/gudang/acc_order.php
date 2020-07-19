@@ -7,6 +7,7 @@ class acc_order extends CI_Controller {
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('M_Order');
+		$this->load->model('M_Setting');
 		if(empty($this->session->userdata('username'))){
 			redirect(base_url());
 		}
@@ -68,9 +69,11 @@ class acc_order extends CI_Controller {
 	public function cetak(){
 		$data=$this->input->post('supplier',TRUE);
 		if($data!=NULL){
+			$v=$this->M_Order->getSupplierNama($data);
+			$value['supplier']=$v[0]['nama'];
 			$value['total']=$this->M_Order->getTotal($data);
 			$value['data']=$this->M_Order->getAllArray(2,$data);
-			$value['supplier']=$data;
+			$value['cetak']=$this->M_Setting->getCetak();
 			$this->load->view('surat/v_surat',$value);
 		}else{
 			echo "Silahkan Pilih Supplier";

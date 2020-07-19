@@ -2,7 +2,7 @@
     <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active" href="#">
+            <a class="nav-link active" href="<?php echo  base_url().'index.php/kasir/index'?>">
             <span class="fas fa-cash-register fa-2x mr-1" style="color:#007bff"></span>
                 Kasir <span class="sr-only">(current)</span>
             </a>
@@ -14,13 +14,13 @@
         </a>
         </h6>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="<?php echo  base_url().'index.php/kasir/penjualan'?>">
             <span data-feather="file"></span>
                 Penjualan
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="<?php echo  base_url().'index.php/kasir/return_barang'?>">
             <span data-feather="file"></span>
                 Return Barang
             </a>

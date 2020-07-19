@@ -22,19 +22,17 @@
     <div class="container">
         <div class="row justify-content-md-center mt-5">
             <div class="col-md-auto border-dark ">
-                <p class="h3 font-weight-normal">PT. GRAHA RAJASA YOGYAKARTA</p>
+                <p class="h3 font-weight-normal"><?= $cetak[0]['nama_perusahaan']?></p>
             </div>
         </div>
         <div class="row justify-content-md-center mt-1">
             <div class="col-md-auto border-dark ">
-                <p class="h5 font-weight-bold">Service AC Kendaraan Mobil dan Bus</p>
+                <p class="h5 font-weight-bold"><?= $cetak[0]['tag_line']?></p>
             </div>
         </div>
         <div class="row justify-content-md-center ">
             <div class="col-md-auto border-dark text-center ">
-                <p >Jl.Ringroad Barat No.250, Nogotirto, Kec. Gamping, Kab. Sleman</p>
-                <p style="margin-top:-1rem">Daerah Istimewa Yogyakarta</p>
-                <p style="margin-top:-1rem">5592</p>
+                <p class="text-center" ><?= $cetak[0]['alamat']?></p>
             </div>
         </div>
         <hr style="margin-top:-0.5rem;background-color:black">
@@ -78,7 +76,7 @@
                 <p >Pimpinan PT.Graha Rajasa</p>
             </div>
             <div class="col-5 text-center">
-                <hr style="width:14rem">
+               <p><?= $cetak[0]['tdd_gudang']?></p>
             </div>
         </div>
     </div>

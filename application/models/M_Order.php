@@ -90,4 +90,14 @@ class M_Order extends CI_Model {
 		return $id;
 	}
 
+	//Delete Order Acc
+	public function getSupplierNama($id){
+		$this->db->select('nama');
+		$this->db->from('supplier');
+		$this->db->where('id_supplier',$id);
+		$this->db->order_by('id_supplier', 'DESC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 }

@@ -7,6 +7,7 @@ class suplier extends CI_Controller {
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('M_Suplier');
+		$this->load->model('M_Setting');
 		if(empty($this->session->userdata('username'))){
 			redirect(base_url());
 		}
@@ -156,6 +157,7 @@ class suplier extends CI_Controller {
 
 	public function cetak(){
 		$value['data']=$this->M_Suplier->getCetak();
+		$value['cetak']=$this->M_Setting->getCetak();
 		$this->load->view('surat/v_cetak_supplier',$value);
 	}
 }

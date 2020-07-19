@@ -98,7 +98,18 @@ class kasir extends CI_Controller {
         $this->cart->update($data);
         echo json_encode(array("total"=>$this->cart->total(),'status'=>true));
     }
-    
+	
+	
+	//Handle Check Chart Is Empty
+	public function isCart(){
+		if($this->cart->total_items()==0){
+			echo json_encode(array("status" => FALSE));
+		}else{
+			$this->insertCart();
+		}
+	}
+
+
     public function insertCart(){
 		$Id=2;
 		$invoice = 'TRSC-'.date('s').date('y').date('m').str_pad(3,'0',STR_PAD_LEFT);

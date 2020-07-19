@@ -27,7 +27,7 @@
         </div>
         <div class="row justify-content-md-center mt-1">
             <div class="col-md-auto border-dark ">
-                <p class="h3 font-weight-bold">PT. GRAHA RAJASA YOGYAKARTA</p>
+                <p class="h3 font-weight-bold"><?= $cetak[0]['nama_perusahaan']?></p>
             </div>
         </div>
         <div class="row justify-content-md-center mt-3">
@@ -90,7 +90,7 @@
                 <p >Pimpinan PT.Graha Rajasa</p>
             </div>
             <div class="col-5 text-center">
-                <hr style="width:14rem">
+                <p><?= $cetak[0]['tdd_gudang']?></p>
             </div>
         </div>
     </div>

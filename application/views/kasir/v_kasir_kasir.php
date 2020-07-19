@@ -52,7 +52,8 @@
 
                         </div>
                     </div>
-                    <div id="empty" class="p-2 pl-4 mt-5 mb-5" style="margin-bottom:-0.5rem">
+                    <div id=empty>
+                    <div class="p-2 pl-4 mt-5 mb-5" style="margin-bottom:-0.5rem">
                         <div class="row ml-1">
                             <div style="width:7rem">
                                 <p class="font-weight-bold">Subtotal</p>
@@ -75,7 +76,7 @@
                                 <p class="font-weight-bold">Total</p>
                             </div>
                             <div>
-                                <p class="font-weight-bold" id="total_all">Rp.10.000,-</p>
+                                <p class="font-weight-bold" id="total_all">Rp.0</p>
                             </div>
                         </div>
                         <hr style="margin-top:-0.5rem;background-color:black">
@@ -97,7 +98,8 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-dark btn-sm ml-3 mb-3">Edit Discont (%)</button>
-                    <button type="button"  onclick="save_Database()"class="btn btn-primary btn-lg btn-block">SAVE</button>
+                    <button type="button"  onclick="save_Database()"class="btn btn-primary btn-lg btn-block" >SAVE</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -268,7 +270,7 @@
     function save_Database()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/kasir/kasir/insertCart'?>';
+        url = '<?php echo  base_url().'index.php/kasir/kasir/isCart'?>';
         // ajax adding data to database
         var formData = new FormData($('#dataform')[0]);
         $.ajax({
@@ -279,15 +281,17 @@
             processData: false,
             dataType: "JSON",
             success : function(data){  
-                get_Barang()
-                getCart()
-                getDiskon()
-                $('#total_cart').text('Rp. 0');
-                $('#barang').val('null');
-                $('#qty').val('');
-                $('#harga_show').text('Rp. 0');
-                setTotal()
-                resetBayarKembalian()
+                if(data.status===true){
+                    get_Barang()
+                    getCart()
+                    getDiskon()
+                    $('#total_cart').text('Rp. 0');
+                    $('#barang').val('null');
+                    $('#qty').val('');
+                    $('#harga_show').text('Rp. 0');
+                    setTotal()
+                    resetBayarKembalian()
+                }
             }
         })
     }
@@ -304,8 +308,11 @@
                 total_cart=data.total;
                 data=Object.values(data.data)
                 var html = '';
+                var html2 = '';
                 var i;
                 if (data.length!==0) {
+                    html2 ='';
+
                     for(i=0; i<data.length; i++){
                         html += '<div class="d-flex justify-content-around pl-2">'+
                                     '<div class="p-1">'+
@@ -314,16 +321,10 @@
                                     '<div class="p-1" style="width:7rem">'+
                                         '<p>'+data[i].name+'</p>'+
                                     '</div>'+
-                                    '<div class="p-1 row justify-content-center" style="width:17rem">'+
-                                        '<div style="width:2rem">'+
-                                            '<a href="javascript:;" class="btn btn-primary btn-sm sub-cart" data="'+data[i].rowid+','+data[i].qty+'"><span class="fas fa-minus fa-sm "  style="color:#ffff;height:0.4rem"></span></a>'+
-                                        '</div>'+  
+                                    '<div class="p-1 row justify-content-center" style="width:17rem">'+ 
                                         '<div style="width:auto" class="pr-2 pl-1">'+
-                                            '<p>'+data[i].qty+'</p>'+
-                                        '</div>'+
-                                        '<div style="width:2rem">'+
-                                            '<a href="javascript:;" class="btn btn-primary btn-sm add-cart" data="'+data[i].rowid+','+data[i].qty+'"><span class="fas fa-plus fa-sm" style="color:#ffff;height:0.4rem"></span></a>'+
-                                        '</div>'+                                                                                         
+                                            '<p>'+data[i].qty+'   x   Rp.'+data[i].price+'</p>'+
+                                        '</div>'+                                                                                        
                                     '</div>'+
                                     '<div class="p-1" style="width:8rem" >'+
                                         '<p>Rp.  '+data[i].subtotal+'</p>'+
@@ -333,10 +334,10 @@
                                     '</div>'+
                                 '</div>';
                     }   
+                    $('#show_cart').html(html);
                 }else{
-                    html+='<h5 class="ml-2 text-danger">Cart Kosong.......</h5>'
+                    $('#show_cart').html('<h5 class="ml-2">Kosong....</h5>');
                 }
-                $('#show_cart').html(html);
             }
         });
     }
@@ -380,7 +381,6 @@
      $('#show_cart').on('click','.add-cart',function(){
         var data=$(this).attr('data');
         data=data.split(',');
-        console.log(data);
         var url;
         url = '<?php echo  base_url().'index.php/kasir/kasir/addChart'?>';
         $.ajax({
