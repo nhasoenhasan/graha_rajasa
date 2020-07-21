@@ -97,14 +97,46 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-dark btn-sm ml-3 mb-3">Edit Discont (%)</button>
-                    <button type="button"  onclick="save_Database()"class="btn btn-primary btn-lg btn-block" >SAVE</button>
+                    <button type="button" class="btn btn-dark btn-sm ml-3 mb-3" data-toggle="modal" onclick="modalDiskon()">Edit Discont (%)</button>
+                    <form  action="<?php echo  base_url().'index.php/kasir/kasir/cetakNota'?>" method="post" target="_blank">
+                        <button type="submit"  onclick="save_Database()"class="btn btn-primary btn-lg btn-block" >SAVE</button>
+                    </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+<!-- Modal -->
+<div class="modal fade" id="diskonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Diskon </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pl-5 pr-5 pb-3">
+        <form id="diskonform">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Diskon (%)</label>
+                <input type="number" class="form-control" id="edit_diskon" name="edit_diskon" placeholder="Masukan Diskon Dalam Persen (%)">
+                <small id="HelpDiskon" class="form-text text-danger ml-1">
+                </small>        
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="validation()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+
 <script  type="text/javascript">
     var price=0;
     var total_cart=0;
@@ -120,6 +152,9 @@
         setTotal()
         resetBayarKembalian()
     });
+
+    //Icon Feather
+    feather.replace()
 
     //Get Data Barang
     function get_Barang() {
@@ -179,9 +214,23 @@
                 $('#HelpQty').text('*Stok Tidak Tersedia');
                 $('#qty').addClass('is-invalid');
             }else{
+                $('#harga_show').text(sub_total);
                 $('#HelpQty').text('');
                 $('#qty').removeClass('is-invalid');
             }
+        }
+    });
+
+    //On Input Qty 
+    $('#edit_diskon').on('input', function() {
+        var value=$("input[name=edit_diskon]").val();
+
+        if (value==='') {
+            $('#HelpDiskon').text('Masukan Jumlah Diskon');
+            $('#edit_diskon').addClass('is-invalid');
+        }else{
+            $('#HelpDiskon').text('');
+            $('#edit_diskon').removeClass('is-invalid');
         }
     });
 
@@ -266,6 +315,77 @@
         })
     }
 
+    function validation(){
+        var submit=$("#edit_diskon").val();
+
+        //If True === Ada Kolom Yang Kosong
+        if(submit===''){
+            $('#HelpDiskon').text('Masukan Jumlah Diskon');
+            $('#edit_diskon').addClass('is-invalid');
+        }else{
+            update_Diskon()
+        }
+    }
+    function clearForm(){
+        $('#HelpDiskon').text('');
+        $('#edit_diskon').removeClass('is-invalid');
+    }
+
+    //Show Modal Edit Diskon
+    function modalDiskon() {
+        clearForm()
+        $('#diskonform')[0].reset();
+        $('#edit_diskon').val(diskon);
+        $('#diskonModal').modal('show');
+    }
+
+    //Handle Update Diskon
+    function update_Diskon()
+    { 
+        var url;
+        url = '<?php echo  base_url().'index.php/kasir/kasir/updateDiskon'?>';
+        // ajax adding data to database
+        var formData = new FormData($('#diskonform')[0]);
+        $.ajax({
+            url : url,
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success : function(data){  
+                if(data.status===true){
+                    $('#diskonModal').modal('hide');
+                    destroyCart()
+                    get_Barang()
+                    getCart()
+                    getDiskon()
+                    $('#total_cart').text('Rp. 0');
+                    $('#barang').val('null');
+                    $('#qty').val('');
+                    $('#harga_show').text('Rp. 0');
+                    setTotal()
+                    resetBayarKembalian()
+                }
+            }
+        })
+    }
+
+    function destroyCart(){
+        var url;
+        url = '<?php echo  base_url().'index.php/kasir/kasir/destroyCart'?>';
+        // ajax adding data to database
+        $.ajax({
+            url : url,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success : function(data){  
+            }
+        })
+    }
+
     //Handle Add Barang
     function save_Database()
     { 
@@ -291,6 +411,7 @@
                     $('#harga_show').text('Rp. 0');
                     setTotal()
                     resetBayarKembalian()
+                    
                 }
             }
         })

@@ -20,8 +20,8 @@
                 <th scope="col" class="text-center">Nama Barang</th>
                 <th scope="col" class="text-center">Harga Satuan</th>
                 <th scope="col" class="text-center">Qty</th>
-                <th scope="col" class="text-center">Disc</th>
-                <th scope="col" class="text-center">Total</th>
+                <!-- <th scope="col" class="text-center">Disc</th> -->
+                <th scope="col" class="text-center">Sub Total</th>
             </tr>
         </thead>
         <tbody id="show_data">
@@ -60,7 +60,7 @@
                             '<td class="text-center" style="word-break: break-all;">'+data[i].nama_barang+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">Rp. '+data[i].harga+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].jumlah+'</td>'+
-                            '<td class="text-center" style="word-break: break-all;">'+data[i].diskon+'</td>'+
+                            // '<td class="text-center" style="word-break: break-all;">'+data[i].diskon+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">Rp.'+data[i].subtotal+'</td>'+
                         '</tr>';
                 }

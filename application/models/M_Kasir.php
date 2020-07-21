@@ -95,5 +95,12 @@ class M_Kasir extends CI_Model {
 		$query=$this->db->query($sql, array($stok, $id_barang));
 		return $id_barang;
 	}
+
+	//Handle Update Diskon Value
+	public function updateDiskon($data){
+		$this->db->where('id_promo',1);
+		$this->db->update('promo', $data);
+		return 1;
+	}
 	
 }

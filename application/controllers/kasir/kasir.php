@@ -8,6 +8,7 @@ class kasir extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->library('cart');
 		$this->load->model('M_Kasir');
+		$this->load->model('M_Setting');
 		if(empty($this->session->userdata('username'))){
 			redirect(base_url());
 		}
@@ -109,7 +110,6 @@ class kasir extends CI_Controller {
 		}
 	}
 
-
     public function insertCart(){
 		$Id=2;
 		$invoice = 'TRSC-'.date('s').date('y').date('m').str_pad(3,'0',STR_PAD_LEFT);
@@ -137,6 +137,7 @@ class kasir extends CI_Controller {
 					'harga'=> $item['price'],
 					'subtotal'=> $item['subtotal'],
 					'nama_barang'=> $item['name'],
+					'status'=> 0,
 				);
 				array_push($cart_insert, $detail_transaction);
 			}
@@ -149,8 +150,6 @@ class kasir extends CI_Controller {
                     $this->M_Kasir->updateBarang($item['id'],$item['qty']);
                 }
 
-                //Destroy Cart
-				$this->cart->destroy();
 				echo json_encode(array("status" => TRUE));
 			}else{
 				echo json_encode(array("status" => FALSE));
@@ -158,6 +157,39 @@ class kasir extends CI_Controller {
 		}else{
 			echo json_encode(array("status" => FALSE));
 		}
+	}
+
+	public function cetakNota(){
+		$data=$this->cart->contents();
+		$Id=2;
+		$invoice = 'TRSC-'.date('s').date('y').date('m').str_pad(3,'0',STR_PAD_LEFT);
+
+		$value['total']=$this->cart->total();
+		$value['no_order']=$invoice;
+		$value['data']=$this->cart->contents();
+		$value['cetak']=$this->M_Setting->getCetak();
+		$this->load->view('surat/v_cetak_nota',$value);
+		$this->cart->destroy();
+	}
+
+	public function updateDiskon(){
+		$diskon=$this->input->post('edit_diskon');
+
+		$data = array(
+            'name' => 'diskon', 
+            'value' => $diskon, 
+		);
+		
+        if ($this->M_Kasir->updateDiskon($data)) {
+			echo json_encode(array('status'=>true));
+		}else{
+			echo json_encode(array('status'=>FALSE));
+		}
+	}
+	
+	public function destroyCart(){
+		$this->cart->destroy();
+		echo json_encode(array('status'=>true));
 	}
 	
 }
