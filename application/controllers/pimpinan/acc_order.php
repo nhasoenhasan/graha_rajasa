@@ -15,10 +15,10 @@ class acc_order extends CI_Controller {
 	
 	public function index()
 	{
-		$this->data['title']='Admin Gudang';
-		$this->data['menu'] = $this->load->view('menu/v_menu_gudang',$this->data,TRUE);
+		$this->data['title']='Pimpinan';
+		$this->data['menu'] = $this->load->view('menu/v_menu_pimpinan',$this->data,TRUE);
         $this->load->view('template/v_header',$this->data);
-		$this->load->view('gudang/v_gudang_acc_order');
+		$this->load->view('pimpinan/v_pimpinan_acc_order');
 		$this->load->view('template/v_footer');
 	}
 
@@ -27,10 +27,10 @@ class acc_order extends CI_Controller {
         $status=$_GET['status'];
 		$id_supplier=$_GET['id_supplier'];
 		if ($id_supplier!='') {
-			$data=$this->M_Order->getAllArray(2,$id_supplier);
+			$data=$this->M_Order->getAllArray($status,$id_supplier);
 			echo json_encode($data);
 		}else{
-			$data=$this->M_Order->getAll($status,$id_supplier);
+			$data=$this->M_Order->getAll(0,$id_supplier);
 			echo json_encode($data);
 		}
     }
@@ -45,7 +45,7 @@ class acc_order extends CI_Controller {
 		}else{
 			$data=htmlspecialchars($this->input->post('data',TRUE),ENT_QUOTES);
 
-			$insert = $this->M_Order->updateAccOrder($data);
+			$insert = $this->M_Order->aproveOrder($data);
 
 			echo json_encode(array("status" => TRUE));
 		}
@@ -71,8 +71,8 @@ class acc_order extends CI_Controller {
 		if($data!=NULL){
 			$v=$this->M_Order->getSupplierNama($data);
 			$value['supplier']=$v[0]['nama'];
-			$value['total']=$this->M_Order->getTotal(2,$data);
-			$value['data']=$this->M_Order->getAllArray(2,$data);
+			$value['total']=$this->M_Order->getTotal(3,$data);
+			$value['data']=$this->M_Order->getAllArray(3,$data);
 			$value['cetak']=$this->M_Setting->getCetak();
 			$this->load->view('surat/v_surat',$value);
 		}else{

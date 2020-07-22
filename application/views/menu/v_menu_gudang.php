@@ -52,19 +52,5 @@
                 </a>
             </li>
         </ul>
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted">
-        <span>Pengaturan</span>
-        <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-        </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang/setting'?>">
-                <span data-feather="file-text"></span>
-                    Cetak
-                </a>
-            </li>
-        </ul>
     </div>
 </nav>

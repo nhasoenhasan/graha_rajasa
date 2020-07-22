@@ -7,6 +7,7 @@ class penjualan extends CI_Controller {
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('M_Penjualan');
+		$this->load->model('M_Setting');
 		if(empty($this->session->userdata('username'))){
 			redirect(base_url());
 		}
@@ -14,6 +15,7 @@ class penjualan extends CI_Controller {
 	public function index()
 	{
 		$this->data['title']='Admin Kasir';
+		$this->data['user']='';
 		$this->data['menu'] = $this->load->view('menu/v_menu_kasir',$this->data,TRUE);
         $this->load->view('template/v_header',$this->data);
 		$this->load->view('kasir/v_kasir_penjualan');
@@ -25,4 +27,35 @@ class penjualan extends CI_Controller {
 		$data=$this->M_Penjualan->getAll();
 		echo json_encode($data);
 	}
+
+	public function getByDate()
+	{
+		$start=$_GET['startDate'];
+		$end=$_GET['endDate'];
+		$data=$this->M_Penjualan->getByDateJson($start,$end);
+		echo json_encode($data);
+	}
+
+	public function cetakPenjualan(){
+		$startDate=strtotime($this->input->post('startDate'));
+		$endDate=strtotime($this->input->post('endDate'));
+
+		if ($startDate == FALSE || $endDate == FALSE ){
+			
+			echo "<h1>Masukan Range Tanggal!!</h1>";
+			
+		}else{
+			$startDate = date('Y-m-d',$startDate);
+			$endDate = date('Y-m-d',$endDate);
+			
+			$result=$this->M_Penjualan->getByDate($startDate,$endDate);
+			
+			$value['startDate']=date('d/m/Y',strtotime($this->input->post('startDate')));
+			$value['endDate']=date('d/m/Y',strtotime($this->input->post('endDate')));
+			$value['data']=$result;
+			$value['cetak']=$this->M_Setting->getCetak();
+			$this->load->view('surat/v_cetak_penjualan',$value);
+		}
+	}
+
 }

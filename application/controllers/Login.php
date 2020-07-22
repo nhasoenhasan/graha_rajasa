@@ -17,15 +17,14 @@ class Login extends CI_Controller {
 		$username	= $this->input->post('username');
 		$password	= $this->input->post('password');
 
-		// echo "Before==".$password.":::After".md5($password);
-		// // 202446dd1d6028084426867365b0c7a1
-		// // 202446dd1d6028084426867365b0c7a1
-		// die();
 		$data = array(
 			'username' => $username,
 			'password' => md5($password)
 		);
+
         $user=$this->M_User->auth($data);
+		// var_dump($user);
+		// die();
 
 		if(!empty($user)){
 	 		$begin = date('d-m-Y');
@@ -53,6 +52,4 @@ class Login extends CI_Controller {
 		redirect(base_url());
 	}
     
-
-
 }

@@ -8,6 +8,7 @@ class barang_masuk extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('M_Barang_Masuk');
 		$this->load->model('M_Order');
+		$this->load->model('M_Setting');
 		if(empty($this->session->userdata('username'))){
 			redirect(base_url());
 		}
@@ -17,6 +18,9 @@ class barang_masuk extends CI_Controller {
 	{
 		$this->data['title']='Admin Gudang';
 		$this->data['menu'] = $this->load->view('menu/v_menu_gudang',$this->data,TRUE);
+		$this->data['user']=' <div class="btn-toolbar mb-2 mb-md-0">
+		<button type="button" class="btn btn-success" onclick="modaladd()" data-toggle="modal" >ADD</button>
+		</div>';
         $this->load->view('template/v_header',$this->data);
 		$this->load->view('gudang/v_gudang_barang_masuk');
 		$this->load->view('template/v_footer');
@@ -286,6 +290,36 @@ class barang_masuk extends CI_Controller {
 			}else{
 				echo json_encode(array("status" => FALSE));
 			}
+		}
+	}
+
+	public function getByDate()
+	{
+		$start=$_GET['startDate'];
+		$end=$_GET['endDate'];
+		$data=$this->M_Barang_Masuk->getByDateJson($start,$end);
+		echo json_encode($data);
+	}
+
+	public function cetakBarangMasuk(){
+		$startDate=strtotime($this->input->post('startDate'));
+		$endDate=strtotime($this->input->post('endDate'));
+
+		if ($startDate == FALSE || $endDate == FALSE ){
+			
+			echo "<h1>Masukan Range Tanggal!!</h1>";
+			
+		}else{
+			$startDate = date('Y-m-d',$startDate);
+			$endDate = date('Y-m-d',$endDate);
+			
+			$result=$this->M_Barang_Masuk->getByDate($startDate,$endDate);
+			
+			$value['startDate']=date('d/m/Y',strtotime($this->input->post('startDate')));
+			$value['endDate']=date('d/m/Y',strtotime($this->input->post('endDate')));
+			$value['data']=$result;
+			$value['cetak']=$this->M_Setting->getCetak();
+			$this->load->view('surat/v_cetak_barangMasuk',$value);
 		}
 	}
 

@@ -15,10 +15,11 @@
         </nav>
     </div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center  pb-2 mb-3 border-bottom">
-        <h1 class="h2">Data Barang Masuk</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <button type="button" class="btn btn-success" onclick="modaladd()" data-toggle="modal" >ADD</button>
+        <div class="row ml-1">
+            <h1 class="h2">Data Barang Masuk</h1>
         </div>
+        <?=  $user; ?>
+       
     </div>
     <table id="myTable" class="table">
         <thead class="thead-dark">
@@ -207,6 +208,25 @@
         get_Barang_Masuk()
     });  
 
+    //Handle Date Range
+    $(function() {
+      var $startDate = $('.start-date');
+      var $endDate = $('.end-date');
+
+      $startDate.datepicker({
+        autoHide: true,
+      });
+      $endDate.datepicker({
+        autoHide: true,
+        startDate: $startDate.datepicker('getDate'),
+      });
+
+      $startDate.on('change', function () {
+        $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
+      });
+    });
+    //End Handle Date Range
+
     //Handle Modal Add Barang
     function modaladd(params) {
         clearForm()
@@ -278,7 +298,6 @@
         data=this.value
         data=data.split('|');
         $('[name="nama_supplier"]').val(data[1]);
-
     });
 
      //Edit On Change Select Pilih Data Supplier
@@ -298,6 +317,57 @@
     //Icon Feather
     feather.replace()
 
+    //Get Data Barang
+    function getValidation() {
+        var start=$('#startDate').val();
+        var end=$('#endDate').val();
+        if (start === '' || end === '') {
+            $('#startDate').addClass('is-invalid');
+            $('#endDate').addClass('is-invalid');
+        }else{
+            getByDate()
+        }
+    }
+
+    //Get Data Barang Masuk By Date Range
+    function getByDate() {
+        var start=$('#startDate').val();
+        var end=$('#endDate').val();
+      $.ajax({
+            type  : 'get',
+            url   : '<?php echo  base_url().'index.php/gudang/barang_masuk/getByDate'?>',
+            async : false,
+            dataType : 'json',
+            data:{
+                startDate:start,
+                endDate:end
+            },
+            success : function(data){
+                var html = '';
+                var i;
+                for(i=0; i<data.length; i++){
+                    html += 
+                        '<tr>'+
+                            '<td class="text-center">'+(i+1)+'</td>'+
+                            '<td class="text-center">'+data[i].no_struk+'</td>'+
+                            '<td style="word-break: break-all;" class="text-center">'+data[i].nama_barang+'</td>'+
+                            '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].harga_beli+'</td>'+
+                            '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].harga_jual+'</td>'+
+                            '<td style="word-break: break-all;" class="text-center">'+data[i].nama_supplier+'</td>'+
+                            '<td style="word-break: break-all;" class="text-center">'+data[i].jumlah+'</td>'+
+                            '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].subtotal+'</td>'+
+                            '<td style="word-break: break-all;" class="text-center">'+data[i].tanggal_masuk+'</td>'+
+                            '<td class="text-center">'+
+                                '<a  href="javascript:;" class="btn btn-warning item_edit btn-xs" data="'+data[i].harga_beli+','+data[i].id_barang+','+data[i].id_det_barang_masuk+','+data[i].id_supplier+','+data[i].jumlah+','+data[i].nama_barang+','+data[i].nama_supplier+','+data[i].no_struk+','+data[i].subtotal+','+data[i].id_barang_masuk+','+data[i].harga_jual+'" ><span class="fas fa-pencil-alt" style="color:white"></span></a>'+' '+
+                                // '<a onclick="modalhapus('+data[i].id_barang+')" class="btn btn-danger btn-xs item_hapus " data="'+data[i].id_barang+'">D</a>'+
+                            '</td>'+
+                        '</tr>';
+                }
+                $('#show_data').html(html);
+            }
+        });
+    }
+    
     //Get Data Barang Masuk
     function get_Barang_Masuk() {
       $.ajax({

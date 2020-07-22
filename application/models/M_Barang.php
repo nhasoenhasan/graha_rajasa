@@ -48,4 +48,32 @@ class M_Barang extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function getCountBarang(){
+		$this->db->select('count(*) AS jumlah'); 
+		$this->db->from('barang');
+		$query=$this->db->get();
+		return $query->result_array();
+	}
+
+	public function getCountSuplier(){
+		$this->db->select('count(*) AS jumlah'); 
+		$this->db->from('supplier');
+		$query=$this->db->get();
+		return $query->result_array();
+	}
+
+	public function getCountBarangMasuk(){
+		$this->db->select('count(*) AS jumlah'); 
+		$this->db->from('barang_masuk');
+		$query=$this->db->get();
+		return $query->result_array();
+	}
+
+	public function getOrderBarang(){
+		$this->db->select('count(*) AS jumlah'); 
+		$this->db->from('det_order_barang');
+		$query=$this->db->get();
+		return $query->result_array();
+	}
+
 }

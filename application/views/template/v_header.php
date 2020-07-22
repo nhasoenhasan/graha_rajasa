@@ -11,6 +11,7 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/datatables.min.css" rel="stylesheet">
+    <link  href="<?php echo base_url(); ?>assets/css/datepicker.css"  rel="stylesheet">
     <!--------- Javascript ---------->
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
@@ -20,6 +21,7 @@
     <script src="https://kit.fontawesome.com/91102adea5.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/dashboard.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/datepicker.js" ></script>
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;

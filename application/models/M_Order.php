@@ -62,10 +62,10 @@ class M_Order extends CI_Model {
 		}
 	}
 
-	public function getTotal($nama){
-		$status='status';
+	public function getTotal($status,$nama){
+		// $status='status';
 		$sql="SELECT SUM(subtotal) AS total FROM det_order_barang WHERE status=? AND id_supplier=?";
-		$query=$this->db->query($sql, array(2, $nama));
+		$query=$this->db->query($sql, array($status, $nama));
 		// $query=$this->db->query('SELECT SUM(subtotal) AS total FROM det_order_barang WHERE status=? AND nama_supplier=?');
 		return $query->result_array();
 	}
@@ -79,6 +79,15 @@ class M_Order extends CI_Model {
 	public function updateAccOrder($id){
 		// $id = $this->db->update('det_order_barang', $data,'id_det_order_brg');
 		$this->db->set('status', 2);
+		$this->db->where($this->pk, $id);
+		$this->db->update($this->table);
+		return $id;
+	}
+
+	//Update Status Order Acc
+	public function aproveOrder($id){
+		// $id = $this->db->update('det_order_barang', $data,'id_det_order_brg');
+		$this->db->set('status', 1);
 		$this->db->where($this->pk, $id);
 		$this->db->update($this->table);
 		return $id;
