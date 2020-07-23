@@ -69,6 +69,29 @@ class M_Barang extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function getCountUser(){
+		$this->db->select('count(*) AS jumlah'); 
+		$this->db->from('user');
+		$query=$this->db->get();
+		return $query->result_array();
+	}
+	
+	public function getCountPenjualan(){
+		$this->db->select('count(*) AS jumlah'); 
+		$this->db->from('detail_penjualan');
+		$this->db->where('status',0);
+		$query=$this->db->get();
+		return $query->result_array();
+	}
+
+	public function getCountReturn(){
+		$this->db->select('count(*) AS jumlah'); 
+		$this->db->from('detail_penjualan');
+		$this->db->where('status',1);
+		$query=$this->db->get();
+		return $query->result_array();
+	}
+
 	public function getOrderBarang(){
 		$this->db->select('count(*) AS jumlah'); 
 		$this->db->from('det_order_barang');

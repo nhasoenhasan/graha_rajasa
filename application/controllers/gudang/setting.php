@@ -15,7 +15,7 @@ class setting extends CI_Controller {
 	public function index()
 	{
 		$this->data['title']='Admin Gudang';
-		$this->data['menu'] = $this->load->view('menu/v_menu_gudang',$this->data,TRUE);
+		$this->data['menu'] = $this->load->view('menu/v_menu_pimpinan',$this->data,TRUE);
         $this->load->view('template/v_header',$this->data);
 		$this->load->view('gudang/v_setting_cetak');
 		$this->load->view('template/v_footer');

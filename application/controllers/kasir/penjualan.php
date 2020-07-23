@@ -30,8 +30,12 @@ class penjualan extends CI_Controller {
 
 	public function getByDate()
 	{
-		$start=$_GET['startDate'];
-		$end=$_GET['endDate'];
+		$start=strtotime($_GET['startDate']);
+		$end=strtotime($_GET['endDate']);
+
+		$start = date('Y-m-d',$start);
+		$end = date('Y-m-d',$end);
+		
 		$data=$this->M_Penjualan->getByDateJson($start,$end);
 		echo json_encode($data);
 	}

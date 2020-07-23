@@ -9,7 +9,15 @@
 </style>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom pt-5">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3  ">
+        <nav aria-label="breadcrumb" style="margin-left:-0.8rem">
+            <ol class="breadcrumb bg-white">
+                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item active">Data Return</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <div class="row ml-1">
             <h1 class="h2">Data Return</h1>
             <form  class="form-inline"   style="margin-left:1rem" action="<?php echo  base_url().'index.php/kasir/return_barang/getCetak'?>" method="post" target="_blank">

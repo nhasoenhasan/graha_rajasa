@@ -20,8 +20,8 @@
 
 <body class="text-center">
     <form action="<?php echo base_url().'index.php/Login/auth'?>" method="post" class="form-signin">
-        <img class="mb-4" src="<?php echo base_url(); ?>assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Graha Rajasa</h1>
+        <img class="mb-1" src="<?php echo base_url(); ?>assets/images/logo.jpeg" alt="" width="300rem" height="100rem">
+        <!-- <h1 class="h3 mb-3 font-weight-normal">Login</h1> -->
         <div class="form-group">
             <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="Masukan Username">
         </div>

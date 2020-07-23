@@ -18,9 +18,7 @@ class M_Penjualan extends CI_Model {
 		FROM penjualan
 		INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
 		WHERE detail_penjualan.status=0
-		and date(penjualan.tanggal) BETWEEN ? AND ?
-		GROUP BY DATE(penjualan.tanggal);
-		';
+		and date(penjualan.tanggal) BETWEEN ? AND ?';
 		$query = $this->db->query($sql,array($start,$end));
         return $query->result_array();
 	}
@@ -30,9 +28,7 @@ class M_Penjualan extends CI_Model {
 		FROM penjualan
 		INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
 		WHERE detail_penjualan.status=0
-		and date(penjualan.tanggal) BETWEEN ? AND ?
-		GROUP BY DATE(penjualan.tanggal);
-		';
+		and date(penjualan.tanggal) BETWEEN ? AND ? ';
 		$query = $this->db->query($sql,array($start,$end));
         return $query->result();
 	}

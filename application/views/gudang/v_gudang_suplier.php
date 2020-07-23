@@ -9,13 +9,13 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3  ">
         <nav aria-label="breadcrumb" style="margin-left:-0.8rem">
             <ol class="breadcrumb bg-white">
-                <li class="breadcrumb-item"><a href="<?php echo  base_url().'index.php/gudang/index'?>">Dashboard</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
                 <li class="breadcrumb-item active">Data Suplier</li>
             </ol>
         </nav>
     </div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center  pb-2 mb-3 border-bottom">
-        <div class="row ">
+        <div class="row ml-1 ">
             <h1 class="h2">Data Suplier</h1>
             <a target="_blank" href="<?php echo  base_url().'index.php/gudang/suplier/cetak'?>" class="btn btn-primary ml-3"  ><span data-feather="printer"></span></a>    
         </div>

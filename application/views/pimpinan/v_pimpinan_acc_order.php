@@ -6,7 +6,7 @@
 </style>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3  mb-1">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 ">
         <nav aria-label="breadcrumb" style="margin-left:-0.8rem">
             <ol class="breadcrumb bg-white">
                 <li class="breadcrumb-item"><a href="<?php echo  base_url().'index.php/pimpinan/index'?>">Dashboard</a></li>

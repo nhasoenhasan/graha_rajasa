@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang/acc_order'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan/index/user'?>">
                 <span data-feather="file-text"></span>
                     User
                 </a>
@@ -58,7 +58,7 @@
                 </a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang/acc_order'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan/index/returnBarang'?>">
                 <span data-feather="file-text"></span>
                     Return Barang
                 </a>

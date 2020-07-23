@@ -22,8 +22,7 @@ class M_Barang_Masuk extends CI_Model {
 		$sql='SELECT DISTINCT det_barang_masuk.harga_jual,barang_masuk.id_barang_masuk,det_barang_masuk.id_supplier,det_barang_masuk.id_barang,det_barang_masuk.harga_beli,det_barang_masuk.id_det_barang_masuk,barang_masuk.no_struk,barang_masuk.nama_supplier,barang_masuk.tanggal_masuk,det_barang_masuk.jumlah,det_barang_masuk.nama_barang,det_barang_masuk.subtotal
 		FROM barang_masuk
 		INNER JOIN det_barang_masuk ON barang_masuk.id_barang_masuk = det_barang_masuk.id_barang_masuk
-		WHERE date(barang_masuk.tanggal_masuk) BETWEEN ? AND ?
-		GROUP BY DATE(barang_masuk.tanggal_masuk)';
+		WHERE date(barang_masuk.tanggal_masuk) BETWEEN ? AND ? ';
 		$query=$this->db->query($sql,array($start,$end));
 		return $query->result_array();
 	}
@@ -33,8 +32,7 @@ class M_Barang_Masuk extends CI_Model {
 		$sql='SELECT DISTINCT det_barang_masuk.harga_jual,barang_masuk.id_barang_masuk,det_barang_masuk.id_supplier,det_barang_masuk.id_barang,det_barang_masuk.harga_beli,det_barang_masuk.id_det_barang_masuk,barang_masuk.no_struk,barang_masuk.nama_supplier,barang_masuk.tanggal_masuk,det_barang_masuk.jumlah,det_barang_masuk.nama_barang,det_barang_masuk.subtotal
 		FROM barang_masuk
 		INNER JOIN det_barang_masuk ON barang_masuk.id_barang_masuk = det_barang_masuk.id_barang_masuk
-		WHERE date(barang_masuk.tanggal_masuk) BETWEEN ? AND ?
-		GROUP BY DATE(barang_masuk.tanggal_masuk)';
+		WHERE date(barang_masuk.tanggal_masuk) BETWEEN ? AND ? ';
 		$query=$this->db->query($sql,array($start,$end));
 		return $query->result();
 	}
