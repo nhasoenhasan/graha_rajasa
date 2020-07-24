@@ -173,10 +173,39 @@ class barang extends CI_Controller {
 	}
 
 	public function cetak(){
-		$value['data']=$this->M_Barang->getCetak();
-		$value['cetak']=$this->M_Setting->getCetak();
-		$this->load->view('surat/v_cetak_barang',$value);
+		$startDate=strtotime($this->input->post('startDate'));
+		$endDate=strtotime($this->input->post('endDate'));
+
+		if ($startDate == FALSE || $endDate == FALSE ){
+			
+			echo "<h1>Masukan Range Tanggal!!</h1>";
+			
+		}else{
+			$startDate = date('Y-m-d',$startDate);
+			$endDate = date('Y-m-d',$endDate);
+			
+			// $result=$this->M_Penjualan->getByDate($startDate,$endDate);
+			$value['data']=$this->M_Barang->getByDate($startDate,$endDate);
+			
+			$value['startDate']=date('d/m/Y',strtotime($this->input->post('startDate')));
+			$value['endDate']=date('d/m/Y',strtotime($this->input->post('endDate')));
+			// $value['data']=$result;
+			$value['cetak']=$this->M_Setting->getCetak();
+			// $this->load->view('surat/v_cetak_penjualan',$value);
+			$this->load->view('surat/v_cetak_barang',$value);
+		}
 	}
 
+	public function getByDate()
+	{
+		$start=strtotime($_GET['startDate']);
+		$end=strtotime($_GET['endDate']);
+
+		$start = date('Y-m-d',$start);
+		$end = date('Y-m-d',$end);
+		
+		$data=$this->M_Barang->getByDateJson($start,$end);
+		echo json_encode($data);
+	}
 	
 }

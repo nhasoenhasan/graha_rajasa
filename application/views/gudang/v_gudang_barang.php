@@ -17,9 +17,21 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <div class="row ml-1 ">
             <h1 class="h2">Data Barang</h1>
-            <a target="_blank" href="<?php echo  base_url().'index.php/gudang/barang/cetak'?>" class="btn btn-primary ml-3"  ><span data-feather="printer"></span></a>    
+            <!-- <a target="_blank" href="<?php echo  base_url().'index.php/gudang/barang/cetak'?>" class="btn btn-primary ml-3"  ><span data-feather="printer"></span></a>     -->
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
+            <form id=dateForm class="row mr-2" action="<?php echo  base_url().'index.php/gudang/barang/cetak'?>" method="post" target="_blank">
+                <div class="input-group " style="width:25rem">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Masukan Tanggal</span>
+                    </div>
+                    <input name="startDate" id="startDate" type="text" placeholder="Start date" aria-label="First name" class="form-control start-date ">
+                    <input name="endDate" id="endDate" type="text" placeholder="End date" aria-label="Last name" class="form-control end-date">
+                </div>
+                <button type="button" onclick="getValidation()" class="btn btn-primary ml-4"><span class="fas fa-search mr-1" style="color:#ffff"></span></button>
+                <button type="submit"  class="btn btn-primary ml-2 "><span class="fas fa-print" style="color:#ffff"></span></button>
+                <button type="button" onclick="get_Barang()" class="btn btn-success ml-1 mr-1"><span class="fas fa-sync-alt mr-1" style="color:#ffff"></span></button>
+            </form>
             <button type="button" class="btn btn-success" onclick="modaladd()" data-toggle="modal" >ADD</button>
         </div>
     </div>
@@ -132,6 +144,25 @@
         get_Suplier()
     });  
 
+    //Handle Date Range
+    $(function() {
+      var $startDate = $('.start-date');
+      var $endDate = $('.end-date');
+
+      $startDate.datepicker({
+        autoHide: true,
+      });
+      $endDate.datepicker({
+        autoHide: true,
+        startDate: $startDate.datepicker('getDate'),
+      });
+
+      $startDate.on('change', function () {
+        $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
+      });
+    });
+    //End Handle Date Range
+
     //Handle Modal Add Barang
     function modaladd(params) {
         clearForm()
@@ -172,6 +203,54 @@
             url   : '<?php echo  base_url().'index.php/gudang/barang/get'?>',
             async : false,
             dataType : 'json',
+            success : function(data){
+                var html = '';
+                var i;
+                for(i=0; i<data.length; i++){
+                    html += 
+                        '<tr>'+
+                            '<td class="text-center">'+(i+1)+'</td>'+
+                            '<td class="text-center">'+data[i].nama_barang+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].stok+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].harga_beli+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].harga_jual+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].nama+'</td>'+
+                            '<td style="text-align:center;">'+
+                                '<a  href="javascript:;" class="btn btn-warning item_edit btn-xs" data="'+data[i].id_barang+','+data[i].id_supplier+','+data[i].nama_barang+','+data[i].stok+','+data[i].harga_beli+','+data[i].harga_jual+','+data[i].deskripsi+'" ><span class="fas fa-pencil-alt" style="color:white"></span></a>'+' '+
+                                '<a onclick="modalhapus('+data[i].id_barang+')" class="btn btn-danger btn-xs item_hapus " data="'+data[i].id_barang+'"><span class="fas fa-trash-alt" style="color:white"></span></a>'+
+                            '</td>'+
+                        '</tr>';
+                }
+                $('#show_data').html(html);
+            }
+        });
+    }
+
+    //Get Data Barang
+    function getValidation() {
+        var start=$('#startDate').val();
+        var end=$('#endDate').val();
+        if (start === '' || end === '') {
+            $('#startDate').addClass('is-invalid');
+            $('#endDate').addClass('is-invalid');
+        }else{
+            get_BarangByDate()
+        }
+    }
+
+     //Get Data Barang
+     function get_BarangByDate() {
+      var start=$('#startDate').val();
+      var end=$('#endDate').val();
+      $.ajax({
+            type  : 'get',
+            url   : '<?php echo  base_url().'index.php/gudang/barang/getByDate'?>',
+            async : false,
+            dataType : 'json',
+            data:{
+                startDate:start,
+                endDate:end
+            },
             success : function(data){
                 var html = '';
                 var i;

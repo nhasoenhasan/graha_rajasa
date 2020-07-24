@@ -65,6 +65,7 @@ class index extends CI_Controller {
 	public function returnBarang(){
 		$this->data['title']='Pimpinan';
 		$this->data['menu'] = $this->load->view('menu/v_menu_pimpinan',$this->data,TRUE);
+		$this->data['user']=$this->load->view('menu/v_formcetak_returnBarang',$this->data,TRUE);
         $this->load->view('template/v_header',$this->data);
 		$this->load->view('kasir/v_kasir_return');
 		$this->load->view('template/v_footer');

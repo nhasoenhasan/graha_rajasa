@@ -88,7 +88,7 @@
                 <p class="font-weight-bold"><?= $total?></p>
             </div>
         </div>
-        <div class="col justify-content-center pr-3 text-center" style=" position: fixed; left: 50rem; bottom: 10rem; color: black;">
+        <div class="col justify-content-center pr-3 text-center" style="left: 40rem; top: 5rem; color: black;">
             <div class="col-5 text-center" style="margin-bottom:6rem">
                 <p >Mengetahui</p>
                 <p >Pimpinan PT.Graha Rajasa</p>

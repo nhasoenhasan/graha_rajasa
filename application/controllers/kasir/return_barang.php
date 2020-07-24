@@ -16,6 +16,7 @@ class return_barang extends CI_Controller {
 	{
 		$this->data['title']='Admin Kasir';
 		$this->data['menu'] = $this->load->view('menu/v_menu_kasir',$this->data,TRUE);
+		$this->data['user']='';
         $this->load->view('template/v_header',$this->data);
 		$this->load->view('kasir/v_kasir_return');
 		$this->load->view('template/v_footer');
@@ -32,23 +33,6 @@ class return_barang extends CI_Controller {
 		$no_nota=$_GET['no_nota'];
 		$data=$this->M_Return->getByNota($no_nota);
 		echo json_encode($data);
-	}
-
-	public function getCetak(){
-		$no_nota=$this->input->post('no_nota',TRUE);
-
-		if ($no_nota=='') {
-			echo 'Masukan No Nota!!';
-		}else{
-			$value['data']=$this->M_Return->getByNotaCetak($no_nota);
-
-			if (count($value['data'])==0) {
-				echo "No Order Tidak Di Temukan!";
-			}else{
-				$value['cetak']=$this->M_Setting->getCetak();
-				$this->load->view('surat/v_cetak_nota_return',$value);
-			}
-		}
 	}
 
 	public function searchNota(){
@@ -85,6 +69,61 @@ class return_barang extends CI_Controller {
 			echo json_encode(array("status" => FALSE));
 		}
 	}
+
+	public function getCetak(){
+		$no_nota=$this->input->post('search_nota',TRUE);
+
+
+		if ($no_nota=='') {
+			echo 'Masukan No Nota!!';
+		}else{
+			$value['data']=$this->M_Return->getByNotaCetak($no_nota);
+
+			if (count($value['data'])==0) {
+				echo "No Order Tidak Di Temukan!";
+			}else{
+				$value['cetak']=$this->M_Setting->getCetak();
+				$this->load->view('surat/v_cetak_nota_return',$value);
+			}
+		}
+	}
+
+	public function getCetakByDate(){
+		$startDate=strtotime($this->input->post('startDate'));
+		$endDate=strtotime($this->input->post('endDate'));
+
+		if ($startDate == FALSE || $endDate == FALSE ){
+			
+			echo "<h1>Masukan Range Tanggal!!</h1>";
+			
+		}else{
+			$startDate = date('Y-m-d',$startDate);
+			$endDate = date('Y-m-d',$endDate);
+			
+			// $result=$this->M_Penjualan->getByDate($startDate,$endDate);
+			$value['data']=$this->M_Return->getByDate($startDate,$endDate);
+			
+			$value['startDate']=date('d/m/Y',strtotime($this->input->post('startDate')));
+			$value['endDate']=date('d/m/Y',strtotime($this->input->post('endDate')));
+			// $value['data']=$result;
+			$value['cetak']=$this->M_Setting->getCetak();
+			$this->load->view('surat/v_cetak_return_periode',$value);
+		}
+	}
+
+	public function getByDate()
+	{
+		$start=strtotime($_GET['startDate']);
+		$end=strtotime($_GET['endDate']);
+
+		$start = date('Y-m-d',$start);
+		$end = date('Y-m-d',$end);
+		
+		$data=$this->M_Return->getByDateJson($start,$end);
+		echo json_encode($data);
+	}
+
+
 
 
 }

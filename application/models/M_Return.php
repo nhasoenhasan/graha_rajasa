@@ -62,4 +62,26 @@ class M_Return extends CI_Model {
 	  	return $id;
 	}
 
+	public function getByDateJson($start,$end){
+		$sql ='SELECT DISTINCT penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
+			FROM penjualan
+			INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
+			WHERE detail_penjualan.status=1
+			AND date(detail_penjualan.tanggal) BETWEEN ? AND ?';
+			
+		$query=$this->db->query($sql, array($start,$end));
+        return $query->result();
+	}
+
+	public function getByDate($start,$end){
+		$sql ='SELECT DISTINCT penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
+			FROM penjualan
+			INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
+			WHERE detail_penjualan.status=1
+			AND date(detail_penjualan.tanggal) BETWEEN ? AND ?';
+			
+		$query=$this->db->query($sql, array($start,$end));
+        return $query->result_array();
+	}
+
 }

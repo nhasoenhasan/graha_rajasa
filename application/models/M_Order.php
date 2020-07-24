@@ -7,13 +7,6 @@ class M_Order extends CI_Model {
 
 	public function getAll ($status,$nama)
 	{
-		
-		// $query = $this->db->query(
-		// 	'SELECT DISTINCT order_barang.no_struk,det_order_barang.nama_supplier,order_barang.total
-		// 	FROM order_barang
-		// 	INNER JOIN det_order_barang ON order_barang.id_order_barang = det_order_barang.id_order_barang;
-		// 	'
-		// );
 		if($nama===''){
 			$this->db->select('*');
 			$this->db->from($this->table);
@@ -108,5 +101,40 @@ class M_Order extends CI_Model {
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+
+	// $sql='SELECT DISTINCT 
+	// 	det_order_barang.nama_barang,det_order_barang.nama_supplier,det_order_barang.jumlah,det_order_barang.subtotal,det_order_barang.status,det_order_barang.id_det_order_brg
+	// 	FROM order_barang
+	// 	INNER JOIN det_order_barang ON order_barang.id_order_barang = det_order_barang.id_order_barang
+	// 	WHERE date(order_barang.tanggal_order_brg) BETWEEN ? AND ? ';
+		
+	// 	$query = $this->db->query(
+	// 		'SELECT DISTINCT order_barang.no_struk,det_order_barang.nama_supplier,order_barang.total
+	// 		FROM order_barang
+	// 		INNER JOIN det_order_barang ON order_barang.id_order_barang = det_order_barang.id_order_barang;
+	// 		'
+	// 	);
+
+	public function getByDate($start,$end){
+		$sql='SELECT DISTINCT 
+		det_order_barang.harga_beli,det_order_barang.nama_barang,det_order_barang.nama_supplier,det_order_barang.jumlah,det_order_barang.subtotal,det_order_barang.status,det_order_barang.id_det_order_brg
+		FROM order_barang
+		INNER JOIN det_order_barang ON order_barang.id_order_barang = det_order_barang.id_order_barang
+		WHERE det_order_barang.status=3 and date(order_barang.tanggal_order_brg) BETWEEN ? AND ? ';
+		$query = $this->db->query($sql,array($start,$end));
+        return $query->result_array();
+	}
+
+	public function getByDateJson($start,$end){
+		$sql='SELECT DISTINCT 
+		det_order_barang.harga_beli,det_order_barang.nama_barang,det_order_barang.nama_supplier,det_order_barang.jumlah,det_order_barang.subtotal,det_order_barang.status,det_order_barang.id_det_order_brg
+		FROM order_barang
+		INNER JOIN det_order_barang ON order_barang.id_order_barang = det_order_barang.id_order_barang
+		WHERE det_order_barang.status=3 and date(order_barang.tanggal_order_brg) BETWEEN ? AND ?';
+		$query = $this->db->query($sql,array($start,$end));
+        return $query->result();
+	}
+
+
 
 }

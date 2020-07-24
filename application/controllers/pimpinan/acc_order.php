@@ -16,6 +16,7 @@ class acc_order extends CI_Controller {
 	public function index()
 	{
 		$this->data['title']='Pimpinan';
+		$this->data['user']=$this->load->view('menu/v_formcetak_accOrder',$this->data,TRUE);
 		$this->data['menu'] = $this->load->view('menu/v_menu_pimpinan',$this->data,TRUE);
         $this->load->view('template/v_header',$this->data);
 		$this->load->view('pimpinan/v_pimpinan_acc_order');
@@ -67,7 +68,7 @@ class acc_order extends CI_Controller {
 	}
 
 	public function cetak(){
-		$data=$this->input->post('supplier',TRUE);
+		$data=$this->input->post('no_order',TRUE);
 		if($data!=NULL){
 			$v=$this->M_Order->getSupplierNama($data);
 			$value['supplier']=$v[0]['nama'];
@@ -80,5 +81,38 @@ class acc_order extends CI_Controller {
 		}
 	}
 
+	public function cetakByDate(){
+		$startDate=strtotime($this->input->post('startDate'));
+		$endDate=strtotime($this->input->post('endDate'));
+
+		if ($startDate == FALSE || $endDate == FALSE ){
+			
+			echo "<h1>Masukan Range Tanggal!!</h1>";
+			
+		}else{
+			$startDate = date('Y-m-d',$startDate);
+			$endDate = date('Y-m-d',$endDate);
+			
+			$result=$this->M_Order->getByDate($startDate,$endDate);
+			
+			$value['startDate']=date('d/m/Y',strtotime($this->input->post('startDate')));
+			$value['endDate']=date('d/m/Y',strtotime($this->input->post('endDate')));
+			$value['data']=$result;
+			$value['cetak']=$this->M_Setting->getCetak();
+			$this->load->view('surat/v_cetak_orderacc_bydate',$value);
+		}
+	}
+
+	public function getByDate()
+	{
+		$start=strtotime($_GET['startDate']);
+		$end=strtotime($_GET['endDate']);
+
+		$start = date('Y-m-d',$start);
+		$end = date('Y-m-d',$end);
+		
+		$data=$this->M_Order->getByDateJson($start,$end);
+		echo json_encode($data);
+	}
 	
 }

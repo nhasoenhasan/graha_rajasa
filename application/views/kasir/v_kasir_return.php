@@ -32,8 +32,11 @@
                 </button>    
             </form>
         </div>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <button type="button" class="btn btn-success mr-3" onclick="get_Penjualan()"  ><span data-feather="refresh-ccw"></span></button>
+        <?=
+            $user;
+        ?>
+        <div class="btn-toolbar mb-2 mb-md-0" style="margin-left:-3rem">
+            <button type="button" class="btn btn-success mr-1" onclick="get_Penjualan()"  ><span data-feather="refresh-ccw"></span></button>
             <button type="button" class="btn btn-success" onclick="modaladd()" data-toggle="modal" >ADD</button>
         </div>
     </div>
@@ -97,6 +100,25 @@
         get_Penjualan()
     });  
 
+    //Handle Date Range
+    $(function() {
+      var $startDate = $('.start-date');
+      var $endDate = $('.end-date');
+
+      $startDate.datepicker({
+        autoHide: true,
+      });
+      $endDate.datepicker({
+        autoHide: true,
+        startDate: $startDate.datepicker('getDate'),
+      });
+
+      $startDate.on('change', function () {
+        $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
+      });
+    });
+    //End Handle Date Range
+
     //Handle Modal Add Barang
     function modaladd(params) {
         $('#HelpNota').text('');
@@ -111,12 +133,58 @@
     feather.replace()
 
     //Get Data Barang
+    function getValidation() {
+        var start=$('#startDate').val();
+        var end=$('#endDate').val();
+        if (start === '' || end === '') {
+            $('#startDate').addClass('is-invalid');
+            $('#endDate').addClass('is-invalid');
+        }else{
+            get_PenjualanByDate()
+        }
+    }
+
+    //Get Data Penjualan
     function get_Penjualan() {
       $.ajax({
             type  : 'ajax',
             url   : '<?php echo  base_url().'index.php/kasir/return_barang/get'?>',
             async : false,
             dataType : 'json',
+            success : function(data){
+                var html = '';
+                var i;
+                for(i=0; i<data.length; i++){
+                    html += 
+                        '<tr>'+
+                            '<td class="text-center">'+(i+1)+'</td>'+
+                            '<td class="text-center">'+data[i].tanggal+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].no_order+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].nama_barang+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">Rp. '+data[i].harga+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].jumlah+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].keterangan+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">Rp.'+data[i].subtotal+'</td>'+
+                        '</tr>';
+                }
+                $('#show_data').html(html);
+            }
+        });
+    }
+
+    //Get Data Penjualan By Date
+    function get_PenjualanByDate() {
+        var start=$('#startDate').val();
+        var end=$('#endDate').val();
+      $.ajax({
+            type  : 'get',
+            url   : '<?php echo  base_url().'index.php/kasir/return_barang/getByDate'?>',
+            async : false,
+            dataType : 'json',
+            data:{
+                startDate:start,
+                endDate:end
+            },
             success : function(data){
                 var html = '';
                 var i;
@@ -150,7 +218,6 @@
                 no_nota: no,
             },
             success : function(data){
-                console.log(data,'<<<');
                 var html = '';
                 var i;
                 for(i=0; i<data.length; i++){

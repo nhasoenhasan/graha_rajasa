@@ -99,4 +99,24 @@ class M_Barang extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function getByDate($start,$end){
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->join('supplier s','s.id_supplier=barang.id_supplier');
+		$this->db->where('tanggal >=',$start);
+		$this->db->where('tanggal <=',$end);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function getByDateJson($start,$end){
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->join('supplier s','s.id_supplier=barang.id_supplier');
+		$this->db->where('tanggal >=',$start);
+		$this->db->where('tanggal <=',$end);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 }

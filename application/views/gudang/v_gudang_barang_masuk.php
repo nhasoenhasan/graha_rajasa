@@ -260,7 +260,8 @@
     //On Change Select Pilih Data Order Barang
     $('#barang').on('change', function() {
         data=this.value
-        data=data.split('=');
+        data=data.split('=');   
+        console.log(data);
         $('[name="id_supplier"]').val(data[0]);
         $('[name="id_barang"]').val(data[1]);
         $('[name="id_det_order_brg"]').val(data[2]);

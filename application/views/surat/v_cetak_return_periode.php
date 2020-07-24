@@ -18,7 +18,7 @@
     </style>
 </head>
 <body  >
-    <?php  $i=0; ?>
+    <?php  $i=0;  ?>
     <div class="container">
         <div class="row justify-content-md-center mt-5">
             <div class="col-md-auto border-dark ">
@@ -39,7 +39,7 @@
         <div class="justify-content-md-left mt-1 mb-4">
             <div class="row justify-content-md-center mt-1">
                 <div class="col-md-auto text-center ">
-                    <p class="h5 font-weight-bold">Laporan Barang Masuk</p>
+                    <p class="h5 font-weight-bold">Laporan Return Barang</p>
                     <p class="h5 font-weight-bold">Periode: <?php echo $startDate?> - <?php echo "  " . date("d/m/Y");?> </p>
                 </div>
             </div>
@@ -48,35 +48,31 @@
             <thead>
                 <tr>
                     <th scope="col" class="text-center">No</th>
-                    <th scope="col" class="text-center">No Nota</th>
+                    <th scope="col" class="text-center">Tanggal Return</th>
                     <th scope="col" class="text-center">Nama Barang</th>
-                    <th scope="col" class="text-center">Harga Beli</th>
-                    <th scope="col" class="text-center">Harga Jual</th>
-                    <th scope="col" class="text-center">Supplier</th>
+                    <th scope="col" class="text-center">Harga Satuan</th>
                     <th scope="col" class="text-center">Jumlah</th>
+                    <th scope="col" class="text-center">Alasan</th>
                     <th scope="col" class="text-center">Sub Total</th>
-                    <th scope="col" class="text-center">Tanggal Masuk</th>
                 </tr>
             </thead>
             <tbody>
                 <?php  foreach ($data as $key=> $value) {?>
                     <tr>
                         <th scope="row" class="text-center"><?= $key+1?></th>
-                        <td class="text-center"><?= $value['no_struk']?></td>
+                        <td class="text-center"><?= $value['tanggal']?></td>
                         <td class="text-center"><?= $value['nama_barang']?></td>
-                        <td class="text-center">Rp. <?= $value['harga_beli']?></td>
-                        <td class="text-center">Rp. <?= $value['harga_jual']?></td>
-                        <td class="text-center"><?= $value['nama_supplier']?></td>
+                        <td class="text-center">Rp. <?= $value['harga']?></td>
                         <td class="text-center"><?= $value['jumlah']?></td>
-                        <td class="text-center"><?= $value['subtotal']?></td>
-                        <td class="text-center"><?= $value['tanggal_masuk']?></td>
+                        <td class="text-center"><?= $value['keterangan']?></td>
+                        <td class="text-center">Rp. <?= $value['subtotal']?></td>
                     </tr>
                 <?php 
                 }?>
                 <tr>
             </tbody>
         </table>
-        <div class="col justify-content-center pr-3 text-center" style="left: 40rem; top: 5rem; color: black;">
+        <div class="col justify-content-center pr-3 text-center" style=" left: 40rem; top: 5rem; color: black;">
             <div class="col-5 text-center" style="margin-bottom:6rem">
                 <p >Mengetahui</p>
                 <p >Pimpinan PT.Graha Rajasa</p>

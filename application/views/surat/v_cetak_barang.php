@@ -40,7 +40,7 @@
             <div class="row justify-content-md-center mt-1">
                 <div class="col-md-auto text-center ">
                     <p class="h5 font-weight-bold">Laporan Barang</p>
-                    <p class="h5 font-weight-bold">Periode:<?php echo "  " . date("d/m/Y");?></p>
+                    <p class="h5 font-weight-bold">Periode: <?php echo $startDate?> - <?php echo "  " . date("d/m/Y");?> </p>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 <tr>
             </tbody>
         </table>
-        <div class="col justify-content-center pr-3 text-center" style=" position: fixed; left: 40rem; bottom: 10rem; color: black;">
+        <div class="col justify-content-center pr-3 text-center" style="left: 40rem;top:5rem; color: black;">
             <div class="col-5 text-center" style="margin-bottom:6rem">
                 <p >Mengetahui</p>
                 <p >Pimpinan PT.Graha Rajasa</p>
