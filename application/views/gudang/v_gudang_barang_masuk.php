@@ -260,14 +260,16 @@
     //On Change Select Pilih Data Order Barang
     $('#barang').on('change', function() {
         data=this.value
+        var cek;
         data=data.split('=');   
-        console.log(data);
+        cek=''+data[0]+'|'+data[8]+'';
+        // console.log(cek);
         $('[name="id_supplier"]').val(data[0]);
         $('[name="id_barang"]').val(data[1]);
         $('[name="id_det_order_brg"]').val(data[2]);
         $('[name="jumlah"]').val(data[5]);
-        $('[name="nama_barang"]').val(data[3]);
-        $('[name="nama_supplier"]').val(data[8]);
+        $('[name="nama_barang"]').val(data[3].replace(/_/g, ' '));
+        $('[name="nama_supplier"]').val(data[8].replace(/_/g, ' '));
         $('[name="jual"]').val(data[7]);
         $('[name="beli"]').val(data[6]);
         $("#suplier").val(data[0]+'|'+data[8]);
@@ -298,7 +300,7 @@
     $('#suplier').on('change', function() {
         data=this.value
         data=data.split('|');
-        $('[name="nama_supplier"]').val(data[1]);
+        $('[name="nama_supplier"]').val(data[1].replace(/_/g,' '));
     });
 
      //Edit On Change Select Pilih Data Supplier
@@ -413,11 +415,14 @@
                 status: 2
             },
             success : function(data){
-                var html = '<option value="" selected disabled>Please select</option>';
+
+                // var value=[];
+                var html = '<option value="" selected disabled>Pilih Barang</option>';
                 var i;
                 for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].id_supplier+'='+data[i].id_barang+'='+data[i].id_det_order_brg+'='+data[i].nama_barang+'='+data[i].subtotal+'='+data[i].jumlah+'='+data[i].harga_beli+'='+data[i].harga_jual+'='+data[i].nama_supplier+'>'+data[i].nama_barang+'</option>'
-                    // html += '<option value='+data[i].nama_supplier+'>'+data[i].nama_barang+'</option>'
+                    var nama_barang=data[i].nama_barang.split(' ').join('_');
+                    var nama_supplier=data[i].nama_supplier.split(' ').join('_');
+                    html += '<option value='+data[i].id_supplier+'='+data[i].id_barang+'='+data[i].id_det_order_brg+'='+nama_barang+'='+data[i].subtotal+'='+data[i].jumlah+'='+data[i].harga_beli+'='+data[i].harga_jual+'='+nama_supplier+'>'+data[i].nama_barang+'</option>'
                 }
                 $('#barang').html(html);
             }
@@ -436,7 +441,8 @@
                 var html = '<option data="" selected disabled>Please select</option>';
                 var i;
                 for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].id_supplier+'|'+data[i].nama+'>'+data[i].nama+'</option>'
+                    var nama=data[i].nama.split(' ').join('_');
+                    html += '<option value='+data[i].id_supplier+'|'+nama+'>'+data[i].nama+'</option>'
                 }
                 $('#suplier').html(html);
             }
@@ -454,7 +460,8 @@
                 var html = '<option data="" selected disabled>Please select</option>';
                 var i;
                 for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].id_supplier+'|'+data[i].nama+'>'+data[i].nama+'</option>'
+                    var nama=data[i].nama.split(' ').join('_');
+                    html += '<option value='+data[i].id_supplier+'|'+nama+'>'+data[i].nama+'</option>'
                 }
                 $('#suplier_edit').html(html);
             }

@@ -90,7 +90,8 @@ class barang_masuk extends CI_Controller {
 
 	//Add Barang Masuk
 	public function addBarangMasuk(){
-		
+		// var_dump($_POST);
+		// die();
 		$no_struk=htmlspecialchars($this->input->post('no_struk',TRUE),ENT_QUOTES);
 		$id_barang=htmlspecialchars($this->input->post('id_barang',TRUE),ENT_QUOTES);
 		$id_det_order_brg=htmlspecialchars($this->input->post('id_det_order_brg',TRUE),ENT_QUOTES);
