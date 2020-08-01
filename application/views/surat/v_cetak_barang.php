@@ -40,7 +40,7 @@
             <div class="row justify-content-md-center mt-1">
                 <div class="col-md-auto text-center ">
                     <p class="h5 font-weight-bold">Laporan Barang</p>
-                    <p class="h5 font-weight-bold">Periode: <?php echo $startDate?> - <?php echo "  " . date("d/m/Y");?> </p>
+                    <p class="h5 font-weight-bold">Periode: <?php echo $startDate?> - <?php echo $endDate?> </p>
                 </div>
             </div>
         </div>
@@ -48,10 +48,10 @@
             <thead>
                 <tr>
                     <th scope="col" class="text-center">No</th>
-                    <th scope="col" class="text-center">Nama Barang</th>
+                    <th scope="col" class="text-left">Nama Barang</th>
                     <th scope="col" class="text-center">Stock</th>
-                    <th scope="col" class="text-center">Harga Beli</th>
-                    <th scope="col" class="text-center">Harga Jual</th>
+                    <th scope="col" class="text-right">Harga Beli</th>
+                    <th scope="col" class="text-right">Harga Jual</th>
                     <th scope="col" class="text-center">Suplier</th>
                 </tr>
             </thead>
@@ -59,10 +59,10 @@
                 <?php  foreach ($data as $key=> $value) {?>
                     <tr>
                         <th scope="row" class="text-center"><?= $key+1?></th>
-                        <td class="text-center"><?= $value['nama_barang']?></td>
+                        <td class="text-left"><?= $value['nama_barang']?></td>
                         <td class="text-center"><?= $value['stok']?></td>
-                        <td class="text-center">Rp. <?= $value['harga_beli']?></td>
-                        <td class="text-center">Rp. <?= $value['harga_jual']?></td>
+                        <td class="text-right">Rp. <?= $value['harga_beli']?></td>
+                        <td class="text-right">Rp. <?= $value['harga_jual']?></td>
                         <td class="text-center"><?= $value['nama']?></td>
                     </tr>
                 <?php 
@@ -72,8 +72,8 @@
         </table>
         <div class="col justify-content-center pr-3 text-center" style="left: 40rem;top:5rem; color: black;">
             <div class="col-5 text-center" style="margin-bottom:6rem">
-                <p >Mengetahui</p>
-                <p >Pimpinan PT.Graha Rajasa</p>
+                <p >Yogyakarta, <?php echo "  " . date("d-m-Y");?></p>
+                <p ><?= $cetak[0]['mengetahui']?></p>
             </div>
             <div class="col-5 text-center">
                <p><?= $cetak[0]['tdd_gudang']?></p>

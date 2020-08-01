@@ -176,10 +176,10 @@
                     html += 
                         '<tr>'+
                             '<td class="text-center" scope="row">'+(i+1)+'</td>'+
-                            '<td class="text-center">'+data[i].nama_barang+'</td>'+
+                            '<td class="text-left">'+data[i].nama_barang+'</td>'+
                             '<td class="text-center">'+data[i].nama_supplier+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].jumlah+'</td>'+
-                            '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].subtotal+'</td>'+
+                            '<td style="word-break: break-all;" class="text-right">Rp.'+data[i].subtotal+'</td>'+
                             '<td   class="text-center text-'+textColor+' font-weight-bold">'+status+'</td>'+
                             '<td style="text-align:center;">'+
                                 '<a  class="btn btn-success btn-xs item_order mr-2 " data="'+data[i].id_det_order_brg+','+data[i].status+'"><span class="fas fa-check" style="color:white"></span></a>'+
@@ -250,10 +250,10 @@
                     html += 
                         '<tr>'+
                             '<td class="text-center" scope="row">'+(i+1)+'</td>'+
-                            '<td class="text-center">'+data[i].nama_barang+'</td>'+
+                            '<td class="text-left">'+data[i].nama_barang+'</td>'+
                             '<td class="text-center">'+data[i].nama_supplier+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].jumlah+'</td>'+
-                            '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].subtotal+'</td>'+
+                            '<td style="word-break: break-all;" class="text-right">Rp.'+data[i].subtotal+'</td>'+
                             '<td   class="text-center text-'+textColor+' font-weight-bold">'+status+'</td>'+
                             '<td style="text-align:center;">'+
                                 '<a  class="btn btn-success btn-xs item_order mr-2 " data="'+data[i].id_det_order_brg+','+data[i].status+'"><span class="fas fa-check" style="color:white"></span></a>'+

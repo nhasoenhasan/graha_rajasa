@@ -35,6 +35,7 @@ class setting extends CI_Controller {
 		$alamat=htmlspecialchars($this->input->post('alamat',TRUE),ENT_QUOTES);
 		$tag_line=htmlspecialchars($this->input->post('tag_line',TRUE),ENT_QUOTES);
 		$tdd_gudang=htmlspecialchars($this->input->post('tdd_gudang',TRUE),ENT_QUOTES);
+		$mengetahui=htmlspecialchars($this->input->post('mengetahui',TRUE),ENT_QUOTES);
 	
 		$data = array(
 			'nama_perusahaan' => $nama_perusahaan,
@@ -42,6 +43,7 @@ class setting extends CI_Controller {
 			'tag_line' => $tag_line,
 			'tdd_gudang' => $tdd_gudang,
 			'tdd_pimpinan' => $tdd_pimpinan,
+			'mengetahui' => $mengetahui,
 		);
 
 		if($this->M_Setting->updateSetting($data,$id_setting_cetak)){

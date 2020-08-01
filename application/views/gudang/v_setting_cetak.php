@@ -26,6 +26,7 @@
                 <th scope="col" class="text-center">Alamat</th>
                 <th scope="col" class="text-center">Tag Line</th>
                 <th scope="col" class="text-center">Nama Tanda Tangan</th>
+                <th scope="col" class="text-center">Mengetahui</th>
                 <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
@@ -72,6 +73,12 @@
             <small id="HelpTddGudang" class="form-text text-danger ml-1">
             </small>
         </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Mengetahui</label>
+            <input name="mengetahui" type="text" class="form-control" id="mengetahui" aria-describedby="emailHelp" placeholder="Masukan Nama Tanda Tangan">
+            <small id="HelpMengetahui" class="form-text text-danger ml-1">
+            </small>
+        </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" onclick="validation()">Save</button>
@@ -101,6 +108,7 @@
         $('[name="tag_line"]').val(id[3]);
         $('[name="tdd_gudang"]').val(id[4]);
         $('[name="tdd_pimpinan"]').val(id[5]);
+        $('[name="mengetahui"]').val(id[6]);
         $('#modalAdd').modal('show')
     });
 
@@ -124,8 +132,9 @@
                             '<td class="text-center" style="word-break: break-all;">'+data[i].alamat+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].tag_line+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].tdd_gudang+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].mengetahui+'</td>'+
                             '<td style="text-align:center;">'+
-                                '<a  href="javascript:;" class="btn btn-warning item_edit btn-xs" data="'+data[i].id_setting_cetak+'|'+data[i].nama_perusahaan+'|'+data[i].alamat+'|'+data[i].tag_line+'|'+data[i].tdd_gudang+'|'+data[i].tdd_pimpinan+'" ><span class="fas fa-pencil-alt" style="color:white"></span></a>'+' '+
+                                '<a  href="javascript:;" class="btn btn-warning item_edit btn-xs" data="'+data[i].id_setting_cetak+'|'+data[i].nama_perusahaan+'|'+data[i].alamat+'|'+data[i].tag_line+'|'+data[i].tdd_gudang+'|'+data[i].tdd_pimpinan+'|'+data[i].mengetahui+'" ><span class="fas fa-pencil-alt" style="color:white"></span></a>'+' '+
                             '</td>'+
                         '</tr>';
                 }
@@ -183,8 +192,20 @@
         }
     });
 
+    //Input Nama Tanda Tangan
+    $('#mengetahui').on('input', function() {
+        data=this.value
+        if(data!==''||null){
+            $('#HelpMengetahui').text('');
+            $('#mengetahui').removeClass('is-invalid');
+        }else{
+            $('#HelpMengetahui').text('Masukan Data');
+            $('#mengetahui').addClass('is-invalid');
+        }
+    });
+
     function validation(){
-        var array=[$("#nama_perusahaan").val(),$("#alamat").val(),$("#tag_line").val(),$("#tdd_gudang").val()];
+        var array=[$("#nama_perusahaan").val(),$("#alamat").val(),$("#tag_line").val(),$("#tdd_gudang").val(),$("#mengetahui").val()];
         var istrue=array.includes("");
 
         var validation=istrue
@@ -214,6 +235,10 @@
             $('#HelpTddGudang').text('Masukan Nama Tanda Tangan');
             $('#tdd_gudang').addClass('is-invalid');
         }
+        if (array[4]=="") {
+            $('#HelpMengetahui').text('Masukan Data');
+            $('#mengetahui').addClass('is-invalid');
+        }
     }
 
     //Handle Clear From Warning
@@ -229,6 +254,9 @@
 
         $('#HelpTddGudang').text('');
         $('#tdd_gudang').removeClass('is-invalid');
+
+        $('#HelpMengetahui').text('');
+        $('#mengetahui').removeClass('is-invalid');
     }
 
     //Handle Add Barang

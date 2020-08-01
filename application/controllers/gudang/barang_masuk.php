@@ -218,7 +218,6 @@ class barang_masuk extends CI_Controller {
 	public function updateDetBarangMasuk(){
 		$this->form_validation->set_rules('old_harga_beli', 'old_harga_beli', 'required');
 		$this->form_validation->set_rules('old_jumlah', 'old_jumlah', 'required');
-
 		$this->form_validation->set_rules('id_det_barang_masuk', 'id_det_barang_masuk', 'required');
 		$this->form_validation->set_rules('id_barang_masuk', 'id_barang_masuk', 'required');
 		$this->form_validation->set_rules('id_det_order_brg', 'id_det_order_brg', 'required');
@@ -319,9 +318,24 @@ class barang_masuk extends CI_Controller {
 			$endDate = date('Y-m-d',$endDate);
 			
 			$result=$this->M_Barang_Masuk->getByDate($startDate,$endDate);
+
+			$total=0;
+			//Total
+			if (count($result)!=0) {
+				
+				$temp=[];
+				foreach ($result as $key => $value) {
+
+					array_push($temp, (int)$value['subtotal']);
+					
+				}
+
+				$total=array_sum($temp);
+			}
 			
-			$value['startDate']=date('d/m/Y',strtotime($this->input->post('startDate')));
-			$value['endDate']=date('d/m/Y',strtotime($this->input->post('endDate')));
+			$value['startDate']=date('d-m-Y',strtotime($this->input->post('startDate')));
+			$value['endDate']=date('d-m-Y',strtotime($this->input->post('endDate')));
+			$value['total']=$total;
 			$value['data']=$result;
 			$value['cetak']=$this->M_Setting->getCetak();
 			$this->load->view('surat/v_cetak_barangMasuk',$value);

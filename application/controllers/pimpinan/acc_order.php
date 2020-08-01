@@ -94,9 +94,24 @@ class acc_order extends CI_Controller {
 			$endDate = date('Y-m-d',$endDate);
 			
 			$result=$this->M_Order->getByDate($startDate,$endDate);
+
+			$total=0;
+			//Total
+			if (count($result)!=0) {
+				
+				$temp=[];
+				foreach ($result as $key => $value) {
+
+					array_push($temp, (int)$value['harga_beli']);
+					
+				}
+
+				$total=array_sum($temp);
+			}
 			
-			$value['startDate']=date('d/m/Y',strtotime($this->input->post('startDate')));
-			$value['endDate']=date('d/m/Y',strtotime($this->input->post('endDate')));
+			$value['startDate']=date('d-m-Y',strtotime($this->input->post('startDate')));
+			$value['endDate']=date('d-m-Y',strtotime($this->input->post('endDate')));
+			$value['total']=$total;
 			$value['data']=$result;
 			$value['cetak']=$this->M_Setting->getCetak();
 			$this->load->view('surat/v_cetak_orderacc_bydate',$value);

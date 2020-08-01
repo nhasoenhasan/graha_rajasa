@@ -1,4 +1,4 @@
-<div class="row ml-1">
+<div class="row ">
     <form id=dateForm class="row mr-1" action="<?php echo  base_url().'index.php/kasir/return_barang/getCetakByDate'?>" method="post" target="_blank">
         <div class="input-group " style="width:25rem">
             <input name="startDate" id="startDate" type="text" placeholder="Start date" aria-label="First name" class="form-control start-date ">

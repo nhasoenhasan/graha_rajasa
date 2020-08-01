@@ -359,7 +359,7 @@
                             '<td style="word-break: break-all;" class="text-center">'+data[i].nama_supplier+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].jumlah+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].subtotal+'</td>'+
-                            '<td style="word-break: break-all;" class="text-center">'+data[i].tanggal_masuk+'</td>'+
+                            '<td style="word-break: break-all;" class="text-center">'+data[i].tanggal_masuk.slice(0,10)+'</td>'+
                             '<td class="text-center">'+
                                 '<a  href="javascript:;" class="btn btn-warning item_edit btn-xs" data="'+data[i].harga_beli+','+data[i].id_barang+','+data[i].id_det_barang_masuk+','+data[i].id_supplier+','+data[i].jumlah+','+data[i].nama_barang+','+data[i].nama_supplier+','+data[i].no_struk+','+data[i].subtotal+','+data[i].id_barang_masuk+','+data[i].harga_jual+'" ><span class="fas fa-pencil-alt" style="color:white"></span></a>'+' '+
                                 // '<a onclick="modalhapus('+data[i].id_barang+')" class="btn btn-danger btn-xs item_hapus " data="'+data[i].id_barang+'">D</a>'+
@@ -392,7 +392,7 @@
                             '<td style="word-break: break-all;" class="text-center">'+data[i].nama_supplier+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">'+data[i].jumlah+'</td>'+
                             '<td style="word-break: break-all;" class="text-center">Rp.'+data[i].subtotal+'</td>'+
-                            '<td style="word-break: break-all;" class="text-center">'+data[i].tanggal_masuk+'</td>'+
+                            '<td style="word-break: break-all;" class="text-center">'+data[i].tanggal_masuk.slice(0,10)+'</td>'+
                             '<td class="text-center">'+
                                 '<a  href="javascript:;" class="btn btn-warning item_edit btn-xs" data="'+data[i].harga_beli+','+data[i].id_barang+','+data[i].id_det_barang_masuk+','+data[i].id_supplier+','+data[i].jumlah+','+data[i].nama_barang+','+data[i].nama_supplier+','+data[i].no_struk+','+data[i].subtotal+','+data[i].id_barang_masuk+','+data[i].harga_jual+'" ><span class="fas fa-pencil-alt" style="color:white"></span></a>'+' '+
                                 // '<a onclick="modalhapus('+data[i].id_barang+')" class="btn btn-danger btn-xs item_hapus " data="'+data[i].id_barang+'">D</a>'+

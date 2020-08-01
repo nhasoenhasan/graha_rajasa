@@ -53,10 +53,25 @@ class penjualan extends CI_Controller {
 			$endDate = date('Y-m-d',$endDate);
 			
 			$result=$this->M_Penjualan->getByDate($startDate,$endDate);
+
+			$total=0;
+			//Total
+			if (count($result)!=0) {
+				
+				$temp=[];
+				foreach ($result as $key => $value) {
+
+					array_push($temp, (int)$value['subtotal']);
+					
+				}
+
+				$total=array_sum($temp);
+			}
 			
-			$value['startDate']=date('d/m/Y',strtotime($this->input->post('startDate')));
-			$value['endDate']=date('d/m/Y',strtotime($this->input->post('endDate')));
+			$value['startDate']=date('d-m-Y',strtotime($this->input->post('startDate')));
+			$value['endDate']=date('d-m-Y',strtotime($this->input->post('endDate')));
 			$value['data']=$result;
+			$value['total']=$total;
 			$value['cetak']=$this->M_Setting->getCetak();
 			$this->load->view('surat/v_cetak_penjualan',$value);
 		}

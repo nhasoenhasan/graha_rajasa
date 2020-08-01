@@ -52,7 +52,7 @@
                             <p class="h5 ">Tanggal</p>
                         </div>
                         <div class="col">
-                            <p class="h5 "><?php echo "  " . date("d/m/Y");?></p>
+                            <p class="h5 "><?php echo "  " . date("d-m-Y");?></p>
                         </div>
                     </div>
                 </div>
@@ -72,10 +72,10 @@
                 <?php  foreach ($data as $key=> $value) {?>
                     <tr>
                         <th scope="row" class="text-center"><?= $i++?></th>
-                        <td class="text-center"><?= $value['name']?></td>
-                        <td class="text-center">Rp. <?= $value['price']?></td>
+                        <td class="text-left"><?= $value['name']?></td>
+                        <td class="text-right">Rp. <?= $value['price']?></td>
                         <td class="text-center"><?= $value['qty']?></td>
-                        <td class="text-center">Rp. <?= $value['subtotal']?></td>
+                        <td class="text-right">Rp. <?= $value['subtotal']?></td>
                     </tr>
                 <?php 
                 }?>
@@ -90,8 +90,8 @@
         </div>
         <div class="col justify-content-center pr-3 text-center" style="left: 40rem; top: 5rem; color: black;">
             <div class="col-5 text-center" style="margin-bottom:6rem">
-                <p >Mengetahui</p>
-                <p >Pimpinan PT.Graha Rajasa</p>
+                <p >Yogyakarta, <?php echo "  " . date("d-m-Y");?></p>
+                <p ><?= $cetak[0]['mengetahui']?></p>
             </div>
             <div class="col-5 text-center">
                <p><?= $cetak[0]['tdd_gudang']?></p>

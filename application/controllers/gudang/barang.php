@@ -187,8 +187,8 @@ class barang extends CI_Controller {
 			// $result=$this->M_Penjualan->getByDate($startDate,$endDate);
 			$value['data']=$this->M_Barang->getByDate($startDate,$endDate);
 			
-			$value['startDate']=date('d/m/Y',strtotime($this->input->post('startDate')));
-			$value['endDate']=date('d/m/Y',strtotime($this->input->post('endDate')));
+			$value['startDate']=date('d-m-Y',strtotime($this->input->post('startDate')));
+			$value['endDate']=date('d-m-Y',strtotime($this->input->post('endDate')));
 			// $value['data']=$result;
 			$value['cetak']=$this->M_Setting->getCetak();
 			// $this->load->view('surat/v_cetak_penjualan',$value);

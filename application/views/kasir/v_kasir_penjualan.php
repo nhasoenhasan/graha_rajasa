@@ -78,10 +78,11 @@
                 var html = '';
                 var i;
                 for(i=0; i<data.length; i++){
+                    // console.log(data[i].tanggal.slice(0,9),'<<');
                     html += 
                         '<tr>'+
                             '<td class="text-center">'+(i+1)+'</td>'+
-                            '<td class="text-center">'+data[i].tanggal+'</td>'+
+                            '<td class="text-center">'+data[i].tanggal.slice(0,10)+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].no_order+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].nama_barang+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">Rp. '+data[i].harga+'</td>'+

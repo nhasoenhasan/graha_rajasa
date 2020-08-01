@@ -77,11 +77,29 @@ class return_barang extends CI_Controller {
 		if ($no_nota=='') {
 			echo 'Masukan No Nota!!';
 		}else{
-			$value['data']=$this->M_Return->getByNotaCetak($no_nota);
+			$result=$this->M_Return->getByNotaCetak($no_nota);
 
-			if (count($value['data'])==0) {
+			if (count($result)==0) {
 				echo "No Order Tidak Di Temukan!";
 			}else{
+
+
+				$total=0;
+				//Total
+				if (count($result)!=0) {
+					
+					$temp=[];
+					foreach ($result as $key => $value) {
+
+						array_push($temp, (int)$value['subtotal']);
+						
+					}
+
+					$total=array_sum($temp);
+				}
+
+				$value['total']=$total;
+				$value['data']=$result;
 				$value['cetak']=$this->M_Setting->getCetak();
 				$this->load->view('surat/v_cetak_nota_return',$value);
 			}
@@ -101,10 +119,26 @@ class return_barang extends CI_Controller {
 			$endDate = date('Y-m-d',$endDate);
 			
 			// $result=$this->M_Penjualan->getByDate($startDate,$endDate);
-			$value['data']=$this->M_Return->getByDate($startDate,$endDate);
+			$result=$this->M_Return->getByDate($startDate,$endDate);
+
+			$total=0;
+			//Total
+			if (count($result)!=0) {
+				
+				$temp=[];
+				foreach ($result as $key => $value) {
+
+					array_push($temp, (int)$value['subtotal']);
+					
+				}
+
+				$total=array_sum($temp);
+			}
 			
-			$value['startDate']=date('d/m/Y',strtotime($this->input->post('startDate')));
-			$value['endDate']=date('d/m/Y',strtotime($this->input->post('endDate')));
+			$value['total']=$total;
+			$value['data']=$result;
+			$value['startDate']=date('d-m-Y',strtotime($this->input->post('startDate')));
+			$value['endDate']=date('d-m-Y',strtotime($this->input->post('endDate')));
 			// $value['data']=$result;
 			$value['cetak']=$this->M_Setting->getCetak();
 			$this->load->view('surat/v_cetak_return_periode',$value);

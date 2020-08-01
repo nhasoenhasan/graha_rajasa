@@ -30,11 +30,11 @@
                 <p class="h3 font-weight-bold"><?= $cetak[0]['nama_perusahaan']?></p>
             </div>
         </div>
-        <div class="row justify-content-md-center mt-3">
+        <!-- <div class="row justify-content-md-center mt-3">
             <div class="col-md-auto border-dark ">
                 <p>No Surat : XX/xx/xx/xx</p>
             </div>
-        </div>
+        </div> -->
         <hr>
         <div class="justify-content-md-left mt-1 mb-4">
             <div class="col-md-auto row">
@@ -42,7 +42,7 @@
                     <p>Tanggal Order</p>
                 </div>
                 <div class="col">
-                    <p>: <?php echo "  " . date("Y/m/d");?></p>
+                    <p>: <?php echo "  " . date("Y-m-d");?></p>
                 </div>
             </div>
             <div class="col-md-auto row">
@@ -67,7 +67,7 @@
                 <?php  foreach ($data as $key=> $value) {?>
                     <tr>
                         <th scope="row" class="text-center"><?= $key+1?></th>
-                        <td class="text-center"><?= $value['nama_barang']?></td>
+                        <td class="text-left"><?= $value['nama_barang']?></td>
                         <td class="text-center"><?= $value['jumlah']?></td>
                         <td class="text-center">Rp. <?= $value['subtotal']?></td>
                     </tr>
@@ -87,7 +87,7 @@
         <div class="col justify-content-center pr-3 text-center" style="left: 40rem; top: 5rem; color: black;">
             <div class="col-5 text-center" style="margin-bottom:6rem">
                 <p >Mengetahui</p>
-                <p >Pimpinan PT.Graha Rajasa</p>
+                <p ><?= $cetak[0]['mengetahui']?></p>
             </div>
             <div class="col-5 text-center">
                 <p><?= $cetak[0]['tdd_gudang']?></p>

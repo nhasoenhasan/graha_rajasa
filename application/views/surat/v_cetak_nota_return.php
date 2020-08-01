@@ -52,7 +52,7 @@
                             <p class="h5 ">Tanggal</p>
                         </div>
                         <div class="col">
-                            <p class="h5 "><?php echo "  " . date("d/m/Y");?></p>
+                            <p class="h5 "><?php echo "  " . date("d-m-Y");?></p>
                         </div>
                     </div>
                 </div>
@@ -74,22 +74,30 @@
                 <?php  foreach ($data as $key=> $value) {?>
                     <tr>
                         <th scope="row" class="text-center"><?= $key+1?></th>
-                        <td class="text-center"><?= $value['tanggal']?></td>
-                        <td class="text-center"><?= $value['nama_barang']?></td>
-                        <td class="text-center">Rp. <?= $value['harga']?></td>
-                        <td class="text-center"><?= $value['jumlah']?></td>
+                        <td class="text-center"><?= substr($value['tanggal'],8,2)?>-<?= substr($value['tanggal'],5,2)?>-<?= substr($value['tanggal'],0,4)?></td>
+                        <td class="text-left"><?= $value['nama_barang']?></td>
+                        <td class="text-right">Rp. <?= $value['harga']?></td>
+                        <td class="text-right"><?= $value['jumlah']?></td>
                         <td class="text-center"><?= $value['keterangan']?></td>
-                        <td class="text-center">Rp. <?= $value['subtotal']?></td>
+                        <td class="text-right">Rp. <?= $value['subtotal']?></td>
                     </tr>
                 <?php 
                 }?>
                 <tr>
             </tbody>
         </table>
+        <div class="row justify-content-end pl-5 ml-5 ">
+            <div class="col-3  text-right">
+                <p class="font-weight-bold">Total</p>
+            </div>
+            <div class="col-3 mr-1  text-right ">
+                <p class="font-weight-bold">Rp. <?= $total?></p>
+            </div>
+        </div>
         <div class="col justify-content-center pr-3 text-center" style=" left: 40rem; top: 5rem; color: black;">
             <div class="col-5 text-center" style="margin-bottom:6rem">
-                <p >Mengetahui</p>
-                <p >Pimpinan PT.Graha Rajasa</p>
+                <p >Yogyakarta, <?php echo "  " . date("d-m-Y");?></p>
+                <p ><?= $cetak[0]['mengetahui']?></p>
             </div>
             <div class="col-5 text-center">
                <p><?= $cetak[0]['tdd_gudang']?></p>
