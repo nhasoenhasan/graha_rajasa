@@ -50,7 +50,7 @@
                     <p>Kepada Supplier</p>
                 </div>
                 <div class="col">
-                    <p>:<?= $supplier?></p>
+                    <p>: <?= $supplier?></p>
                 </div>
             </div>
         </div>

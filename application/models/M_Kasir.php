@@ -91,7 +91,7 @@ class M_Kasir extends CI_Model {
 	//Handle Update Table Barang
 	public function updateBarang($id_barang,$stok){
 		//Reduce Stok Barang
-		$sql="UPDATE `barang` SET `stok`=stok-? WHERE id_barang=?";
+		$sql="UPDATE `barang` SET  `stok_terjual`=stok_terjual+? WHERE id_barang=?";
 		$query=$this->db->query($sql, array($stok, $id_barang));
 		return $id_barang;
 	}

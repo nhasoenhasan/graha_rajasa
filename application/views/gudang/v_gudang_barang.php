@@ -40,7 +40,9 @@
             <tr>
                 <th scope="col" class="text-center">No</th>
                 <th scope="col" class="text-center">Nama Barang</th>
-                <th scope="col" class="text-center">Stock</th>
+                <th scope="col" class="text-center">Stock Awal</th>
+                <th scope="col" class="text-center">Terjual</th>
+                <th scope="col" class="text-center">Stock Sisa</th>
                 <th scope="col" class="text-center">Harga Beli</th>
                 <th scope="col" class="text-center">Harga Jual</th>
                 <th scope="col" class="text-center">Suplier</th>
@@ -48,6 +50,7 @@
             </tr>
         </thead>
         <tbody id="show_data">
+        
         </tbody>
     </table>
 </main>
@@ -212,6 +215,8 @@
                             '<td class="text-center">'+(i+1)+'</td>'+
                             '<td class="text-center">'+data[i].nama_barang+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].stok+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].stok_terjual+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+(parseInt(data[i].stok)-parseInt(data[i].stok_terjual))+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].harga_beli+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].harga_jual+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].nama+'</td>'+
@@ -260,6 +265,8 @@
                             '<td class="text-center">'+(i+1)+'</td>'+
                             '<td class="text-center">'+data[i].nama_barang+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].stok+'</td>'+
+                                '<td class="text-center" style="word-break: break-all;">'+data[i].stok_terjual+'</td>'+
+                                '<td class="text-center" style="word-break: break-all;">'+(parseInt(data[i].stok)-parseInt(data[i].stok_terjual))+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].harga_beli+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].harga_jual+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].nama+'</td>'+

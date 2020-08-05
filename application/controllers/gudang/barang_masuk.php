@@ -141,6 +141,7 @@ class barang_masuk extends CI_Controller {
 						echo json_encode(array("status" => FALSE));
 					}
 					
+					
 				}else{
 					echo json_encode(array("status" => FALSE));
 				}

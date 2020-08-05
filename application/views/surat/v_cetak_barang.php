@@ -18,7 +18,7 @@
     </style>
 </head>
 <body  >
-    <?php  $i=0; ?>
+    <?php  $i=0;?>
     <div class="container">
         <div class="row justify-content-md-center mt-5">
             <div class="col-md-auto border-dark ">
@@ -49,7 +49,9 @@
                 <tr>
                     <th scope="col" class="text-center">No</th>
                     <th scope="col" class="text-left">Nama Barang</th>
-                    <th scope="col" class="text-center">Stock</th>
+                    <th scope="col" class="text-center">Stock Awal</th>
+                    <th scope="col" class="text-center">Terjual</th>
+                    <th scope="col" class="text-center">Stock Sisa</th>
                     <th scope="col" class="text-right">Harga Beli</th>
                     <th scope="col" class="text-right">Harga Jual</th>
                     <th scope="col" class="text-center">Suplier</th>
@@ -61,6 +63,8 @@
                         <th scope="row" class="text-center"><?= $key+1?></th>
                         <td class="text-left"><?= $value['nama_barang']?></td>
                         <td class="text-center"><?= $value['stok']?></td>
+                        <td class="text-center"><?= $value['stok_terjual']?></td>
+                        <td class="text-center"><?= intval($value['stok']-$value['stok_terjual'])?></td>
                         <td class="text-right">Rp. <?= $value['harga_beli']?></td>
                         <td class="text-right">Rp. <?= $value['harga_jual']?></td>
                         <td class="text-center"><?= $value['nama']?></td>

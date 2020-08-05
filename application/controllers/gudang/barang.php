@@ -79,6 +79,7 @@ class barang extends CI_Controller {
 					'id_supplier' => $suplier,
 					'nama_barang' => $barang,
 					'stok' => $stok,
+					'stok_terjual' => $stok,
 					'harga_beli' => $beli,
 					'harga_jual' => $jual,
 					'deskripsi' => $deskripsi,
@@ -125,6 +126,8 @@ class barang extends CI_Controller {
 						'id_supplier' => $suplier,
 						'nama_barang' => $barang,
 						'stok' => $stok,
+						// 'stok_terjual' => $stok,
+						// 'stok_sisa' => $stok,
 						'harga_beli' => $beli,
 						'harga_jual' => $jual,
 						'deskripsi' => $deskripsi,
@@ -142,6 +145,8 @@ class barang extends CI_Controller {
 					'id_supplier' => $suplier,
 					'nama_barang' => $barang,
 					'stok' => $stok,
+					// 'stok_terjual' => $stok,
+					// 'stok_sisa' => $stok,
 					'harga_beli' => $beli,
 					'harga_jual' => $jual,
 					'deskripsi' => $deskripsi,
@@ -191,7 +196,6 @@ class barang extends CI_Controller {
 			$value['endDate']=date('d-m-Y',strtotime($this->input->post('endDate')));
 			// $value['data']=$result;
 			$value['cetak']=$this->M_Setting->getCetak();
-			// $this->load->view('surat/v_cetak_penjualan',$value);
 			$this->load->view('surat/v_cetak_barang',$value);
 		}
 	}

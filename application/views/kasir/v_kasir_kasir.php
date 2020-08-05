@@ -14,10 +14,11 @@
         <div class="card-body">
             <div class="row pr-4">
                 <div class="col bordered" style="margin-left:-1rem">
+                    
                     <form id="dataform">
                         <div class="form-group col-md-8">
                             <label class="font-weight-bold" for="inputEmail4">Pilih Barang</label>
-                                <select class="custom-select" name="barang" id="barang">
+                            <select class="custom-select" name="barang" id="barang">
                             </select>
                             <small id="HelpBarang" class="form-text text-danger ml-1">
                             </small>
@@ -164,10 +165,10 @@
             async : false,
             dataType : 'json',
             success : function(data){
-                var html = '<option value="null" selected>Please Select</option>';
+                var html = '<option value="null" selected >Please Select</option>';
                 var i;
                 for(i=0; i<data.length; i++){
-                    html += '<option value="'+data[i].id_barang+','+data[i].nama_barang+','+data[i].stok+','+data[i].harga_jual+'" selected>'+data[i].nama_barang+'</option>';
+                    html += '<option value="'+data[i].id_barang+','+data[i].nama_barang+','+data[i].stok+','+data[i].harga_jual+','+data[i].stok_terjual+'" >'+data[i].nama_barang+'</option>';
                 }
                 $('#barang').html(html);
             }
@@ -176,7 +177,7 @@
 
     //OnChange Select Barang
     $('#barang').on('change', function() {
-        data=this.value
+        data=this.value;
 
         if (data==='null') {
             price=0;
@@ -184,7 +185,7 @@
             $('#nama_barang').val(null);
             $('#stock').val(0);
             $('#price').val(0);
-            $('#harga_show').text(0);
+            $('#harga_show').text('Rp .'+0);
             $('#qty').val(0);
         }else{
             data=data.split(',');
@@ -192,8 +193,8 @@
             $('#id_barang').val(data[0]);
             $('#nama_barang').val(data[1]);
             $('#price').val(data[3]);
-            $('#harga_show').text(data[3]);
-            $('#stock').val(data[2]);
+            $('#harga_show').text('Rp .'+data[3]);
+            $('#stock').val(parseInt(data[2])-parseInt(data[4]));
             $('#qty').val(1);
         }
     });
@@ -214,7 +215,7 @@
                 $('#HelpQty').text('*Stok Tidak Tersedia');
                 $('#qty').addClass('is-invalid');
             }else{
-                $('#harga_show').text(sub_total);
+                $('#harga_show').text('Rp .'+sub_total);
                 $('#HelpQty').text('');
                 $('#qty').removeClass('is-invalid');
             }
