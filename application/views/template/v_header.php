@@ -25,6 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/dashboard.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/datepicker.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;

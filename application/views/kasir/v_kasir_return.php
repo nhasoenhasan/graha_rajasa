@@ -94,11 +94,61 @@
 
 <script  type="text/javascript">
 
+    var jumlah=0;
+
     // On Load Documents
     $(document).ready( function () {
         $('#myTable').DataTable();
         get_Penjualan()
     });  
+
+    $(document).on('change','#suplier',function() {
+        data=this.value
+
+        if (data=='') {
+            $('#HelpSuplier').text('*Pilih Barang!');
+            $('#suplier').addClass('is-invalid');
+        }else{
+            data=data.split('|');
+            jumlah=parseInt(data[3]);
+            $('#jumlah').val(data[3]);
+            $('#HelpSuplier').text('');
+            $('#suplier').removeClass('is-invalid');
+        }
+
+    });
+
+    $(document).on('input','#jumlah',function() {
+        data=this.value
+
+        if (data=='') {
+            $('#HelpJumlah').text('*Masukan Jumlah');
+            $('#jumlah').addClass('is-invalid');
+        }else{
+
+            if (parseInt(data) > jumlah) {
+                $('#HelpJumlah').text('*jumlah Tidak Ada');
+                $('#jumlah').addClass('is-invalid');
+            }else{
+                $('#HelpJumlah').text('');
+                $('#jumlah').removeClass('is-invalid');
+            }
+        }
+    });
+
+    $(document).on('input','#keterangan',function() {
+        data=this.value
+
+        if (data=='') {
+            $('#HelpKeterangan').text('*Masukan Alasan!');
+            $('#keterangan').addClass('is-invalid');
+        }else{
+            $('#HelpKeterangan').text('');
+            $('#keterangan').removeClass('is-invalid');
+        }
+
+    });
+
 
     //Handle Date Range
     $(function() {
@@ -162,7 +212,7 @@
                             '<td class="text-center" style="word-break: break-all;">'+data[i].no_order+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].nama_barang+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">Rp. '+data[i].harga+'</td>'+
-                            '<td class="text-center" style="word-break: break-all;">'+data[i].jumlah+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].jumlah_return+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].keterangan+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">Rp.'+data[i].subtotal+'</td>'+
                         '</tr>';
@@ -196,7 +246,7 @@
                             '<td class="text-center" style="word-break: break-all;">'+data[i].no_order+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].nama_barang+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">Rp. '+data[i].harga+'</td>'+
-                            '<td class="text-center" style="word-break: break-all;">'+data[i].jumlah+'</td>'+
+                            '<td class="text-center" style="word-break: break-all;">'+data[i].jumlah_return+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">'+data[i].keterangan+'</td>'+
                             '<td class="text-center" style="word-break: break-all;">Rp.'+data[i].subtotal+'</td>'+
                         '</tr>';
@@ -218,6 +268,7 @@
                 no_nota: no,
             },
             success : function(data){
+               
                 var html = '';
                 var i;
                 for(i=0; i<data.length; i++){
@@ -245,6 +296,7 @@
     //Input Barang
     $('#no_nota').on('input', function() {
         data=this.value
+
         if(data!==''){
             // $('#no_nota2').val(data);
             $('#HelpNota').text('');
@@ -337,6 +389,12 @@
                                     '</small>'+
                                 '</div>'+
                                 '<div class="form-group">'+
+                                    '<label for="exampleFormControlTextarea1">Jumlah</label>'+
+                                    '<input name="jumlah" id="jumlah"  type="number" class="form-control"  >'+
+                                    '<small id="HelpJumlah" class="form-text text-danger ml-1">'+
+                                    '</small>'+
+                                '</div>'+
+                                '<div class="form-group">'+
                                     '<label for="exampleFormControlTextarea1">Alasan</label>'+
                                     '<textarea name="keterangan" class="form-control" id="keterangan" rows="3"></textarea>'+
                                     '<small id="HelpKeterangan" class="form-text text-danger ml-1">'+
@@ -345,11 +403,12 @@
                             '</form>';
                     var i;
                     for(i=0; i<data.data.length; i++){
-                        select +='<option value="'+data.data[i].id_det_penjualan+'|'+data.data[i].subtotal+'|'+data.data[i].id_penjualan+'">'+data.data[i].nama_barang+'</option>';
+                        select +='<option value="'+data.data[i].id_det_penjualan+'|'+data.data[i].harga+'|'+data.data[i].id_penjualan+'|'+data.data[i].jumlah+'">'+data.data[i].nama_barang+'</option>';
                     }
 
-                    $('#result').html(html);
-                    $('#suplier').html(select);
+                    // $('#result').val(html);
+                    $('#result').append(html);
+                    $('#suplier').append(select);
                     $("#btnSearch").html('Search');
                     $("#btnSearch").prop('disabled', false);
                 }else{
@@ -365,14 +424,25 @@
     function addValidation(){
        var suplier= $('#suplier').val();
        var keterangan= $('#keterangan').val();
+       var jumlahInput= $('#jumlah').val();
 
-       if (suplier==='' || keterangan==='') {
+       if (suplier==='' || keterangan==='' || jumlahInput==='') {
             $('#HelpSuplier').text('*Pilih Barang!');
             $('#suplier').addClass('is-invalid');
             $('#HelpKeterangan').text('*Masukan Alasan!');
             $('#keterangan').addClass('is-invalid');
+            $('#HelpJumlah').text('*Masukan Jumlah');
+            $('#jumlah').addClass('is-invalid');
        }else{
-            addReturn()
+            if (parseInt(jumlahInput) > jumlah) {
+                $('#HelpJumlah').text('*jumlah Tidak Ada');
+                $('#jumlah').addClass('is-invalid');
+            }else{
+                $('#HelpJumlah').text('');
+                $('#jumlah').removeClass('is-invalid');
+                addReturn()
+            }
+
        }
 
     }

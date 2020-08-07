@@ -263,14 +263,17 @@
         var cek;
         data=data.split('=');   
         cek=''+data[0]+'|'+data[8]+'';
-        // console.log(cek);
+        
+        //Membuat Persen 
+        var hargabeli=Math.round((parseInt(data[6])*(10/100))+parseInt(data[6]));
+
         $('[name="id_supplier"]').val(data[0]);
         $('[name="id_barang"]').val(data[1]);
         $('[name="id_det_order_brg"]').val(data[2]);
         $('[name="jumlah"]').val(data[5]);
         $('[name="nama_barang"]').val(data[3].replace(/_/g, ' '));
         $('[name="nama_supplier"]').val(data[8].replace(/_/g, ' '));
-        $('[name="jual"]').val(data[7]);
+        $('[name="jual"]').val(hargabeli);
         $('[name="beli"]').val(data[6]);
         $("#suplier").val(data[0]+'|'+data[8]);
 
@@ -330,6 +333,21 @@
         }else{
             getByDate()
         }
+    }
+
+    //Harga 10% harga beli
+    function hargaJual(){
+
+        var a=(parseInt(data[6])*(10/100))+parseInt(data[6]);
+
+        if (a===parseInt(data[7])) {
+           return hargabeli=parseInt(data[7]);
+        }if(parseInt(data[7]) >= a ){
+           return hargabeli=parseInt(data[7]);
+        }else{
+           return hargabeli=a;
+        }
+
     }
 
     //Get Data Barang Masuk By Date Range
@@ -677,7 +695,12 @@
     //Beli Add
     $('#beli').on('input', function() {
         data=this.value
+
+        //Set 10% Harga Jual
+        var hargabeli=(parseInt(data)*(10/100))+parseInt(data);
+
         if(data!==''||null){
+            $('[name="jual"]').val(Math.round(hargabeli));
             $('#HelpBeli').text('');
             $('#beli').removeClass('is-invalid');
             $('#beli').addClass('is-valid');
@@ -692,7 +715,12 @@
     //Beli Edit
     $('#beli_edit').on('input', function() {
         data=this.value
+
+        //Set 10% Harga Jual
+        var hargabeli=(parseInt(data)*(10/100))+parseInt(data);
+
         if(data!==''||null){
+            $('#jual_edit').val(Math.round(hargabeli));
             $('#HelpEditBeli').text('');
             $('#beli_edit').removeClass('is-invalid');
             $('#beli_edit').addClass('is-valid');

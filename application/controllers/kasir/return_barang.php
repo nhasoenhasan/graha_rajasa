@@ -52,13 +52,18 @@ class return_barang extends CI_Controller {
 		$post=explode( '|', $post);
 
 		$no_order=$post[0];
-		$subtotal=$post[1];
+		$harga=$post[1];
 		$id_penjualan=$post[2];
+		$jumlahtetap=$post[3];
+
 
 		$keterangan=$this->input->post('keterangan',TRUE);
+		$jumlah=$this->input->post('jumlah',TRUE);
+
+		$subtotal=$harga*$jumlah;
 
 		//Update Status Order Menjadi Return
-		if ($data=$this->M_Return->update($no_order,$keterangan)) {
+		if ($data=$this->M_Return->update($no_order,$keterangan,$jumlah)) {
 
 			//Reduce Total 
 			$this->M_Return->updateBarangMasuk($subtotal,$id_penjualan);

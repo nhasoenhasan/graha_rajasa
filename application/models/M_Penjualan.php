@@ -7,7 +7,7 @@ class M_Penjualan extends CI_Model {
 			'SELECT DISTINCT penjualan.no_order,penjualan.tanggal,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal
 			FROM penjualan
 			INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
-			WHERE detail_penjualan.status=0;
+			WHERE detail_penjualan.status=0 OR detail_penjualan.jumlah!=0
 			'
 		);
         return $query->result();
@@ -18,7 +18,7 @@ class M_Penjualan extends CI_Model {
 		FROM penjualan
 		INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
 		WHERE detail_penjualan.status=0
-		and date(penjualan.tanggal) BETWEEN ? AND ?';
+		and date(penjualan.tanggal) BETWEEN ? AND ? OR detail_penjualan.jumlah!=0';
 		$query = $this->db->query($sql,array($start,$end));
         return $query->result_array();
 	}
@@ -28,7 +28,7 @@ class M_Penjualan extends CI_Model {
 		FROM penjualan
 		INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
 		WHERE detail_penjualan.status=0
-		and date(penjualan.tanggal) BETWEEN ? AND ? ';
+		and date(penjualan.tanggal) BETWEEN ? AND ? OR detail_penjualan.jumlah!=0';
 		$query = $this->db->query($sql,array($start,$end));
         return $query->result();
 	}

@@ -63,7 +63,7 @@
                         <td class="text-center"><?= substr($value['tanggal'],8,2)?>-<?= substr($value['tanggal'],5,2)?>-<?= substr($value['tanggal'],0,4)?></td>
                         <td class="text-left"><?= $value['nama_barang']?></td>
                         <td class="text-right">Rp. <?= $value['harga']?></td>
-                        <td class="text-center"><?= $value['jumlah']?></td>
+                        <td class="text-center"><?= $value['jumlah_return']?></td>
                         <td class="text-center"><?= $value['keterangan']?></td>
                         <td class="text-right">Rp. <?= $value['subtotal']?></td>
                     </tr>

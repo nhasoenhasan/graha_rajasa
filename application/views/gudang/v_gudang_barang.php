@@ -345,7 +345,12 @@
      //Beli Add
      $('#beli').on('input', function() {
         data=this.value
+
+        //Membuat Persen 
+        var hargabeli=Math.round((parseInt(data)*(10/100))+parseInt(data));
+
         if(data!==''||null){
+            $('#jual').val(Math.round(hargabeli));
             $('#HelpBeli').text('');
             $('#beli').removeClass('is-invalid');
             $('#beli').addClass('is-valid');

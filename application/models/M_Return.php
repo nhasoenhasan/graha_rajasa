@@ -4,22 +4,21 @@ class M_Return extends CI_Model {
 	public function getAll ()
 	{
 		$query = $this->db->query(
-			'SELECT DISTINCT penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
+			'SELECT DISTINCT detail_penjualan.jumlah_return,penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
 			FROM penjualan
 			INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
-			WHERE detail_penjualan.status=1;
-			'
+			WHERE detail_penjualan.status=1 '
 		);
         return $query->result();
 	}
 
 	public function getByNota ($id)
 	{
-		$sql ='SELECT DISTINCT penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
+		$sql ='SELECT DISTINCT detail_penjualan.jumlah_return,penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
 			FROM penjualan
 			INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
 			WHERE detail_penjualan.status=1
-			AND penjualan.no_order=?';
+			AND penjualan.no_order=? ';
 			
 		$query=$this->db->query($sql, array($id));
         return $query->result();
@@ -27,7 +26,7 @@ class M_Return extends CI_Model {
 
 	public function getByNotaCetak ($id)
 	{
-		$sql ='SELECT DISTINCT penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
+		$sql ='SELECT DISTINCT detail_penjualan.jumlah_return,penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
 			FROM penjualan
 			INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
 			WHERE detail_penjualan.status=1
@@ -39,7 +38,7 @@ class M_Return extends CI_Model {
 
 	public function findNota($id)
 	{
-		$sql='SELECT DISTINCT detail_penjualan.nama_barang,detail_penjualan.id_det_penjualan,detail_penjualan.subtotal,penjualan.id_penjualan
+		$sql='SELECT DISTINCT detail_penjualan.jumlah_return,detail_penjualan.harga,detail_penjualan.jumlah,detail_penjualan.nama_barang,detail_penjualan.id_det_penjualan,detail_penjualan.subtotal,penjualan.id_penjualan
 		FROM penjualan
 		INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
 		WHERE detail_penjualan.status=0 AND penjualan.no_order=?';
@@ -47,11 +46,9 @@ class M_Return extends CI_Model {
         return $query->result();
 	}
 
-	public function update($id,$data){
-		$this->db->set('status', 1);
-		$this->db->set('keterangan', $data);
-		$this->db->where('id_det_penjualan', $id);
-		$this->db->update('detail_penjualan');
+	public function update($id,$data,$jumlah){
+		$sql="UPDATE `detail_penjualan` SET `status`=1,`keterangan`=?,`jumlah_return`=`jumlah_return`+?, `jumlah`=`jumlah`-? WHERE `id_det_penjualan`=?";
+		$query=$this->db->query($sql, array($data,$jumlah,$jumlah,$id));
 		return $id;
 	}
 
@@ -63,18 +60,18 @@ class M_Return extends CI_Model {
 	}
 
 	public function getByDateJson($start,$end){
-		$sql ='SELECT DISTINCT penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
+		$sql ='SELECT DISTINCT detail_penjualan.jumlah_return,penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
 			FROM penjualan
 			INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
 			WHERE detail_penjualan.status=1
-			AND date(detail_penjualan.tanggal) BETWEEN ? AND ?';
+			AND date(detail_penjualan.tanggal) BETWEEN ? AND ? AND ';
 			
 		$query=$this->db->query($sql, array($start,$end));
         return $query->result();
 	}
 
 	public function getByDate($start,$end){
-		$sql ='SELECT DISTINCT penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
+		$sql ='SELECT DISTINCT detail_penjualan.jumlah_return,penjualan.no_order,detail_penjualan.nama_barang,detail_penjualan.harga,detail_penjualan.jumlah,penjualan.diskon,detail_penjualan.subtotal,detail_penjualan.keterangan,detail_penjualan.tanggal
 			FROM penjualan
 			INNER JOIN detail_penjualan ON penjualan.id_penjualan = detail_penjualan.id_penjualan
 			WHERE detail_penjualan.status=1
