@@ -79,7 +79,7 @@ class barang extends CI_Controller {
 					'id_supplier' => $suplier,
 					'nama_barang' => $barang,
 					'stok' => $stok,
-					'stok_terjual' => $stok,
+					// 'stok_terjual' => $stok,
 					'harga_beli' => $beli,
 					'harga_jual' => $jual,
 					'deskripsi' => $deskripsi,
