@@ -364,10 +364,21 @@
     //Jual
     $('#jual').on('input', function() {
         data=this.value
+
+        var beli= $('#beli').val();
+        var hargabeli=(parseInt(beli)*(10/100))+parseInt(beli);
+
         if(data!==''||null){
-            $('#HelpJual').text('');
-            $('#jual').removeClass('is-invalid');
-            $('#jual').addClass('is-valid');
+            if(parseInt(data) < Math.round(hargabeli) ){
+                $('#jual').val(Math.round(hargabeli));
+                $('#HelpJual').text('Harga Jual Harus 10% dari harga beli');
+                $('#jual').addClass('is-invalid');
+                $('#jual').removeClass('is-valid');
+            }else{
+                $('#HelpJual').text('');
+                $('#jual').removeClass('is-invalid');
+                $('#jual').addClass('is-valid');
+            }
         }else{
             $('#HelpJual').text('Masukan Harga Jual');
             $('#jual').removeClass('is-valid');

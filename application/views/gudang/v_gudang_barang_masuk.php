@@ -734,24 +734,51 @@
     //Jual
     $('#jual').on('input', function() {
         data=this.value
+
+        //Get Value Harga Beli
+        var beli= $('#beli').val();
+        var hargabeli=(parseInt(beli)*(10/100))+parseInt(beli);
+
         if(data!==''||null){
-            $('#HelpJual').text('');
-            $('#jual').removeClass('is-invalid');
-            $('#jual').addClass('is-valid');
+            if(parseInt(data) < Math.round(hargabeli) ){
+                $('#jual').val(Math.round(hargabeli));
+                $('#HelpJual').text('Harga Jual Harus 10% dari harga beli');
+                $('#jual').addClass('is-invalid');
+                $('#jual').removeClass('is-valid');
+            }else{
+                $('#HelpJual').text('');
+                $('#jual').removeClass('is-invalid');
+                $('#jual').addClass('is-valid');
+            }
         }else{
+
             $('#HelpJual').text('Masukan Harga Jual');
             $('#jual').removeClass('is-valid');
             $('#jual').addClass('is-invalid');
+            
         }
     });
 
     //Jual Edit
     $('#jual_edit').on('input', function() {
         data=this.value
+
+        var beli= $('#beli_edit').val();
+        var hargabeli=(parseInt(beli)*(10/100))+parseInt(beli);
+
         if(data!==''||null){
-            $('#HelpEditJual').text('');
-            $('#jual_edit').removeClass('is-invalid');
-            $('#jual_edit').addClass('is-valid');
+
+            if(parseInt(data) < Math.round(hargabeli) ){
+                $('#jual_edit').val(Math.round(hargabeli));
+                $('#HelpEditJual').text('Harga Jual Harus 10% dari harga beli');
+                $('#jual_edit').addClass('is-invalid');
+                $('#jual_edit').removeClass('is-valid');
+            }else{
+                $('#HelpEditJual').text('');
+                $('#jual_edit').removeClass('is-invalid');
+                $('#jual_edit').addClass('is-valid');
+            }
+
         }else{
             $('#HelpEditJual').text('Masukan Harga Jual');
             $('#jual_edit').removeClass('is-valid');
