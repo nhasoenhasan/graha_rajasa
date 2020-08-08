@@ -576,19 +576,33 @@
 
     //Submit Add After Validation
     function submitAdd(array){
-        if(parseInt(array[9]) <= parseInt(array[8])){
-            $('#HelpJual').text('*Harga Jual Harus Lebih Besar Dari Harga Beli');
+        var beli= $('#beli').val();
+        var jual= $('#jual').val();
+        var hargabeli=(parseInt(beli)*(10/100))+parseInt(beli);
+
+        if(parseInt(jual) < Math.round(hargabeli)){
+            $('#jual').val(Math.round(hargabeli));
+            $('#HelpJual').text('Harga Jual Harus 10% dari harga beli');
             $('#jual').addClass('is-invalid');
+            $('#jual').removeClass('is-valid');
         }else{
+
             add_Barang_Masuk()
+
         }
     }
 
     //Submit Edit After Validation
     function submitEdit(array){
-        if(parseInt(array[5]) <= parseInt(array[4])){
-            $('#HelpEditJual').text('*Harga Jual Harus Lebih Besar Dari Harga Beli');
+        var beli= $('#beli_edit').val();
+        var jual= $('#jual_edit').val();
+        var hargabeli=(parseInt(beli)*(10/100))+parseInt(beli);
+
+        if(parseInt(jual) < Math.round(hargabeli)){
+            $('#jual_edit').val(Math.round(hargabeli));
+            $('#HelpEditJual').text('Harga Jual Harus 10% dari harga beli');
             $('#jual_edit').addClass('is-invalid');
+            $('#jual_edit').removeClass('is-valid');
         }else{
             update_Barang_Masuk()
         }
@@ -736,20 +750,20 @@
         data=this.value
 
         //Get Value Harga Beli
-        var beli= $('#beli').val();
-        var hargabeli=(parseInt(beli)*(10/100))+parseInt(beli);
+        // var beli= $('#beli').val();
+        // var hargabeli=(parseInt(beli)*(10/100))+parseInt(beli);
 
         if(data!==''||null){
-            if(parseInt(data) < Math.round(hargabeli) ){
-                $('#jual').val(Math.round(hargabeli));
-                $('#HelpJual').text('Harga Jual Harus 10% dari harga beli');
-                $('#jual').addClass('is-invalid');
-                $('#jual').removeClass('is-valid');
-            }else{
+            // if(parseInt(data) < Math.round(hargabeli) ){
+            //     $('#jual').val(0);
+            //     $('#HelpJual').text('Harga Jual Harus 10% dari harga beli');
+            //     $('#jual').addClass('is-invalid');
+            //     $('#jual').removeClass('is-valid');
+            // }else{
                 $('#HelpJual').text('');
                 $('#jual').removeClass('is-invalid');
                 $('#jual').addClass('is-valid');
-            }
+            
         }else{
 
             $('#HelpJual').text('Masukan Harga Jual');
@@ -763,21 +777,21 @@
     $('#jual_edit').on('input', function() {
         data=this.value
 
-        var beli= $('#beli_edit').val();
-        var hargabeli=(parseInt(beli)*(10/100))+parseInt(beli);
+        // var beli= $('#beli_edit').val();
+        // var hargabeli=(parseInt(beli)*(10/100))+parseInt(beli);
 
         if(data!==''||null){
 
-            if(parseInt(data) < Math.round(hargabeli) ){
-                $('#jual_edit').val(Math.round(hargabeli));
-                $('#HelpEditJual').text('Harga Jual Harus 10% dari harga beli');
-                $('#jual_edit').addClass('is-invalid');
-                $('#jual_edit').removeClass('is-valid');
-            }else{
+            // if(parseInt(data) < Math.round(hargabeli) ){
+            //     $('#jual_edit').val(Math.round(hargabeli));
+            //     $('#HelpEditJual').text('Harga Jual Harus 10% dari harga beli');
+            //     $('#jual_edit').addClass('is-invalid');
+            //     $('#jual_edit').removeClass('is-valid');
+            // }else{
                 $('#HelpEditJual').text('');
                 $('#jual_edit').removeClass('is-invalid');
                 $('#jual_edit').addClass('is-valid');
-            }
+            // }
 
         }else{
             $('#HelpEditJual').text('Masukan Harga Jual');
