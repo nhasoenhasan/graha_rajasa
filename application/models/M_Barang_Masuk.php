@@ -101,7 +101,7 @@ class M_Barang_Masuk extends CI_Model {
 	public function updateBarang($stok,$beli,$jual,$id,$nama,$id_barang){
 		//Reduce Stok Barang
 		$sql="UPDATE `barang` SET `stok`=stok+?,`harga_beli`=?,`harga_jual`=?,`id_supplier`=?,`nama_barang`=? WHERE id_barang=?";
-		$query=$this->db->query($sql, array($stok,$stok, $beli,$jual,$id,$nama,$id_barang));
+		$query=$this->db->query($sql, array($stok, $beli,$jual,$id,$nama,$id_barang));
 		return $id_barang;
 	}
 	
