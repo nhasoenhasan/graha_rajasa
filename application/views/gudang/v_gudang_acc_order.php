@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3  mb-1">
         <nav aria-label="breadcrumb" style="margin-left:-0.8rem">
             <ol class="breadcrumb bg-white">
-                <li class="breadcrumb-item active"><a href="<?php echo  base_url().'index.php/gudang/index'?>">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="<?php echo  base_url().'index.php/gudang_home'?>">Dashboard</a></li>
                 <li class="breadcrumb-item active">Acc Order</li>
             </ol>
         </nav>
@@ -20,7 +20,7 @@
             <button  type="button" class="btn mb-2 btn-success cetak" onclick="refresh()"  >
                 <span data-feather="refresh-ccw" style="width:1rem"></span>
             </button>
-            <form action="<?php echo  base_url().'index.php/gudang/acc_order/cetak'?>" method="post" class="row" target="_blank">
+            <form action="<?php echo  base_url().'index.php/gudang_acc_order/cetak'?>" method="post" class="row" target="_blank">
                 <div class="mr-4 ml-4 ">
                     <select class="form-control" name="supplier" id="suplier">
                     </select>
@@ -92,7 +92,7 @@
     function delete_Order()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/acc_order/delete'?>';
+        url = '<?php echo  base_url().'index.php/gudang_acc_order/delete'?>';
         // ajax adding data to database
         var formData = new FormData($('#deleteform')[0]);
         $.ajax({
@@ -132,7 +132,7 @@
     function get_Order(sts) {
       $.ajax({
             type  : 'get',
-            url   : '<?php echo  base_url().'index.php/gudang/acc_order/get'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_acc_order/get'?>',
             async : false,
             dataType : 'json',
             data: { 
@@ -172,7 +172,7 @@
     function get_Suplier() {
         $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/gudang/suplier/get'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_suplier/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -191,7 +191,7 @@
         
         if (data[1]==='1') {
             var url;
-            url = '<?php echo  base_url().'index.php/gudang/acc_order/update'?>';
+            url = '<?php echo  base_url().'index.php/gudang_acc_order/update'?>';
             // ajax adding data to database
             var formData = new FormData();
             formData.append('data',data[0])

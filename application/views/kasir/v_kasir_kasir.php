@@ -99,7 +99,7 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-dark btn-sm ml-3 mb-3" data-toggle="modal" onclick="modalDiskon()">Edit Discont (%)</button>
-                    <form  action="<?php echo  base_url().'index.php/kasir/kasir/cetakNota'?>" method="post" target="_blank">
+                    <form  action="<?php echo  base_url().'index.php/kasir_kasir/cetakNota'?>" method="post" target="_blank">
                         <button type="submit"  onclick="save_Database()"class="btn btn-primary btn-lg btn-block" >SAVE</button>
                     </form>
                     </div>
@@ -161,7 +161,7 @@
     function get_Barang() {
         $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/gudang/barang/get'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_barang/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -293,7 +293,7 @@
     function add_ToCart()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/kasir/kasir/cart'?>';
+        url = '<?php echo  base_url().'index.php/kasir_kasir/cart'?>';
         // ajax adding data to database
         var formData = new FormData($('#dataform')[0]);
         $.ajax({
@@ -344,7 +344,7 @@
     function update_Diskon()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/kasir/kasir/updateDiskon'?>';
+        url = '<?php echo  base_url().'index.php/kasir_kasir/updateDiskon'?>';
         // ajax adding data to database
         var formData = new FormData($('#diskonform')[0]);
         $.ajax({
@@ -374,7 +374,7 @@
 
     function destroyCart(){
         var url;
-        url = '<?php echo  base_url().'index.php/kasir/kasir/destroyCart'?>';
+        url = '<?php echo  base_url().'index.php/kasir_kasir/destroyCart'?>';
         // ajax adding data to database
         $.ajax({
             url : url,
@@ -391,7 +391,7 @@
     function save_Database()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/kasir/kasir/isCart'?>';
+        url = '<?php echo  base_url().'index.php/kasir_kasir/isCart'?>';
         // ajax adding data to database
         var formData = new FormData($('#dataform')[0]);
         $.ajax({
@@ -423,7 +423,7 @@
     { 
         $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/kasir/kasir/getChart'?>',
+            url   : '<?php echo  base_url().'index.php/kasir_kasir/getChart'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -474,7 +474,7 @@
     { 
         $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/kasir/kasir/getDiskon'?>',
+            url   : '<?php echo  base_url().'index.php/kasir_kasir/getDiskon'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -504,7 +504,7 @@
         var data=$(this).attr('data');
         data=data.split(',');
         var url;
-        url = '<?php echo  base_url().'index.php/kasir/kasir/addChart'?>';
+        url = '<?php echo  base_url().'index.php/kasir_kasir/addChart'?>';
         $.ajax({
             url : url,
             type: "POST",
@@ -531,7 +531,7 @@
         var data=$(this).attr('data');
         data=data.split(',');
         var url;
-        url = '<?php echo  base_url().'index.php/kasir/kasir/subChart'?>';
+        url = '<?php echo  base_url().'index.php/kasir_kasir/subChart'?>';
         $.ajax({
             url : url,
             type: "POST",
@@ -558,7 +558,7 @@
         var data=$(this).attr('data');
         data=data.split(',');
         var url;
-        url = '<?php echo  base_url().'index.php/kasir/kasir/delChart'?>';
+        url = '<?php echo  base_url().'index.php/kasir_kasir/delChart'?>';
         $.ajax({
             url : url,
             type: "POST",

@@ -40,7 +40,7 @@ class Login extends CI_Controller {
 
 			$this->session->set_userdata($data_session);
 
-			redirect(base_url( "index.php/".$user->level."/index"));
+			redirect(base_url( "index.php/".$user->level."_home"));
 		}else{
             $this->session->set_flashdata('message','Password/Username Salah!!'); 
 			redirect(base_url());

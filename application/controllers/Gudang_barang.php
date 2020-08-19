@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class barang extends CI_Controller {
+class Gudang_Barang extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();

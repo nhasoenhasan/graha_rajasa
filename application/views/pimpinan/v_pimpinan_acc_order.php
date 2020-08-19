@@ -9,14 +9,14 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 ">
         <nav aria-label="breadcrumb" style="margin-left:-0.8rem">
             <ol class="breadcrumb bg-white">
-                <li class="breadcrumb-item"><a href="<?php echo  base_url().'index.php/pimpinan/index'?>">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo  base_url().'index.php/pimpinan_home'?>">Dashboard</a></li>
                 <li class="breadcrumb-item active">Acc Order</li>
             </ol>
         </nav>
     </div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom">
         <h1 class="h3">Acc Order</h1>
-        <form id=dateForm class="row mr-2 mb-3" action="<?php echo  base_url().'index.php/pimpinan/acc_order/cetakByDate'?>" method="post" target="_blank">
+        <form id=dateForm class="row mr-2 mb-3" action="<?php echo  base_url().'index.php/pimpinan_acc_order/cetakByDate'?>" method="post" target="_blank">
                 <div class="input-group " style="width:25rem">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Masukan Tanggal</span>
@@ -109,7 +109,7 @@
     function delete_Order()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/acc_order/delete'?>';
+        url = '<?php echo  base_url().'index.php/gudang_acc_order/delete'?>';
         // ajax adding data to database
         var formData = new FormData($('#deleteform')[0]);
         $.ajax({
@@ -149,7 +149,7 @@
     function get_Order(sts) {
       $.ajax({
             type  : 'get',
-            url   : '<?php echo  base_url().'index.php/pimpinan/acc_order/get'?>',
+            url   : '<?php echo  base_url().'index.php/pimpinan_acc_order/get'?>',
             async : false,
             dataType : 'json',
             data: { 
@@ -223,7 +223,7 @@
       var end=$('#endDate').val();
       $.ajax({
             type  : 'get',
-            url   : '<?php echo  base_url().'index.php/pimpinan/acc_order/getByDate'?>',
+            url   : '<?php echo  base_url().'index.php/pimpinan_acc_order/getByDate'?>',
             async : false,
             dataType : 'json',
             data:{
@@ -265,7 +265,7 @@
     function get_Suplier() {
         $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/gudang/suplier/get'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_suplier/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -284,7 +284,7 @@
         
         if (data[1]==='0') {
             var url;
-            url = '<?php echo  base_url().'index.php/pimpinan/acc_order/update'?>';
+            url = '<?php echo  base_url().'index.php/pimpinan_acc_order/update'?>';
             // ajax adding data to database
             var formData = new FormData();
             formData.append('data',data[0])

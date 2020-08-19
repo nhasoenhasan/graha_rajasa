@@ -2,7 +2,7 @@
     <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active"  href="<?php echo  base_url().'index.php/pimpinan/index'?>">
+            <a class="nav-link active"  href="<?php echo  base_url().'index.php/pimpinan_home'?>">
             <span data-feather="home"></span>
             Dashboard <span class="sr-only">(current)</span>
             </a>
@@ -14,7 +14,7 @@
         </a>
         </h6>
         <li class="nav-item">
-            <a class="nav-link"  href="<?php echo  base_url().'index.php/pimpinan/acc_order'?>">
+            <a class="nav-link"  href="<?php echo  base_url().'index.php/pimpinan_acc_order'?>">
                 <span  data-feather="file"></span>
                 Acc Order
             </a>
@@ -28,37 +28,37 @@
         </h6>
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan/index/barang'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan_home/barang'?>">
                 <span data-feather="file-text"></span>
                     Barang
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan/index/suplier'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan_home/suplier'?>">
                 <span data-feather="file-text"></span>
                     Suplier
                 </a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan/index/user'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan_home/user'?>">
                 <span data-feather="file-text"></span>
                     User
                 </a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan/index/penjualan'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan_home/penjualan'?>">
                 <span data-feather="file-text"></span>
                     Penjualan
                 </a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan/index/barangMasuk'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan_home/barangMasuk'?>">
                 <span data-feather="file-text"></span>
                     Barang Masuk
                 </a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan/index/returnBarang'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/pimpinan_home/returnBarang'?>">
                 <span data-feather="file-text"></span>
                     Return Barang
                 </a>
@@ -72,7 +72,7 @@
         </h6>
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang/setting'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang_setting'?>">
                 <span data-feather="file-text"></span>
                     Cetak
                 </a>

@@ -71,7 +71,7 @@
     function get_Penjualan() {
       $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/kasir/penjualan/get'?>',
+            url   : '<?php echo  base_url().'index.php/kasir_penjualan/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -129,7 +129,7 @@
         var end=$('#endDate').val();
         $.ajax({
             type  : 'get',
-            url   : '<?php echo  base_url().'index.php/kasir/penjualan/getByDate'?>',
+            url   : '<?php echo  base_url().'index.php/kasir_penjualan/getByDate'?>',
             async : false,
             dataType : 'json',
             data:{

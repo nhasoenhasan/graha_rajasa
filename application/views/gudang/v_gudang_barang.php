@@ -17,10 +17,10 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <div class="row ml-1 ">
             <h1 class="h2">Data Barang</h1>
-            <!-- <a target="_blank" href="<?php echo  base_url().'index.php/gudang/barang/cetak'?>" class="btn btn-primary ml-3"  ><span data-feather="printer"></span></a>     -->
+            <!-- <a target="_blank" href="<?php echo  base_url().'index.php/gudang_barang/cetak'?>" class="btn btn-primary ml-3"  ><span data-feather="printer"></span></a>     -->
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <form id=dateForm class="row mr-2" action="<?php echo  base_url().'index.php/gudang/barang/cetak'?>" method="post" target="_blank">
+            <form id=dateForm class="row mr-2" action="<?php echo  base_url().'index.php/gudang_barang/cetak'?>" method="post" target="_blank">
                 <div class="input-group " style="width:25rem">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Masukan Tanggal</span>
@@ -203,7 +203,7 @@
     function get_Barang() {
       $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/gudang/barang/get'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_barang/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -249,7 +249,7 @@
       var end=$('#endDate').val();
       $.ajax({
             type  : 'get',
-            url   : '<?php echo  base_url().'index.php/gudang/barang/getByDate'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_barang/getByDate'?>',
             async : false,
             dataType : 'json',
             data:{
@@ -285,7 +285,7 @@
     function get_Suplier() {
       $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/gudang/suplier/get'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_suplier/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -459,7 +459,7 @@
     function add_Barang()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/barang/post'?>';
+        url = '<?php echo  base_url().'index.php/gudang_barang/post'?>';
         // ajax adding data to database
         var formData = new FormData($('#addform')[0]);
         $.ajax({
@@ -487,7 +487,7 @@
     function delete_Barang()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/barang/delete'?>';
+        url = '<?php echo  base_url().'index.php/gudang_barang/delete'?>';
         // ajax adding data to database
         var formData = new FormData($('#deleteform')[0]);
         $.ajax({

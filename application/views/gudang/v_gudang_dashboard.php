@@ -15,28 +15,28 @@
             <div class="card-body bg-dark">
                 <h5 class="card-title text-white"><?= $jumlah_barang[0]['jumlah'] ?></h5>
                 <h5 class="card-title text-white">Data Barang</h5>
-                <a href="<?php echo  base_url().'index.php/gudang/barang'?>" class="card-text text-white">Lihat Detail<span class="fas ml-3 fa-arrow-circle-right"></span></a>
+                <a href="<?php echo  base_url().'index.php/gudang_barang'?>" class="card-text text-white">Lihat Detail<span class="fas ml-3 fa-arrow-circle-right"></span></a>
             </div>
         </div>
         <div class="card bg-light mb-3 ml-5" id="card-custom">
             <div class="card-body bg-dark">
                 <h5 class="card-title text-white"><?= $jumlah_suplier[0]['jumlah'] ?></h5>
                 <h5 class="card-title text-white">Data Suplier</h5>
-                <a href="<?php echo  base_url().'index.php/gudang/suplier'?>" class="card-text text-white">Lihat Detail<span class="fas ml-3 fa-arrow-circle-right"></span></a>
+                <a href="<?php echo  base_url().'index.php/gudang_suplier'?>" class="card-text text-white">Lihat Detail<span class="fas ml-3 fa-arrow-circle-right"></span></a>
             </div>
         </div>
         <div class="card bg-light mb-3 ml-5" id="card-custom">
             <div class="card-body bg-dark">
                 <h5 class="card-title text-white"><?= $jumlah_barang_masuk[0]['jumlah'] ?></h5>
                 <h5 class="card-title text-white">Data Barang Masuk</h5>
-                <a href="<?php echo  base_url().'index.php/gudang/barang_masuk'?>" class="card-text text-white">Lihat Detail<span class="fas ml-3 fa-arrow-circle-right"></span></a>
+                <a href="<?php echo  base_url().'index.php/gudang_barang_masuk'?>" class="card-text text-white">Lihat Detail<span class="fas ml-3 fa-arrow-circle-right"></span></a>
             </div>
         </div>
         <div class="card bg-light mb-3 ml-5" id="card-custom">
             <div class="card-body bg-dark">
                 <h5 class="card-title text-white"><?= $jumlah_order_barang[0]['jumlah'] ?></h5>
                 <h5 class="card-title text-white">Data Order Barang</h5>
-                <a href="<?php echo  base_url().'index.php/gudang/order'?>" class="card-text text-white">Lihat Detail<span class="fas ml-3 fa-arrow-circle-right"></span></a>
+                <a href="<?php echo  base_url().'index.php/gudang_order'?>" class="card-text text-white">Lihat Detail<span class="fas ml-3 fa-arrow-circle-right"></span></a>
             </div>
         </div>
         

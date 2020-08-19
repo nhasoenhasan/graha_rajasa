@@ -2,7 +2,7 @@
     <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active"  href="<?php echo  base_url().'index.php/gudang/index'?>">
+            <a class="nav-link active"  href="<?php echo  base_url().'index.php/gudang_home'?>">
             <span data-feather="home"></span>
             Dashboard <span class="sr-only">(current)</span>
             </a>
@@ -14,13 +14,13 @@
         </a>
         </h6>
         <li class="nav-item">
-            <a class="nav-link" href="<?php echo  base_url().'index.php/gudang/barang'?>">
+            <a class="nav-link" href="<?php echo  base_url().'index.php/gudang_barang'?>">
             <span  data-feather="file"></span>
             Data Barang
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?php echo  base_url().'index.php/gudang/suplier'?>">
+            <a class="nav-link" href="<?php echo  base_url().'index.php/gudang_suplier'?>">
             <span data-feather="shopping-cart"></span>
             Data Suplier
             </a>
@@ -34,19 +34,19 @@
         </h6>
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang/barang_masuk'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang_barang_masuk'?>">
                 <span data-feather="file-text"></span>
                     Barang Masuk
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang/order'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang_order'?>">
                 <span data-feather="file-text"></span>
                 Order Barang
                 </a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang/acc_order'?>">
+                <a class="nav-link" href="<?php echo  base_url().'index.php/gudang_acc_order'?>">
                 <span data-feather="file-text"></span>
                 Order Acc
                 </a>

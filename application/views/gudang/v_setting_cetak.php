@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3  ">
         <nav aria-label="breadcrumb" style="margin-left:-0.8rem">
             <ol class="breadcrumb bg-white">
-                <li class="breadcrumb-item"><a href="<?php echo  base_url().'index.php/gudang/index'?>">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo  base_url().'index.php/gudang_home'?>">Dashboard</a></li>
                 <li class="breadcrumb-item active">Setting Cetak</li>
             </ol>
         </nav>
@@ -119,7 +119,7 @@
     function get_Setting() {
       $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/gudang/setting/get'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_setting/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -263,7 +263,7 @@
     function add_Cetak()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/setting/post'?>';
+        url = '<?php echo  base_url().'index.php/gudang_setting/post'?>';
         // ajax adding data to database
         var formData = new FormData($('#addform')[0]);
         $.ajax({

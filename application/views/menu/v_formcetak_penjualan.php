@@ -1,4 +1,4 @@
-<form id=dateForm class="row mr-2" action="<?php echo  base_url().'index.php/kasir/penjualan/cetakPenjualan'?>" method="post" target="_blank">
+<form id=dateForm class="row mr-2" action="<?php echo  base_url().'index.php/kasir_penjualan/cetakPenjualan'?>" method="post" target="_blank">
     <div class="input-group " style="width:25rem">
         <div class="input-group-prepend">
             <span class="input-group-text">Masukan Tanggal</span>

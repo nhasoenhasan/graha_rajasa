@@ -17,7 +17,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <div class="row ml-1">
             <h1 class="h2">Data User</h1>
-            <!-- <a target="_blank" href="<?php echo  base_url().'index.php/gudang/barang/cetak'?>" class="btn btn-primary ml-3"  ><span data-feather="printer"></span></a>     -->
+            <!-- <a target="_blank" href="<?php echo  base_url().'index.php/gudang_barang/cetak'?>" class="btn btn-primary ml-3"  ><span data-feather="printer"></span></a>     -->
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
             <button type="button" class="btn btn-success" onclick="modaladd()" data-toggle="modal" >ADD</button>
@@ -162,7 +162,7 @@
     function get_User() {
       $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/pimpinan/user/get'?>',
+            url   : '<?php echo  base_url().'index.php/pimpinan_user/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -311,7 +311,7 @@
     function add_User()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/pimpinan/user/post'?>';
+        url = '<?php echo  base_url().'index.php/pimpinan_user/post'?>';
         // ajax adding data to database
         var formData = new FormData($('#addform')[0]);
         $.ajax({
@@ -338,7 +338,7 @@
     function delete_User()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/pimpinan/user/delete'?>';
+        url = '<?php echo  base_url().'index.php/pimpinan_user/delete'?>';
         // ajax adding data to database
         var formData = new FormData($('#deleteform')[0]);
         $.ajax({

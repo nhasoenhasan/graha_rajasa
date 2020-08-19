@@ -20,7 +20,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <div class="row ml-1">
             <h1 class="h2">Data Return</h1>
-            <form  class="form-inline"   style="margin-left:1rem" action="<?php echo  base_url().'index.php/kasir/return_barang/getCetak'?>" method="post" target="_blank">
+            <form  class="form-inline"   style="margin-left:1rem" action="<?php echo  base_url().'index.php/kasir_return_barang/getCetak'?>" method="post" target="_blank">
                 <div class="form-group mx-sm-3 ">
                     <input type="text" class="form-control" id="search_nota" name="search_nota" placeholder="Masukan No Nota">
                 </div>
@@ -198,7 +198,7 @@
     function get_Penjualan() {
       $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/kasir/return_barang/get'?>',
+            url   : '<?php echo  base_url().'index.php/kasir_return_barang/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -228,7 +228,7 @@
         var end=$('#endDate').val();
       $.ajax({
             type  : 'get',
-            url   : '<?php echo  base_url().'index.php/kasir/return_barang/getByDate'?>',
+            url   : '<?php echo  base_url().'index.php/kasir_return_barang/getByDate'?>',
             async : false,
             dataType : 'json',
             data:{
@@ -261,7 +261,7 @@
         var no=$('#search_nota').val();
         $.ajax({
             type  : 'get',
-            url   : '<?php echo  base_url().'index.php/kasir/return_barang/getByNota'?>',
+            url   : '<?php echo  base_url().'index.php/kasir_return_barang/getByNota'?>',
             async : false,
             dataType : 'json',
             data: { 
@@ -346,14 +346,14 @@
         var no=$('#search_nota').val();
         $.ajax({
             type  : 'get',
-            url   : '<?php echo  base_url().'index.php/kasir/return_barang/getCetak'?>',
+            url   : '<?php echo  base_url().'index.php/kasir_return_barang/getCetak'?>',
             async : false,
             dataType : 'json',
             data: { 
                 no_nota: no,
             },
             success : function(data){
-                window.open('<?php echo  base_url().'index.php/kasir/return_barang/getCetak'?>',"_blank");
+                window.open('<?php echo  base_url().'index.php/kasir_return_barang/getCetak'?>',"_blank");
 
             }
         });
@@ -363,7 +363,7 @@
     function search_Nota()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/kasir/return_barang/searchNota'?>';
+        url = '<?php echo  base_url().'index.php/kasir_return_barang/searchNota'?>';
         var formData = new FormData($('#searchform')[0]);
         var html='';
         var select='<option selected value="">Pilih Barang</option>';
@@ -450,7 +450,7 @@
     //Handle Add Data Return
     function addReturn(){
         var url;
-        url = '<?php echo  base_url().'index.php/kasir/return_barang/updatePenjualan'?>';
+        url = '<?php echo  base_url().'index.php/kasir_return_barang/updatePenjualan'?>';
         var formData = new FormData($('#addform')[0]);
         $.ajax({
             url : url,

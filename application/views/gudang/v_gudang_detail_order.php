@@ -10,7 +10,7 @@
         <nav aria-label="breadcrumb" style="margin-left:-0.8rem">
             <ol class="breadcrumb bg-white">
                 <li class="breadcrumb-item"><a href="<?php echo  base_url().'index.php/gudang/index'?>">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="<?php echo  base_url().'index.php/gudang/order'?>">Order Barang</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo  base_url().'index.php/gudang_order'?>">Order Barang</a></li>
                 <li class="breadcrumb-item active">Detail Order Barang</li>
             </ol>
         </nav>
@@ -114,7 +114,7 @@
     function get_Chart() {
       $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/gudang/detail_order/getChart'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_detail_order/getChart'?>',
             async : false,
             dataType : 'json',
             success : function(d){
@@ -154,7 +154,7 @@
         var data=$(this).attr('data');
         data=data.split(',');
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/detail_order/addChart'?>';
+        url = '<?php echo  base_url().'index.php/gudang_detail_order/addChart'?>';
         $.ajax({
             url : url,
             type: "POST",
@@ -173,7 +173,7 @@
         var data=$(this).attr('data');
         data=data.split(',');
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/detail_order/subChart'?>';
+        url = '<?php echo  base_url().'index.php/gudang_detail_order/subChart'?>';
         $.ajax({
             url : url,
             type: "POST",
@@ -192,7 +192,7 @@
         var data=$(this).attr('data');
         data=data.split(',');
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/detail_order/delChart'?>';
+        url = '<?php echo  base_url().'index.php/gudang_detail_order/delChart'?>';
         $.ajax({
             url : url,
             type: "POST",
@@ -210,7 +210,7 @@
     //Handle Save Cart To Database
     function saveCart(){
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/detail_order/isChart'?>';
+        url = '<?php echo  base_url().'index.php/gudang_detail_order/isChart'?>';
         $.ajax({
             url : url,
             type: "POST",

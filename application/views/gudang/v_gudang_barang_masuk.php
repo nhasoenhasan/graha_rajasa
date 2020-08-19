@@ -356,7 +356,7 @@
         var end=$('#endDate').val();
       $.ajax({
             type  : 'get',
-            url   : '<?php echo  base_url().'index.php/gudang/barang_masuk/getByDate'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_barang_masuk/getByDate'?>',
             async : false,
             dataType : 'json',
             data:{
@@ -393,7 +393,7 @@
     function get_Barang_Masuk() {
       $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/gudang/barang_masuk/get'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_barang_masuk/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -426,7 +426,7 @@
     function get_Order_Barang() {
       $.ajax({
             type  : 'get',
-            url   : '<?php echo  base_url().'index.php/gudang/barang_masuk/getOrder'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_barang_masuk/getOrder'?>',
             async : false,
             dataType : 'json',
             data: { 
@@ -452,7 +452,7 @@
         get_Suplier2()
       $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/gudang/suplier/get'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_suplier/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -471,7 +471,7 @@
     function get_Suplier2() {
       $.ajax({
             type  : 'ajax',
-            url   : '<?php echo  base_url().'index.php/gudang/suplier/get'?>',
+            url   : '<?php echo  base_url().'index.php/gudang_suplier/get'?>',
             async : false,
             dataType : 'json',
             success : function(data){
@@ -857,7 +857,7 @@
     function add_Barang_Masuk()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/barang_masuk/post'?>';
+        url = '<?php echo  base_url().'index.php/gudang_barang_masuk/post'?>';
         // ajax adding data to database
         var formData = new FormData($('#addform')[0]);
         $.ajax({
@@ -882,7 +882,7 @@
     function update_Barang_Masuk()
     { 
         var url;
-        url = '<?php echo  base_url().'index.php/gudang/barang_masuk/updateDetBarangMasuk'?>';
+        url = '<?php echo  base_url().'index.php/gudang_barang_masuk/updateDetBarangMasuk'?>';
         // ajax adding data to database
         var formData = new FormData($('#editform')[0]);
         $.ajax({
@@ -907,7 +907,7 @@
     // function delete_Barang()
     // { 
     //     var url;
-    //     url = '<?php echo  base_url().'index.php/gudang/barang/delete'?>';
+    //     url = '<?php echo  base_url().'index.php/gudang_barang/delete'?>';
     //     // ajax adding data to database
     //     var formData = new FormData($('#deleteform')[0]);
     //     $.ajax({
