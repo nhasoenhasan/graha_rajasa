@@ -16,11 +16,6 @@
     </div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom">
         <h1 class="h3">Acc Order</h1>
-        <!-- <div class="btn-toolbar row  mb-2 mb-md-3 mr-2" id="cetak">
-            <button  type="button" class="btn mb-2 btn-success cetak" onclick="refresh()"  >
-                <span data-feather="refresh-ccw" style="width:1rem"></span>
-            </button>
-        </div> -->
         <form id=dateForm class="row mr-2 mb-3" action="<?php echo  base_url().'index.php/pimpinan/acc_order/cetakByDate'?>" method="post" target="_blank">
                 <div class="input-group " style="width:25rem">
                     <div class="input-group-prepend">
